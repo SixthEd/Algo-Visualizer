@@ -1,0 +1,11 @@
+@import './Styles/Cards.css';
+@import './Styles/Sorting.css';
+
+body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding:0;
+  background-color: #02203a;
+  box-sizing: border-box;
+}
