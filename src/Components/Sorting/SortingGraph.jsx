@@ -4,7 +4,7 @@ function SortingGraph(props)
 {
     
     return <div id="pipe-container">
-        {props.array.map((e,index)=><Pipes height={e} key={index} select={props.select} index={index} />)}
+        {props.array.map((e,index)=><Pipes height={e} key={index} index={index} select={props.select} />)}
     </div>
 }
 

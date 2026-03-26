@@ -17,8 +17,8 @@ function SortingNavBar(props) {
             <ul onClick={() => { setAlgoToggle((prev) => !prev) }}>Algorithms ▼
                 {algoToggle && <div id="sorting-algo">
                     <button onClick={() => props.setAlgo("bubble")}>bubble Sort</button>
+                    <button onClick={() => props.setAlgo("selection")}>selection Sort</button>
                     <button onClick={() => props.setAlgo("insertion")}>insertion Sort</button>
-                    <button onClick={() => props.setAlgo("radix")}>radix Sort</button>
 
                 </div>}
             </ul>
