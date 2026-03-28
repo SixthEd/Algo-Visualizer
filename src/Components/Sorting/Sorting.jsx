@@ -70,12 +70,12 @@ function Sorting() {
                     <li>{speed}</li>
                 </ul>
                 <ul>
-                    <li>Initial Element</li>
-                    <li>Sorted Element</li>
+                    <li className="element-color"><div id="initial-element"></div> <div>Initial Element</div></li>
+                    <li className="element-color"><div id="sorted-element"></div> <div>Sorted Element</div></li>
                 </ul>
                 <ul>
-                    <li>Swap Element</li>
-                    <li>Iterating Element</li>
+                    <li className="element-color"><div id="swap-element"></div>Swap Element</li>
+                    <li className="element-color"><div id="iterate-element"></div>Iterating Element</li>
                 </ul>
             </ul>
         </div>

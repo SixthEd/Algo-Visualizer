@@ -117,3 +117,33 @@ li {
     font-size: small;
     text-align: center;
 }
+
+#initial-element{
+    background-color: rgb(52, 73, 94);
+    width: 20px;
+    height: 20px;
+}
+
+#sorted-element{
+    background-color: rgb(39, 174, 96);
+    width: 20px;
+    height: 20px;
+}
+
+.element-color{
+    display: flex;
+    width: 170px;
+    justify-content: space-between;
+}
+
+#swap-element{
+    background-color: orange;
+    width: 20px;
+    height: 20px;
+}
+
+#iterate-element{
+    background-color: rgb(142, 68, 173);
+    width: 20px;
+    height: 20px;
+}
