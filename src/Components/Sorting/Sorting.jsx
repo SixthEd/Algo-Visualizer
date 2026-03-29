@@ -4,6 +4,7 @@ import SortingGraph from "./SortingGraph";
 import bubbleSort from "../SortingAlgo/bubbleSort";
 import selectionSort from "../SortingAlgo/selectionSort";
 import insertionSort from "../SortingAlgo/insertionSort";
+import mergeSort from "../SortingAlgo/mergeSort";
 
 function Sorting() {
     let [noOfElement, setNoOfElement] = useState(10);
@@ -32,6 +33,8 @@ function Sorting() {
             case "selection": selectionSort(array, setArray, setSelect, speedRef)
                 break;
             case "insertion": insertionSort(array, setArray, setSelect, speedRef)
+                break;
+            case "merge": mergeSort(array ,setArray, setSelect, speedRef, 0, array.length-1)
                 break;
             default:
         }
@@ -79,7 +82,7 @@ function Sorting() {
                 </ul>
             </ul>
         </div>
-        <SortingGraph array={[...array]} select={select} />
+        <SortingGraph array={array} select={select} />
 
     </div>
 }
