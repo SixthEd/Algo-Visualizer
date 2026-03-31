@@ -5,6 +5,7 @@ import bubbleSort from "../SortingAlgo/bubbleSort";
 import selectionSort from "../SortingAlgo/selectionSort";
 import insertionSort from "../SortingAlgo/insertionSort";
 import mergeSort from "../SortingAlgo/mergeSort";
+import quickSort from "../SortingAlgo/quickSort";
 
 function Sorting() {
     let [noOfElement, setNoOfElement] = useState(10);
@@ -35,6 +36,8 @@ function Sorting() {
             case "insertion": insertionSort(array, setArray, setSelect, speedRef)
                 break;
             case "merge": mergeSort(array ,setArray, setSelect, speedRef, 0, array.length-1)
+                break;
+            case "quick": quickSort(array, [], setSelect, speedRef, 0, array.length-1)
                 break;
             default:
         }
