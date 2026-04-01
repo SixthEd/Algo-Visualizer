@@ -82,6 +82,9 @@ function Sorting() {
                 <ul>
                     <li className="element-color"><div id="swap-element"></div>Swap Element</li>
                     <li className="element-color"><div id="iterate-element"></div>Iterating Element</li>
+                    {algo==="quick" && 
+                    <li className="element-color"><div id="pivot-element"></div>Pivot Element</li>
+                    }
                 </ul>
             </ul>
         </div>

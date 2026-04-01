@@ -147,3 +147,9 @@ li {
     width: 20px;
     height: 20px;
 }
+
+#pivot-element{
+    background-color: purple;
+    width: 20px;    
+    height: 20px;
+}
