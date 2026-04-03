@@ -17,7 +17,7 @@ function Cards() {
 
                 </div>
             </a>
-            <a href="/pathFinder-alog">
+            <a href="/pathFinder-algo">
                 <div id="card-Pathfinding">
 
                     <div className="card-img">

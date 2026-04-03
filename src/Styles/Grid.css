@@ -1,0 +1,28 @@
+.grid-container{
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: white;
+  width: 95%;
+  height: 72.75vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  border: thin solid rgb(116, 185, 255);
+}
+
+.is-flex{
+    height: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cells
+{
+    height: 20px;
+    width: 20px;
+    border-left:thin solid rgb(116, 185, 255);
+    border-top: thin solid rgb(116, 185, 255);;  
+    background-color: rgb(223, 249, 251);
+}

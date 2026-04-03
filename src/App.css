@@ -1,5 +1,7 @@
 @import './Styles/Cards.css';
 @import './Styles/Sorting.css';
+@import './Styles/PathFinder.css';
+@import './Styles/Grid.css';
 
 body{
   width: 100vw;
