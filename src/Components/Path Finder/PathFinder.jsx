@@ -1,19 +1,23 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PathFinderNavBar from "./PathFinderNavBar";
 import Cell from "./Cell";
+import CellClass from "./CellClass";
 
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
-    let [rows, setRows] = useState([]);
-    let [cols, setCols] = useState([]);
+    let [matrix,setMatrix] = useState([]);
+    let [rows, setRows] = useState(35);
+    let [cols, setCols] = useState(80);
+    let [startNode, setStartNode] = useState(null);
+    let [endNode, setEndNode] = useState(null)
+
     let [algo, setAlgo] = useState(null);
     let [speed, setSpeed] = useState(0.5);
     let speedRef = useRef(speed);
 
 
     
-
 
 
 
@@ -33,11 +37,16 @@ function PathFinder() {
 
 
     useEffect(() => {
-        let row = new Array(35).fill(0);
-        let col = new Array(85).fill(0)
-        setRows(row)
-        setCols(col)
-    }, [cellSize])
+        let matrix = new Array(rows).fill(0).map((_,rowIndex)=> new Array(cols).fill(0).map((_,colIndex)=> new CellClass(rowIndex,colIndex,rows,cols)));
+        let middleRow = Math.floor(rows/2);
+        let startCol = Math.floor(cols/4);
+        let endCol = Math.floor((cols*3)/4);
+        setStartNode(matrix[middleRow][startCol])
+        setEndNode(matrix[middleRow][endCol])
+        setMatrix(matrix);
+
+
+    }, [])
 
 
     useEffect(() => {
@@ -82,10 +91,10 @@ function PathFinder() {
         </div>
 
         <div class="grid-container">
-            {rows.map((_, rowIndex) => {
+            {matrix.map((row, rowIndex) => {
                 return <div className="is-flex" id={`flex-${rowIndex}`} key={rowIndex}>
-                    { cols.map((_, index) => {
-                            return <Cell  rowindex={rowIndex} colIndex={index} key={index} wallnode={3} unvisitednode={index} closenode={5} finalpath={9} />
+                    { row.map((cell, colIndex) => {
+                            return <Cell  rowindex={rowIndex} colIndex={colIndex} key={`${rowIndex}-${colIndex}`} cell={cell}  isStartNode={cell===startNode} isEndNode={cell===endNode}/>
                         })
                     }
                 </div>
