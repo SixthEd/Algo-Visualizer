@@ -6,8 +6,9 @@ class CellClass{
         this.col =col;
         this.totalRow= totalRows;
         this.totalCols = totalCols;
-        this.wall =false;
+        this.isWall =false;
         this.neighbour = [];
+        this.isDefault=true;
     }
 }
 

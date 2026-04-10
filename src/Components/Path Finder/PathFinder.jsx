@@ -8,7 +8,7 @@ function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
     let [matrix,setMatrix] = useState([]);
     let [rows, setRows] = useState(35);
-    let [cols, setCols] = useState(80);
+    let [cols, setCols] = useState(82);
     let [startNode, setStartNode] = useState(null);
     let [endNode, setEndNode] = useState(null)
 
@@ -16,12 +16,13 @@ function PathFinder() {
     let [speed, setSpeed] = useState(0.5);
     let speedRef = useRef(speed);
 
+    let [mouseDown ,setMouseDown] = useState(false);
 
     
 
 
 
-    const sort = useCallback(() => {
+    const select = useCallback(() => {
         switch (algo) {
             case "A Star":
                 break;
@@ -33,7 +34,26 @@ function PathFinder() {
                 break;
             default:
         }
-    }, [algo])
+    }, [algo]);
+
+    const cellClicked =useCallback((i,j)=>{
+        console.log("working")
+        if((startNode.row===i && startNode.col===j) || (endNode.row===i && endNode.col===j)) return;
+
+        let newMatrix = [...matrix];
+
+        newMatrix[i][j].isWall = !newMatrix[i][j].isWall
+        newMatrix[i][j].isDefault = !newMatrix[i][j].isDefault
+
+        setMatrix(newMatrix)
+    },[startNode, endNode, matrix]);
+
+    const moveEnter = useCallback((i,j)=>{
+        if(mouseDown)
+        {
+            cellClicked(i,j)
+        }
+    },[mouseDown])
 
 
     useEffect(() => {
@@ -46,12 +66,12 @@ function PathFinder() {
         setMatrix(matrix);
 
 
-    }, [])
+    }, [rows,cols])
 
 
     useEffect(() => {
         if (algo === null || algo === undefined) return;
-        sort()
+        select()
     }, [algo])
 
 
@@ -90,11 +110,11 @@ function PathFinder() {
             </ul>
         </div>
 
-        <div class="grid-container">
+        <div className="grid-container">
             {matrix.map((row, rowIndex) => {
                 return <div className="is-flex" id={`flex-${rowIndex}`} key={rowIndex}>
                     { row.map((cell, colIndex) => {
-                            return <Cell  rowindex={rowIndex} colIndex={colIndex} key={`${rowIndex}-${colIndex}`} cell={cell}  isStartNode={cell===startNode} isEndNode={cell===endNode}/>
+                            return <Cell  rowindex={rowIndex} colIndex={colIndex} key={`${rowIndex}-${colIndex}`} cell={cell}  isStartNode={cell===startNode} isEndNode={cell===endNode} onMouseDown={(e)=>{ setMouseDown(true); cellClicked(rowIndex,colIndex)}} onMouseEnter={()=>{ moveEnter(rowIndex, colIndex)}} onMouseUp={()=>{setMouseDown(false)}}/>
                         })
                     }
                 </div>
