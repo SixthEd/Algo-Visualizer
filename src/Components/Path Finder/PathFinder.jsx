@@ -6,9 +6,9 @@ import CellClass from "./CellClass";
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
-    let [matrix,setMatrix] = useState([]);
-    let [rows, setRows] = useState(35);
-    let [cols, setCols] = useState(82);
+    let [matrix, setMatrix] = useState([]);
+    let [rows, setRows] = useState(31);
+    let [cols, setCols] = useState(85);
     let [startNode, setStartNode] = useState(null);
     let [endNode, setEndNode] = useState(null)
 
@@ -16,9 +16,9 @@ function PathFinder() {
     let [speed, setSpeed] = useState(0.5);
     let speedRef = useRef(speed);
 
-    let [mouseDown ,setMouseDown] = useState(false);
+    let [mouseDown, setMouseDown] = useState(false);
 
-    
+
 
 
 
@@ -36,9 +36,10 @@ function PathFinder() {
         }
     }, [algo]);
 
-    const cellClicked =useCallback((i,j)=>{
+    const cellClicked = useCallback((i, j) => {
         console.log("working")
-        if((startNode.row===i && startNode.col===j) || (endNode.row===i && endNode.col===j)) return;
+        
+        if ((startNode.row === i && startNode.col === j) || (endNode.row === i && endNode.col === j)) return setMouseDown(false);
 
         let newMatrix = [...matrix];
 
@@ -46,27 +47,38 @@ function PathFinder() {
         newMatrix[i][j].isDefault = !newMatrix[i][j].isDefault
 
         setMatrix(newMatrix)
-    },[startNode, endNode, matrix]);
+    }, [startNode, endNode, matrix]);
 
-    const moveEnter = useCallback((i,j)=>{
-        if(mouseDown)
-        {
-            cellClicked(i,j)
+    const moveEnter = useCallback((i, j) => {
+        if (mouseDown) {
+            cellClicked(i, j)
         }
-    },[mouseDown])
+    }, [mouseDown])
+
+    const drop = useCallback((row,col)=>(event) => {
+        let type=event.dataTransfer.getData("type")
+        if (type === "start") {
+            setStartNode(matrix[row][col]);
+        }
+        else if(type === "end")
+        {
+            setEndNode(matrix[row][col])
+        }
+        console.log("working", row,col)
+    },[matrix])
 
 
     useEffect(() => {
-        let matrix = new Array(rows).fill(0).map((_,rowIndex)=> new Array(cols).fill(0).map((_,colIndex)=> new CellClass(rowIndex,colIndex,rows,cols)));
-        let middleRow = Math.floor(rows/2);
-        let startCol = Math.floor(cols/4);
-        let endCol = Math.floor((cols*3)/4);
+        let matrix = new Array(rows).fill(0).map((_, rowIndex) => new Array(cols).fill(0).map((_, colIndex) => new CellClass(rowIndex, colIndex, rows, cols)));
+        let middleRow = Math.floor(rows / 2);
+        let startCol = Math.floor(cols / 4);
+        let endCol = Math.floor((cols * 3) / 4);
         setStartNode(matrix[middleRow][startCol])
         setEndNode(matrix[middleRow][endCol])
         setMatrix(matrix);
 
 
-    }, [rows,cols])
+    }, [rows, cols])
 
 
     useEffect(() => {
@@ -81,7 +93,7 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize}/>
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} />
         <div>
             <ul id="pathfinder-middle">
                 <ul>
@@ -113,9 +125,19 @@ function PathFinder() {
         <div className="grid-container">
             {matrix.map((row, rowIndex) => {
                 return <div className="is-flex" id={`flex-${rowIndex}`} key={rowIndex}>
-                    { row.map((cell, colIndex) => {
-                            return <Cell  rowindex={rowIndex} colIndex={colIndex} key={`${rowIndex}-${colIndex}`} cell={cell}  isStartNode={cell===startNode} isEndNode={cell===endNode} onMouseDown={(e)=>{ setMouseDown(true); cellClicked(rowIndex,colIndex)}} onMouseEnter={()=>{ moveEnter(rowIndex, colIndex)}} onMouseUp={()=>{setMouseDown(false)}}/>
-                        })
+                    {row.map((cell, colIndex) => {
+                        return <Cell
+                            rowindex={rowIndex}
+                            colIndex={colIndex}
+                            key={`${rowIndex}-${colIndex}`}
+                            cell={cell}
+                            onDragOver = {(event)=>{event.preventDefault()}}
+                            onDrop={drop(rowIndex,colIndex)} 
+                            isStartNode={cell === startNode}
+                            isEndNode={cell === endNode} onMouseDown={(e) => { if(cell===startNode || cell ===endNode) return ;setMouseDown(true); cellClicked(rowIndex, colIndex) }}
+                            onMouseEnter={() => { moveEnter(rowIndex, colIndex) }}
+                            onMouseUp={() => { setMouseDown(false) }} />
+                    })
                     }
                 </div>
             })}
