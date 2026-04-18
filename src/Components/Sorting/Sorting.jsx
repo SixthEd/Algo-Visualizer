@@ -6,6 +6,7 @@ import selectionSort from "../SortingAlgo/selectionSort";
 import insertionSort from "../SortingAlgo/insertionSort";
 import mergeSort from "../SortingAlgo/mergeSort";
 import quickSort from "../SortingAlgo/quickSort";
+import radixSort from "../SortingAlgo/radixSort";
 
 function Sorting() {
     let [noOfElement, setNoOfElement] = useState(10);
@@ -13,7 +14,7 @@ function Sorting() {
     let [algo, setAlgo] = useState(null);
     let [speed, setSpeed] = useState(0.5);
     let speedRef = useRef(speed);
-    let [select, setSelect] = useState({ num1: null, num2: null, sorted: null })
+    let [select, setSelect] = useState({ num1: null, num2: null, pivot:null, sorted: null })
 
     const generate = useCallback(() => {
 
@@ -38,6 +39,8 @@ function Sorting() {
             case "merge": mergeSort(array ,setArray, setSelect, speedRef, 0, array.length-1)
                 break;
             case "quick": quickSort(array, [], setSelect, speedRef, 0, array.length-1)
+                break;
+            case "radix": radixSort(array, setArray ,setSelect, speedRef)
                 break;
             default:
         }

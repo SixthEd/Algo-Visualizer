@@ -16,11 +16,13 @@ function SortingNavBar(props) {
             <li>Home</li>
             <ul onClick={() => { setAlgoToggle((prev) => !prev) }}>Algorithms ▼
                 {algoToggle && <div id="sorting-algo">
-                    <button onClick={() => props.setAlgo("bubble")}>bubble Sort</button>
-                    <button onClick={() => props.setAlgo("selection")}>selection Sort</button>
-                    <button onClick={() => props.setAlgo("insertion")}>insertion Sort</button>
-                    <button onClick={() => props.setAlgo("merge")}>merge sort</button>
-                    <button onClick={() => props.setAlgo("quick")}>quick sort</button>
+                    <button onClick={() => props.setAlgo("bubble")}>Bubble Sort</button>
+                    <button onClick={() => props.setAlgo("selection")}>Selection Sort</button>
+                    <button onClick={() => props.setAlgo("insertion")}>Insertion Sort</button>
+                    <button onClick={() => props.setAlgo("merge")}>Merge sort</button>
+                    <button onClick={() => props.setAlgo("quick")}>Quick sort</button>
+                    <button onClick={() => props.setAlgo("radix")}>Radix sort</button>
+
 
                 </div>}
             </ul>
@@ -31,7 +33,7 @@ function SortingNavBar(props) {
                         Speed {speed}s
                     </li>
                     <li>
-                        <input type="range" min="0.05" max="2" step={0.05} onChange={(e) => {
+                        <input type="range" min="0.05" max="2" step={0.05} value={speed} onChange={(e) => {
                             const val = parseFloat(e.target.value);
                             setSpeed(val);
                             props.setSpeed(val);
@@ -46,7 +48,7 @@ function SortingNavBar(props) {
                         Elements: {arrayElements}
                     </li>
                     <li>
-                        <input type="range" min="5" max="100" step={5} onChange={(e) => { setArrayElements(e.target.value); props.noOfElement(e.target.value) }} />
+                        <input type="range" min="5" max="100" step={5} onChange={(e) => { setArrayElements(e.target.value); props.noOfElement(e.target.value) }} value={arrayElements}/>
                     </li>
                 </div>}
             </ul>
