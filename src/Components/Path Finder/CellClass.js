@@ -9,6 +9,9 @@ class CellClass{
         this.isWall =false;
         this.neighbour = [];
         this.isDefault=true;
+        this.isVisited=false;
+        this.isOpen=false;
+        this.isClose=false;
     }
 }
 

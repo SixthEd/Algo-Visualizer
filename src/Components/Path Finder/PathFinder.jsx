@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import PathFinderNavBar from "./PathFinderNavBar";
 import Cell from "./Cell";
 import CellClass from "./CellClass";
+import bfs from "../pathfinderAlgo/bfs";
 
 
 function PathFinder() {
@@ -21,7 +22,6 @@ function PathFinder() {
 
 
 
-
     const select = useCallback(() => {
         switch (algo) {
             case "A Star":
@@ -29,6 +29,7 @@ function PathFinder() {
             case "Dijkstra's Algorithm":
                 break;
             case "Breath First Search":
+                    bfs(startNode,endNode, matrix, setMatrix, speedRef)
                 break;
             case "Depth First Search":
                 break;
@@ -68,7 +69,7 @@ function PathFinder() {
     },[matrix])
 
 
-    useEffect(() => {
+    const reset = useCallback(()=>{
         let matrix = new Array(rows).fill(0).map((_, rowIndex) => new Array(cols).fill(0).map((_, colIndex) => new CellClass(rowIndex, colIndex, rows, cols)));
         let middleRow = Math.floor(rows / 2);
         let startCol = Math.floor(cols / 4);
@@ -76,7 +77,11 @@ function PathFinder() {
         setStartNode(matrix[middleRow][startCol])
         setEndNode(matrix[middleRow][endCol])
         setMatrix(matrix);
+    },[rows,cols])
 
+    useEffect(() => {
+        
+        reset()
 
     }, [rows, cols])
 
@@ -93,7 +98,7 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} />
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start ={select} algo={algo}/>
         <div>
             <ul id="pathfinder-middle">
                 <ul>

@@ -9,7 +9,14 @@ function Cell(props) {
     else if (props.cell.isDefault) {
         color = "rgb(223, 249, 251)"
     }
-
+    if(props.cell.isOpen)
+    {
+        color="rgb(253, 121, 168)"
+    }
+    if(props.cell.isClose)
+    {
+        color="rgb(85, 239, 196)"
+    }
 
 
     return <div
@@ -30,11 +37,16 @@ function Cell(props) {
                                         }}>
                                                 <img className="drag" src="/play.png" alt=""></img>
                                       </div>}
-        {props.isEndNode && <div className="draggable" draggable={true} onDragStart={(event) => {
+                {props.isEndNode &&   <div 
+                                        className="draggable" 
+                                        draggable={true} 
+                                        onDragStart={(event) => {
              
                                                 event.dataTransfer.setData("type", "end");
-                                        }} ><img src="/target.png" alt=""></img></div>}
-    </div>
+                                        }} >
+                                            <img src="/target.png" alt=""></img>
+                                      </div>}
+            </div>
 
 }
 

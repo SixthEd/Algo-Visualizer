@@ -29,7 +29,7 @@ function PathFinderNavBar(props) {
                         Speed {speed}s
                     </li>
                     <li>
-                        <input type="range" min="0.05" max="2" step={0.05} onChange={(e) => {
+                        <input type="range" min="0.05" max="2" step={0.05} value={speed} onChange={(e) => {
                             const val = parseFloat(e.target.value);
                             setSpeed(val);
                             props.setSpeed(val);
@@ -60,9 +60,9 @@ function PathFinderNavBar(props) {
         </ul>
 
         <ul id="sorting-right-navbar">
-            <button onClick={()=>{}}>Start</button>
+            <button onClick={()=>{props.start(props.algo)}}>Start</button>
             <button onClick={()=>{}}>Clear Path</button>
-            <button onClick={()=>{}}>Reset Board</button>
+            <button onClick={()=>{props.reset()}}>Reset Board</button>
         </ul>
     </div>
 }
