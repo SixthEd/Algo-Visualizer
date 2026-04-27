@@ -11,17 +11,44 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
     startNode.isVisited = true;
 
     let queue = [];
-
+    let path = []
     queue.push([startrow, startcol])
 
     while (queue.length) {
         let [row, col] = queue.shift();
 
-        matrix[row][col].isOpen = true;
-        matrix[row][col].isClose = false;
+        matrix[row][col].isOpen = false;
+        matrix[row][col].isClose = true;
         setMatrix([...matrix])
 
         if (endNode.row === row && endNode.col === col) {
+
+            let pathRow = endNode.previousRow;
+            let pathCol = endNode.previousCol;
+            matrix[endNode.row][endNode.col].isFinalPath = true;
+
+            while(true) {
+                
+                let node = matrix[pathRow]?.[pathCol]
+                
+                if(!node)
+                {
+                    break;
+                }
+
+                node.isOpen = false;
+                node.isClose = false;
+                node.isFinalPath = true;
+
+                if(pathRow === startrow && pathCol === startcol) 
+                {
+                    break;
+                }
+
+                pathRow = node.previousRow;
+                pathCol = node.previousCol;
+                setMatrix([...matrix]);
+            }
             return;
         }
 
@@ -36,9 +63,14 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
 
 
             if (!matrix[newRow][newCol].isVisited && !matrix[newRow][newCol].isWall) {
+
                 matrix[newRow][newCol].isVisited = true;
-                matrix[newRow][newCol].isOpen = false;
-                matrix[newRow][newCol].isClose = true;
+                matrix[newRow][newCol].isOpen = true;
+                matrix[newRow][newCol].isClose = false;
+
+                matrix[newRow][newCol].previousRow = row;
+                matrix[newRow][newCol].previousCol = col;
+
                 queue.push([newRow, newCol]);
                 setMatrix([...matrix])
             }
@@ -46,6 +78,7 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
         }
 
     }
+
 
     setMatrix([...matrix]);
 }

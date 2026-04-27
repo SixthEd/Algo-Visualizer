@@ -12,6 +12,9 @@ class CellClass{
         this.isVisited=false;
         this.isOpen=false;
         this.isClose=false;
+        this.previousRow=null;
+        this.previousCol=null;
+        this.isFinalPath=false;
     }
 }
 

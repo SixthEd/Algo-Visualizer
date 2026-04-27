@@ -11,11 +11,15 @@ function Cell(props) {
     }
     if(props.cell.isOpen)
     {
+        color="rgb(85, 239, 196)"
+    }
+    else if(props.cell.isClose)
+    {
         color="rgb(253, 121, 168)"
     }
-    if(props.cell.isClose)
+    if(props.cell.isFinalPath)
     {
-        color="rgb(85, 239, 196)"
+        color ="rgb(241, 196, 15)"
     }
 
 

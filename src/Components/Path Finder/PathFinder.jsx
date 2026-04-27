@@ -3,7 +3,7 @@ import PathFinderNavBar from "./PathFinderNavBar";
 import Cell from "./Cell";
 import CellClass from "./CellClass";
 import bfs from "../pathfinderAlgo/bfs";
-
+import dfs from "../pathfinderAlgo/dfs";
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
@@ -32,6 +32,7 @@ function PathFinder() {
                     bfs(startNode,endNode, matrix, setMatrix, speedRef)
                 break;
             case "Depth First Search":
+                    dfs(startNode, endNode, startNode.row, startNode.col, matrix, setMatrix, speedRef)
                 break;
             default:
         }
