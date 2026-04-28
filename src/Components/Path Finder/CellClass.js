@@ -15,6 +15,9 @@ class CellClass{
         this.previousRow=null;
         this.previousCol=null;
         this.isFinalPath=false;
+        this.gScore=Infinity;
+        this.hScore=Infinity;
+        this.fScore=Infinity;
     }
 }
 
