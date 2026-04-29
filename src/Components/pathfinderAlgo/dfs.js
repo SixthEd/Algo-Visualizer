@@ -37,6 +37,7 @@ async function dfs(startNode, endNode, row, col, matrix, setMatrix, speedRef) {
             startNode.isFinalPath=true;
             matrix[newRow][newCol].isFinalPath = true;
             setMatrix([...matrix])
+            
             return true;
         }
 

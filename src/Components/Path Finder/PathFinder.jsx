@@ -4,6 +4,7 @@ import Cell from "./Cell";
 import CellClass from "./CellClass";
 import bfs from "../pathfinderAlgo/bfs";
 import dfs from "../pathfinderAlgo/dfs";
+import aStarSearch from "../pathfinderAlgo/aStarSearch";
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
@@ -25,6 +26,7 @@ function PathFinder() {
     const select = useCallback(() => {
         switch (algo) {
             case "A Star":
+                aStarSearch(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Dijkstra's Algorithm":
                 break;
@@ -78,7 +80,12 @@ function PathFinder() {
         setStartNode(matrix[middleRow][startCol])
         setEndNode(matrix[middleRow][endCol])
         setMatrix(matrix);
+        setAlgo(null);
     },[rows,cols])
+
+    const clear =useCallback(()=>{
+        
+    })
 
     useEffect(() => {
         

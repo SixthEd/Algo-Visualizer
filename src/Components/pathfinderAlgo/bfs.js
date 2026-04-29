@@ -27,12 +27,13 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
             let pathCol = endNode.previousCol;
             matrix[endNode.row][endNode.col].isFinalPath = true;
 
-            while(true) {
-                
+            while (true) {
+
+                await time(speedRef.current)
+
                 let node = matrix[pathRow]?.[pathCol]
-                
-                if(!node)
-                {
+
+                if (!node) {
                     break;
                 }
 
@@ -40,20 +41,23 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
                 node.isClose = false;
                 node.isFinalPath = true;
 
-                if(pathRow === startrow && pathCol === startcol) 
-                {
+                if (pathRow === startrow && pathCol === startcol) {
+
+                    setMatrix([...matrix])
                     break;
                 }
 
                 pathRow = node.previousRow;
                 pathCol = node.previousCol;
                 setMatrix([...matrix]);
+
             }
             return;
         }
 
+        await time(speedRef.current);
+
         for (let i = 0; i < 4; i++) {
-            await time(speedRef.current);
 
             let newRow = row + dr[i];
             let newCol = col + dc[i];

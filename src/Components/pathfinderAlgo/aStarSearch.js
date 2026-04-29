@@ -1,32 +1,70 @@
 import heuristics from "./heuristics";
+import minHeuristics from "./minHeuristics";
+import time from "./time";
 
 let dr = [+1, -1, 0, 0];
 let dc = [0, 0, +1, -1];
 
 
-function aStarSearch(startNode, endNode, matrix, setMatrix) {
+async function aStarSearch(startNode, endNode, matrix, setMatrix, speedRef) {
     let row = startNode.row;
     let col = startNode.col;
 
-    let gScore = 0
-    startNode.gScore = gScore;
-
-    let hScore = heuristics(startNode, endNode);
-
-    startNode.hScore = hScore;
-    startNode.fScore = gScore + hScore;
+    startNode.gScore = 0;
+    startNode.hScore = heuristics(startNode, endNode);
+    startNode.fScore = startNode.gScore + startNode.hScore;
 
     startNode.isVisited = true;
 
     let queue = [[row, col]]
 
     while (queue.length) {
-        let [row, col] = minHeuristics(queue, matrix);
+        let index = minHeuristics(queue, matrix);
+
+        let [row, col] = queue.splice(index, 1)[0];
+
+        matrix[row][col].isOpen = false;
+        matrix[row][col].isClose = true;
+
+        setMatrix([...matrix]);
+
 
         if (row === endNode.row && col === endNode.col) {
+
+            let prevRow = endNode.row;
+            let prevCol = endNode.col;
+
+            endNode.isFinalPath =true;
+
+            while (true) {
+                await time(speedRef.current);
+                
+                let node = matrix[prevRow]?.[prevCol];
+
+                if(!node)
+                {
+                    break;
+                }
+                node.isOpen = false;
+                node.isClose = false;
+                node.isFinalPath = true;
+
+                if(prevRow === startNode.row && prevCol ===startNode.col)
+                {
+                    setMatrix([...matrix]);
+                    return;
+                }
+
+                prevRow =node.previousRow;
+                prevCol = node.previousCol;
+
+                setMatrix([...matrix])
+
+            }
             return;
         }
 
+        await time(speedRef.current)
         for (let i = 0; i < 4; i++) {
             let newRow = row + dr[i];
             let newCol = col + dc[i];
@@ -36,6 +74,7 @@ function aStarSearch(startNode, endNode, matrix, setMatrix) {
 
 
             if (!matrix[newRow][newCol].isVisited && !matrix[newRow][newCol].isWall) {
+
                 matrix[newRow][newCol].isVisited = true;
 
                 let newGScore = matrix[row][col].gScore + 1;
@@ -53,6 +92,10 @@ function aStarSearch(startNode, endNode, matrix, setMatrix) {
                     matrix[newRow][newCol].fScore = newGScore + newHScore;
 
                     queue.push([newRow, newCol]);
+
+                    matrix[newRow][newCol].isOpen = true;
+                    matrix[newRow][newCol].isClose = false;
+                    setMatrix([...matrix])
                 }
             }
 
@@ -60,22 +103,5 @@ function aStarSearch(startNode, endNode, matrix, setMatrix) {
     }
 }
 
-
-function minHeuristics(arr, matrix) {
-    let min = Infinity;
-    let row = -1;
-    let col = -1;
-    for (let i = 0; i < arr.length; i++) {
-        let [r, c] = arr[i];
-        if (min > matrix[r][c].fScore) {
-            min = matrix[r][c].fScore;
-            row = r;
-            col = c;
-        }
-    }
-
-    return [row, col]
-
-}
 
 export default aStarSearch;
