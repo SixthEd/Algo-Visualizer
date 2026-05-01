@@ -18,6 +18,7 @@ class CellClass{
         this.gScore=Infinity;
         this.hScore=Infinity;
         this.fScore=Infinity;
+        this.dist = Infinity;
     }
 }
 

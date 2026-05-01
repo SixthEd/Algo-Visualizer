@@ -5,6 +5,7 @@ import CellClass from "./CellClass";
 import bfs from "../pathfinderAlgo/bfs";
 import dfs from "../pathfinderAlgo/dfs";
 import aStarSearch from "../pathfinderAlgo/aStarSearch";
+import dijkstra from "../pathfinderAlgo/dijkstra";
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
@@ -29,6 +30,7 @@ function PathFinder() {
                 aStarSearch(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Dijkstra's Algorithm":
+                 dijkstra(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Breath First Search":
                     bfs(startNode,endNode, matrix, setMatrix, speedRef)
