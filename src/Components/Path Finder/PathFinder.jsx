@@ -6,6 +6,9 @@ import bfs from "../pathfinderAlgo/bfs";
 import dfs from "../pathfinderAlgo/dfs";
 import aStarSearch from "../pathfinderAlgo/aStarSearch";
 import dijkstra from "../pathfinderAlgo/dijkstra";
+import recursiveDivision from "../MazeGeneratorAlgo/recursiveDivision";
+import chooseOrientation from "../MazeGeneratorAlgo/orientation";
+
 
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
@@ -16,6 +19,8 @@ function PathFinder() {
     let [endNode, setEndNode] = useState(null)
 
     let [algo, setAlgo] = useState(null);
+    let [mazeAlgo, setMazeAlgo] = useState(null);
+
     let [speed, setSpeed] = useState(0.5);
     let speedRef = useRef(speed);
 
@@ -30,13 +35,13 @@ function PathFinder() {
                 aStarSearch(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Dijkstra's Algorithm":
-                 dijkstra(startNode, endNode, matrix, setMatrix, speedRef)
+                dijkstra(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Breath First Search":
-                    bfs(startNode,endNode, matrix, setMatrix, speedRef)
+                bfs(startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Depth First Search":
-                    dfs(startNode, endNode, startNode.row, startNode.col, matrix, setMatrix, speedRef)
+                dfs(startNode, endNode, startNode.row, startNode.col, matrix, setMatrix, speedRef)
                 break;
             default:
         }
@@ -44,7 +49,7 @@ function PathFinder() {
 
     const cellClicked = useCallback((i, j) => {
         console.log("working")
-        
+
         if ((startNode.row === i && startNode.col === j) || (endNode.row === i && endNode.col === j)) return setMouseDown(false);
 
         let newMatrix = [...matrix];
@@ -61,20 +66,19 @@ function PathFinder() {
         }
     }, [mouseDown])
 
-    const drop = useCallback((row,col)=>(event) => {
-        let type=event.dataTransfer.getData("type")
+    const drop = useCallback((row, col) => (event) => {
+        let type = event.dataTransfer.getData("type")
         if (type === "start") {
             setStartNode(matrix[row][col]);
         }
-        else if(type === "end")
-        {
+        else if (type === "end") {
             setEndNode(matrix[row][col])
         }
-        console.log("working", row,col)
-    },[matrix])
+        console.log("working", row, col)
+    }, [matrix])
 
 
-    const reset = useCallback(()=>{
+    const reset = useCallback(() => {
         let matrix = new Array(rows).fill(0).map((_, rowIndex) => new Array(cols).fill(0).map((_, colIndex) => new CellClass(rowIndex, colIndex, rows, cols)));
         let middleRow = Math.floor(rows / 2);
         let startCol = Math.floor(cols / 4);
@@ -83,14 +87,24 @@ function PathFinder() {
         setEndNode(matrix[middleRow][endCol])
         setMatrix(matrix);
         setAlgo(null);
-    },[rows,cols])
+    }, [rows, cols])
 
-    const clear =useCallback(()=>{
-        
+    const clear = useCallback(() => {
+
     })
 
+    const selectMaze = useCallback(() => {
+        switch (mazeAlgo) {
+            case "Recursive Division":
+                // console.log("recursive")
+                recursiveDivision(0, 0, matrix.length, matrix[0].length, startNode, endNode, matrix, setMatrix, speedRef)
+                break;
+            default:
+        }
+    }, [mazeAlgo])
+
     useEffect(() => {
-        
+
         reset()
 
     }, [rows, cols])
@@ -101,6 +115,10 @@ function PathFinder() {
         select()
     }, [algo])
 
+    useEffect(() => {
+        if (mazeAlgo === null || mazeAlgo === undefined) return;
+        selectMaze()
+    }, [mazeAlgo])
 
     useEffect(() => {
         speedRef.current = speed;
@@ -108,12 +126,12 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start ={select} algo={algo}/>
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo} selectMaze={selectMaze} mazeAlgo={setMazeAlgo} />
         <div>
             <ul id="pathfinder-middle">
                 <ul>
-                    <li></li>
                     <li>Digital Movement</li>
+                    <li>{mazeAlgo}</li>
                 </ul>
                 <ul>
                     <li>Visualizing</li>
@@ -146,10 +164,10 @@ function PathFinder() {
                             colIndex={colIndex}
                             key={`${rowIndex}-${colIndex}`}
                             cell={cell}
-                            onDragOver = {(event)=>{event.preventDefault()}}
-                            onDrop={drop(rowIndex,colIndex)} 
+                            onDragOver={(event) => { event.preventDefault() }}
+                            onDrop={drop(rowIndex, colIndex)}
                             isStartNode={cell === startNode}
-                            isEndNode={cell === endNode} onMouseDown={(e) => { if(cell===startNode || cell ===endNode) return ;setMouseDown(true); cellClicked(rowIndex, colIndex) }}
+                            isEndNode={cell === endNode} onMouseDown={(e) => { if (cell === startNode || cell === endNode) return; setMouseDown(true); cellClicked(rowIndex, colIndex) }}
                             onMouseEnter={() => { moveEnter(rowIndex, colIndex) }}
                             onMouseUp={() => { setMouseDown(false) }} />
                     })
