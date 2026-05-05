@@ -97,7 +97,7 @@ function PathFinder() {
         switch (mazeAlgo) {
             case "Recursive Division":
                 // console.log("recursive")
-                recursiveDivision(0, 0, matrix.length, matrix[0].length, startNode, endNode, matrix, setMatrix, speedRef)
+                recursiveDivision(0, 0, matrix.length-1, matrix[0].length-1, startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             default:
         }
