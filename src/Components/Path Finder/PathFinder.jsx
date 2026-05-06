@@ -7,7 +7,7 @@ import dfs from "../pathfinderAlgo/dfs";
 import aStarSearch from "../pathfinderAlgo/aStarSearch";
 import dijkstra from "../pathfinderAlgo/dijkstra";
 import recursiveDivision from "../MazeGeneratorAlgo/recursiveDivision";
-import chooseOrientation from "../MazeGeneratorAlgo/orientation";
+import randomizedDfs from "../MazeGeneratorAlgo/randomizedDfs";
 
 
 function PathFinder() {
@@ -98,6 +98,9 @@ function PathFinder() {
             case "Recursive Division":
                 // console.log("recursive")
                 recursiveDivision(0, 0, matrix.length-1, matrix[0].length-1, startNode, endNode, matrix, setMatrix, speedRef)
+                break;
+            case "Randomized Dfs":
+                randomizedDfs(startNode, endNode, matrix, setMatrix,speedRef);
                 break;
             default:
         }
