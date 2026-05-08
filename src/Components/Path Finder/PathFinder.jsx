@@ -8,6 +8,7 @@ import aStarSearch from "../pathfinderAlgo/aStarSearch";
 import dijkstra from "../pathfinderAlgo/dijkstra";
 import recursiveDivision from "../MazeGeneratorAlgo/recursiveDivision";
 import randomizedDfs from "../MazeGeneratorAlgo/randomizedDfs";
+import eller from "../pathfinderAlgo/eller";
 
 
 function PathFinder() {
@@ -101,6 +102,9 @@ function PathFinder() {
                 break;
             case "Randomized Dfs":
                 randomizedDfs(startNode, endNode, matrix, setMatrix,speedRef);
+                break;
+            case "Eller":
+                eller(startNode, endNode,matrix,setMatrix, speedRef);
                 break;
             default:
         }

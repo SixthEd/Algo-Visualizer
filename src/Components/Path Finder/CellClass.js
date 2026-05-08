@@ -20,6 +20,7 @@ class CellClass{
         this.fScore=Infinity;
         this.dist = Infinity;
         this.neighbour=[];
+        this.set=null;
     }
 }
 

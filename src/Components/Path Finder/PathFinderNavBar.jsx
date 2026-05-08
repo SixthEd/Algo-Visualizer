@@ -53,7 +53,7 @@ function PathFinderNavBar(props) {
                 {mazeToggle && <div id="maze-algo">
                     <button onClick={() => {props.mazeAlgo("Randomized Dfs")}}>Randomized DFS</button>
                     <button onClick={() => {props.mazeAlgo("Recursive Division"); props.selectMaze("Rcursive Division")}}>Recursive Division</button>
-                    <button onClick={() => {}}>Eller's Algorithm</button>
+                    <button onClick={() => {props.mazeAlgo("Eller"); props.selectMaze("Eller")}}>Eller's Algorithm</button>
                     <button onClick={() => {}}>Random Maze</button>
                 </div>}
             </ul>
