@@ -44,6 +44,33 @@ function selectNeighbour(cell) {
     return cell.neighbour[index]
 }
 
+
+//remove wall
+function removeWall(neighbour, direction, matrix, setMatrix) {
+    switch (direction) {
+        case "N":
+            matrix[neighbour.row + 1][neighbour.col].isWall = false
+
+            break;
+        case "S":
+            matrix[neighbour.row - 1][neighbour.col].isWall = false
+
+            break;
+        case "W":
+            matrix[neighbour.row][neighbour.col + 1].isWall = false
+
+            break;
+        case "E":
+            matrix[neighbour.row][neighbour.col - 1].isWall = false
+
+            break;
+        default:
+            break;
+    }
+    setMatrix([...matrix])
+}
+
+
 //applied dfs iterative algo
 async function dfs(row, col, startNode, endNode, matrix, setMatrix, speedRef) {
     let cell = matrix[row][col];
@@ -63,20 +90,9 @@ async function dfs(row, col, startNode, endNode, matrix, setMatrix, speedRef) {
 
             neighbour.isVisited = true;
 
-            if (direction === "N") {
-                matrix[neighbour.row + 1][neighbour.col].isWall = false
-            }
-            if (direction === "S") {
-                matrix[neighbour.row - 1][neighbour.col].isWall = false
-            }
-            if (direction === "W") {
-                matrix[neighbour.row][neighbour.col + 1].isWall = false
-            }
-            if (direction === "E") {
-                matrix[neighbour.row][neighbour.col - 1].isWall = false
+            //remove wall in the direction where you are moving
+            removeWall(neighbour, direction, matrix, setMatrix);
 
-            }
-            setMatrix([...matrix])
             await time(speedRef.current)
 
             stack.push(neighbour);
@@ -99,8 +115,8 @@ async function dfs(row, col, startNode, endNode, matrix, setMatrix, speedRef) {
 
 
 function randomizedDfs(startNode, endNode, matrix, setMatrix, speedRef) {
-   
-   // create wall and neigbhour pattern
+
+    // create wall and neigbhour pattern
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[0].length; j++) {
             if (i % 2 === 0) {
@@ -115,10 +131,10 @@ function randomizedDfs(startNode, endNode, matrix, setMatrix, speedRef) {
     }
 
     setMatrix([...matrix])
-    dfs(0, 0,startNode, endNode, matrix, setMatrix, speedRef)
+    dfs(0, 0, startNode, endNode, matrix, setMatrix, speedRef)
 
     //mark all cell as unvisited
-    
+
 }
 
 export default randomizedDfs
