@@ -2,6 +2,7 @@
 @import './Styles/Sorting.css';
 @import './Styles/PathFinder.css';
 @import './Styles/Grid.css';
+@import './Styles/Dsa.css';
 
 body{
   width: 100vw;

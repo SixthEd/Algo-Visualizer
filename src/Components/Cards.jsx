@@ -30,7 +30,7 @@ function Cards() {
 
                 </div>
             </a>
-            <a href="">
+            <a href="dsa-algo">
                 <div id="card-DsaAlgo">
 
                     <div className="card-img">
