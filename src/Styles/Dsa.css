@@ -20,8 +20,8 @@
 #dsa-right-navbar {
     width: 80vw;
     display: flex;
-    justify-content:flex-start;
-    gap:15vw;
+    justify-content: flex-start;
+    gap: 15vw;
 }
 
 #sorting-right-navbar button {
@@ -50,7 +50,7 @@ li {
     width: 12vw;
     height: 8vh;
     top: 80px;
-    color:aquamarine;
+    color: aquamarine;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 0%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -62,42 +62,42 @@ li {
 #dsa-algo {
     display: flex;
     flex-direction: column;
-  
+
     position: absolute;
     top: 80px;
-    left:450px
+    left: 450px
 }
 
-#dsa-algo button{
+#dsa-algo button {
     width: 10vw;
     height: 3vh;
     text-align: start;
     border-radius: 2%;
-     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 0px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.2);
-    color:white;
+    color: white;
 
 }
 
-#dsa-algo button:hover{
+#dsa-algo button:hover {
     background-color: rgb(37, 168, 37);
 }
 
-#dsa-container{
+#dsa-container {
     display: flex;
     width: 100vw;
     height: 94.2vh;
 }
 
-#dsa-container-left{
+#dsa-container-left {
     background-color: #02203c;
     width: 20%;
 }
 
-#dsa-container-left #inner-left{
+#dsa-container-left #inner-left {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -105,90 +105,165 @@ li {
     justify-content: center;
 }
 
-#dsa-container-left div #top-text{
+#dsa-container-left div #top-text {
     width: 100%;
     text-align: center;
     font-weight: 500;
     font: 1.5em sans-serif;
-    color:rgb(200, 197, 197);
+    color: rgb(200, 197, 197);
 }
 
-#dsa-container-left button{
+#dsa-container-left .action-button {
     width: 100%;
     background-color: transparent;
     font-weight: 200;
     font: 1em sans-serif;
-    color:rgb(200, 197, 197);
-    border-left:none;
-    border-right:none;
-    border-top-color:rgb(39, 174, 96) ;
-    border-bottom-color:rgb(39, 174, 96) ;
+    color: rgb(200, 197, 197);
+    border-left: none;
+    border-right: none;
+    border-top-color: rgb(39, 174, 96);
+    border-bottom-color: rgb(39, 174, 96);
     padding-top: 4%;
     padding-bottom: 4%;
 
 }
 
-#dsa-container-left button:hover{
+#dsa-container-left button:hover {
     background-color: rgb(39, 174, 96);
 }
-#dsa-container-right{
+
+#dsa-container-right {
     background-color: black;
     width: 80%;
 }
 
-#dsa-algo-title{
-    color:white;
-    font-size:large;
+#dsa-algo-title {
+    color: white;
+    font-size: large;
 }
 
-#heap-button{
+#heap-button {
     display: flex;
     gap: 20px;
     text-align: center;
-    color:rgb(200, 197, 197);
+    color: rgb(200, 197, 197);
     margin: 15px 0px;
 }
 
 
-#heap-button div
-{
+#heap-button div {
     display: flex;
     flex-direction: column;
 }
 
-#legend{
+#legend {
     width: 90%;
 }
 
-#legend :first-child{
+#legend :first-child {
     font-size: larger;
     text-align: center;
 }
-#legend p{
-    font-size:small;
-    color:rgb(200, 197, 197);
+
+#legend p {
+    font-size: small;
+    color: rgb(200, 197, 197);
 }
 
-.legend-color{
+.legend-color {
     display: flex;
     justify-content: start;
     align-items: center;
-    gap:5px;
-    margin:-4px 0;
-}
-.legend-color div{
-    width: 20px;
-    height: 20px;  
+    gap: 5px;
+    margin: -4px 0;
 }
 
-#legend-color-0 div{
+.legend-color div {
+    width: 20px;
+    height: 20px;
+}
+
+#legend-color-0 div {
     background-color: rgb(52, 152, 219);
 }
 
-#legend-color-1 div{
+#legend-color-1 div {
     background-color: rgb(231, 76, 60);
 }
 
-#legend-color-2 div{
+#legend-color-2 div {
     background-color: rgb(39, 174, 96);
+}
+
+
+#dsa-container-right {
+    display: flex;
+    padding-top: 50px;
+    align-items: center;
+    flex-direction: column;
+}
+
+#node-container {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #c8c8c8;
+    border-radius: 5px;
+    color: #c8c8c8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+}
+
+/* #arrow-container{
+    color:white;
+} */
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#input-containers {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.input-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #c8c8c8;
+    align-items: end;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.input-label {
+    width: 70%;
+}
+
+.input-label input {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius:2%;
+    height: 2em;
+    color:white
+}
+
+.input-label input:focus{
+    outline:none;
+}
+
+.input-button button {
+    border:transparent;
+    border-radius: 25%;
+    width: 3em;
+    height: 2.5em;
+    color:white
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
 }
