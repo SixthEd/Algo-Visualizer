@@ -49,7 +49,7 @@ class MaxHeap {
 
     }
 
-    insert(data, canvasRef) {
+    async insert(data, canvasRef) {
         data = Number(data);
         if (this.size === 0) {
             let node = new Node(data, 1450, 0.5, 0, 725);
@@ -76,7 +76,7 @@ class MaxHeap {
 
             if (this.arr[parent].data < this.arr[index].data) {
 
-                swap(this.arr, parent, index, canvasRef)
+                await swap(this.arr, parent, index, canvasRef)
 
                 index = parent;
             }

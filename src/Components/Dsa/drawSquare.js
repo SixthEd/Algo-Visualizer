@@ -15,6 +15,9 @@ const drawSquare =(text, width, height, canvasRef) => {
         const y = height;
 
         // Draw rectangle
+
+        ctx.clearRect(x, y, rectWidth, rectHeight, 5)
+
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
 

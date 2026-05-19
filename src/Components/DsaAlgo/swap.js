@@ -1,6 +1,7 @@
 import time from "./time";
+import drawSquare from "../Dsa/drawSquare";
 
-function swap(arr, parent, index, canvasRef) {
+async function swap(arr, parent, index, canvasRef) {
 
     function changeText(arr, i) {
         // Center text
@@ -9,7 +10,7 @@ function swap(arr, parent, index, canvasRef) {
         let rectWidth = 35;
         let data = arr[i].data;
         let ctx = canvasRef.current.getContext("2d");
-        
+
 
         const x = Math.floor((arr[i].x - rectWidth) / 2) + 0.5;
         const y = arr[i].y;
@@ -30,8 +31,12 @@ function swap(arr, parent, index, canvasRef) {
 
     [arr[parent].data, arr[index].data] = [arr[index].data, arr[parent].data];
 
-    changeText(arr, index)
-    changeText(arr, parent)
+    drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, canvasRef);
+
+    drawSquare(arr[index].data, arr[index].x, arr[index].y, canvasRef);
+
+
+    await time(25)
 
 
 }
