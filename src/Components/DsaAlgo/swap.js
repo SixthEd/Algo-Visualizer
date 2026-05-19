@@ -5,10 +5,9 @@ async function swap(arr, parent, index, canvasRef) {
 
     [arr[parent].data, arr[index].data] = [arr[index].data, arr[parent].data];
 
-    drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, canvasRef);
+    drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, false, canvasRef);
 
-    drawSquare(arr[index].data, arr[index].x, arr[index].y, canvasRef);
-
+    drawSquare(arr[index].data, arr[index].x, arr[index].y, false, canvasRef);
 
     await time(25)
 

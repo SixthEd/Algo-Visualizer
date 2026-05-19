@@ -1,4 +1,4 @@
-const drawSquare =(text, width, height, canvasRef) => {
+const drawSquare =(text, width, height, push, canvasRef) => {
     
         const canvas = canvasRef.current;
 
@@ -18,11 +18,22 @@ const drawSquare =(text, width, height, canvasRef) => {
 
         ctx.clearRect(x, y, rectWidth, rectHeight, 5)
 
+        if(push)
+        {
+            ctx.fillStyle= "rgb(52, 152, 219)"
+        }
+        else
+        {
+            ctx.fillStyle="black";
+        }
+
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
 
         ctx.beginPath();
         ctx.roundRect(x, y, rectWidth, rectHeight, 5);
+        ctx.fill();
+
         ctx.stroke();
 
         // Center text

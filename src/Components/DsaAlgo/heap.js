@@ -2,6 +2,7 @@ import Node from "./node";
 import drawSquare from "../Dsa/drawSquare";
 import drawArrow from "../Dsa/drawArrow";
 import swap from "./swap";
+import time from "./time";
 
 class MaxHeap {
 
@@ -11,7 +12,7 @@ class MaxHeap {
         this.size = 0;
     }
 
-    createUi(data, canvasRef) {
+    async createUi(data, canvasRef) {
         let squareSize = 35;
 
         let currentLevelNode = this.level[0];
@@ -22,8 +23,11 @@ class MaxHeap {
 
             drawArrow((currentLevelNode.x - squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x - currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
-            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, canvasRef);
+            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true,canvasRef);
 
+            await time(25);
+
+            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, canvasRef);
 
             currentLevelNode.leftNode = node;
 
@@ -37,7 +41,12 @@ class MaxHeap {
 
             drawArrow((currentLevelNode.x + squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x + currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
-            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, canvasRef);
+            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,true, canvasRef);
+
+            await time(25);
+
+            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,false, canvasRef);
+
 
             currentLevelNode.rightNode = node;
 
@@ -57,14 +66,15 @@ class MaxHeap {
             this.level.push(node);
             this.arr.push(node);
 
-            drawSquare(data, 1450, 0.5, canvasRef);
-
+            drawSquare(data, 1450, 0.5, true,canvasRef);
+            await time(25);
+            drawSquare(data, 1450, 0.5, false,canvasRef);
 
             this.size++;
             return;
         }
 
-        let node = this.createUi(data, canvasRef);
+        let node = await this.createUi(data, canvasRef);
 
         this.arr.push(node);
         this.size++;
