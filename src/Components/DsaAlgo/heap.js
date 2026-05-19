@@ -23,11 +23,11 @@ class MaxHeap {
 
             drawArrow((currentLevelNode.x - squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x - currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
-            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true,canvasRef);
+            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
             await time(25);
 
-            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, canvasRef);
+            drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
 
             currentLevelNode.leftNode = node;
 
@@ -41,11 +41,11 @@ class MaxHeap {
 
             drawArrow((currentLevelNode.x + squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x + currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
-            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,true, canvasRef);
+            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,true, false, false, canvasRef);
 
             await time(25);
 
-            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,false, canvasRef);
+            drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120,false, false, false, canvasRef);
 
 
             currentLevelNode.rightNode = node;
@@ -66,9 +66,9 @@ class MaxHeap {
             this.level.push(node);
             this.arr.push(node);
 
-            drawSquare(data, 1450, 0.5, true,canvasRef);
+            drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
             await time(25);
-            drawSquare(data, 1450, 0.5, false,canvasRef);
+            drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
             this.size++;
             return;

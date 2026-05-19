@@ -1,4 +1,4 @@
-const drawSquare =(text, width, height, push, canvasRef) => {
+const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasRef) => {
     
         const canvas = canvasRef.current;
 
@@ -18,9 +18,17 @@ const drawSquare =(text, width, height, push, canvasRef) => {
 
         ctx.clearRect(x, y, rectWidth, rectHeight, 5)
 
-        if(push)
+        if(nodePush)
         {
             ctx.fillStyle= "rgb(52, 152, 219)"
+        }
+        else if(nodeCompare)
+        {
+            ctx.fillStyle="rgb(231, 76, 60)";
+        }
+        else if(nodeSwap)
+        {
+            ctx.fillStyle="rgb(39, 174, 96)";
         }
         else
         {
