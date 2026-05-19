@@ -219,10 +219,6 @@ li {
     color:white;
 } */
 
-canvas {
-    width: 100%;
-    height: 100%;
-}
 
 #input-containers {
     width: 100%;
@@ -246,24 +242,25 @@ canvas {
 .input-label input {
     background-color: transparent;
     border: 2px solid white;
-    border-radius:2%;
+    border-radius: 2%;
     height: 2em;
-    color:white
+    color: white
 }
 
-.input-label input:focus{
-    outline:none;
+.input-label input:focus {
+    outline: none;
 }
 
 .input-button button {
-    border:transparent;
+    border: transparent;
     border-radius: 25%;
     width: 3em;
     height: 2.5em;
-    color:white
+    color: white
 }
 
 .input-label {
     display: flex;
     flex-direction: column;
 }
+

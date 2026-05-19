@@ -1,9 +1,55 @@
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Canvas from "./Canvas";
-import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
+import { useCallback, useEffect, useRef } from "react";
+import MaxHeap from '../DsaAlgo/heap';
+import Node from '../DsaAlgo/node';
+
 
 function Heaps() {
+
+
+    const [addInput, setAddInput] = useState("1");
+    const [heap, setHeap] = useState([]);
+
+    let canvasRef = useRef(null);
+    let maxHeapRef = useRef(new MaxHeap());
+
+    const setPixel = useCallback(() => {
+        const canvas = canvasRef.current;
+
+        const dpr = window.devicePixelRatio || 1;
+
+        // Logical size
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // Keep visual size same
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+
+        // Increase resolution
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+    })
+
+
+    const addNode = useCallback(() => {
+        // drawSquare(addInput);
+        maxHeapRef.current.insert(addInput, canvasRef);
+
+        setHeap(prev => [...prev, addInput]);
+
+    }, [addInput])
+
+    useEffect(() => {
+
+        setPixel();
+        const canvas = canvasRef.current;
+        let width = canvas.width;
+        let height = 0.5
+
+    }, []);
+
     const buttons = [
         {
             label: "TAKE OUT MAXIMUM ELEMENT",
@@ -12,15 +58,6 @@ function Heaps() {
     ]
 
 
-    const inputs = [
-        {
-            label: "Add new Node",
-            buttonType: <AddIcon />,
-            color: "#2ecc71",
-            onclick: () => { console.log("Working") }
-
-        },
-    ]
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
     return <div id="dsa-container">
@@ -42,15 +79,13 @@ function Heaps() {
                 })}
 
                 <div id="input-containers">
-                    {inputs.map((e, index) => {
-                        return <div className="input-button" key={index}>
-                            <div className="input-label">
-                                <label>{e.label}</label>
-                                <input></input>
-                            </div>
-                            <button onClick={() => { e.onclick() }} style={{ backgroundColor: e.color }}>{e.buttonType}</button>
+                    <div className="input-button">
+                        <div className="input-label">
+                            <label>Add New Node</label>
+                            <input onChange={(e) => { setAddInput(e.target.value) }} value={addInput}></input>
                         </div>
-                    })}
+                        <button onClick={() => { addNode(addInput) }} style={{ backgroundColor: "#2ecc71" }}><AddIcon /></button>
+                    </div>
                 </div>
 
                 <div id="legend">
@@ -65,11 +100,8 @@ function Heaps() {
             </div>
         </div>
         <div id="dsa-container-right">
-            {/* <Node data={null} />
-                <div>
-                    <Arrow />
-                </div> */}
-            <Canvas />
+            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+            </canvas>
         </div>
     </div>
 }

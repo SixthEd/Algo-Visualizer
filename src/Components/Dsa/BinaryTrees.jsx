@@ -2,8 +2,14 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Canvas from "./Canvas";
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
 function BinaryTrees() {
+
+    const [addInput, SetAddInput] = useState("1");
+    const [deleteInput, SetDeleteInput] = useState("");
+    const [searchInput, SetSearchInput] = useState("");
+
     const buttons = [
         {
             label: "INORDER TRAVERSAL",
@@ -25,29 +31,6 @@ function BinaryTrees() {
     ]
 
 
-    const inputs = [
-        {
-            label: "Add new Node",
-            buttonType: <AddIcon />,
-            color: "#2ecc71",
-            onclick: () => { console.log("Working") }
-
-        },
-        {
-            label: "Delete Node",
-            buttonType: <DeleteIcon />,
-            color: "#e74c3c",
-            onclick: () => { console.log("Working") }
-
-        },
-        {
-            label: "Search Node",
-            buttonType: <SearchIcon />,
-            color: "#3298dc",
-            onclick: () => { console.log("Working") }
-
-        }
-    ]
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
     return <div id="dsa-container">
@@ -60,15 +43,29 @@ function BinaryTrees() {
                 })}
 
                 <div id="input-containers">
-                    {inputs.map((e, index) => {
-                        return <div className="input-button" key={index}>
-                            <div className="input-label">
-                                <label>{e.label}</label>
-                                <input></input>
-                            </div>
-                            <button onClick={() => { e.onclick() }} style={{ backgroundColor: e.color }}>{e.buttonType}</button>
+                     <div className="input-button">
+                        <div className="input-label">
+                            <label>Add New Node</label>
+                            <input onChange={(e)=>{SetAddInput(e.target.value)}} value={addInput}></input>
                         </div>
-                    })}
+                        <button onClick={() => {  }} style={{ backgroundColor: "#2ecc71"}}><AddIcon /></button>
+                    </div>
+                  
+                     <div className="input-button">
+                        <div className="input-label">
+                            <label>Delete Node</label>
+                            <input onChange={(e)=>{SetDeleteInput(e.target.value)}} value={deleteInput}></input>
+                        </div>
+                        <button onClick={() => {  }} style={{ backgroundColor: "#e74c3c"}}><DeleteIcon /></button>
+                    </div>
+                  
+                     <div className="input-button">
+                        <div className="input-label">
+                            <label>Search Node</label>
+                            <input onChange={(e)=>{SetSearchInput(e.target.value)}} value={searchInput}></input>
+                        </div>
+                        <button onClick={() => {  }} style={{ backgroundColor: "#3298dc"}}><SearchIcon /></button>
+                    </div>
                 </div>
 
                 <div id="legend">

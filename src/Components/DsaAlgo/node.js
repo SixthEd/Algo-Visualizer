@@ -1,0 +1,16 @@
+class Node {
+    constructor(data, x, y, index,gap) {
+        this.data = data;
+        this.x = x;
+        this.y = y;
+        this.index = index;
+        this.leftNode = null;
+        this.rightNode = null;
+        this.swap = false;
+        this.compare = false;
+        this.gap=gap;
+    }
+}
+
+
+export default Node;
