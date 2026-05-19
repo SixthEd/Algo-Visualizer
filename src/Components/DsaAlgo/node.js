@@ -9,6 +9,7 @@ class Node {
         this.swap = false;
         this.compare = false;
         this.gap=gap;
+        this.ctx=null;
     }
 }
 

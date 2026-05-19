@@ -34,6 +34,7 @@ const drawSquare =(text, width, height, canvasRef) => {
             y + rectHeight / 2
         );
 
+   
     }
 
 export default drawSquare;
