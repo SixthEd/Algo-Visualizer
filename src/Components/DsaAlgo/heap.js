@@ -18,7 +18,7 @@ class MaxHeap {
 
         if (!currentLevelNode.leftNode) {
 
-            let node = new Node(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, 0, currentLevelNode.gap / 2);
+            let node = new Node(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, currentLevelNode.gap / 2);
 
             drawArrow((currentLevelNode.x - squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x - currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
@@ -33,7 +33,7 @@ class MaxHeap {
 
         if (!currentLevelNode.rightNode) {
 
-            let node = new Node(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, 0, currentLevelNode.gap / 2);
+            let node = new Node(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, currentLevelNode.gap / 2);
 
             drawArrow((currentLevelNode.x + squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x + currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
@@ -52,7 +52,7 @@ class MaxHeap {
     async insert(data, canvasRef) {
         data = Number(data);
         if (this.size === 0) {
-            let node = new Node(data, 1450, 0.5, 0, 725);
+            let node = new Node(data, 1450, 0.5, 725);
 
             this.level.push(node);
             this.arr.push(node);

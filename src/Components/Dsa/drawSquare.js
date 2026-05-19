@@ -1,5 +1,5 @@
 const drawSquare =(text, width, height, canvasRef) => {
-
+    
         const canvas = canvasRef.current;
 
         const ctx = canvas.getContext("2d");
