@@ -3,6 +3,7 @@ import drawSquare from "../Dsa/drawSquare";
 
 async function swap(arr, parent, index, canvasRef) {
 
+    // recreate square and add color for comparing
     drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, false, true, false,canvasRef);
 
     drawSquare(arr[index].data, arr[index].x, arr[index].y, false, true, false,canvasRef);
@@ -11,12 +12,14 @@ async function swap(arr, parent, index, canvasRef) {
 
     [arr[parent].data, arr[index].data] = [arr[index].data, arr[parent].data];
 
+    // recreate square and add color for swapping and remove color for comparing
     drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, false, false, true, canvasRef);
 
     drawSquare(arr[index].data, arr[index].x, arr[index].y, false, false, true, canvasRef);
 
     await time(25)
 
+    //recreate square and remove the swapping color
     drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, false, false, false, canvasRef);
 
     drawSquare(arr[index].data, arr[index].x, arr[index].y, false, false, false, canvasRef);

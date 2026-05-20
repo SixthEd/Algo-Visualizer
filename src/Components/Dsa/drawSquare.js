@@ -14,7 +14,7 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
         const x = Math.floor((width-rectWidth) / 2) + 0.5;
         const y = height;
 
-        // Draw rectangle
+        // clear rectangle
 
         ctx.clearRect(x, y, rectWidth, rectHeight, 5)
 
@@ -35,6 +35,8 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
             ctx.fillStyle="black";
         }
 
+        //draw rectangle
+        
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
 

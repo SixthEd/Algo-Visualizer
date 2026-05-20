@@ -1,19 +1,24 @@
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { useCallback, useEffect, useRef } from "react";
-import MaxHeap from '../DsaAlgo/heap';
+import MaxHeap from '../DsaAlgo/maxheap';
 import Node from '../DsaAlgo/node';
+import MinHeap from '../DsaAlgo/minheap';
 
 
 function Heaps() {
 
 
     const [addInput, setAddInput] = useState("1");
-    const [heap, setHeap] = useState([]);
+    // const [heap, setHeap] = useState([]);
+    const [heapType, setHeapType] = useState(null);
 
     let canvasRef = useRef(null);
     let maxHeapRef = useRef(new MaxHeap());
+    let minHeapRef = useRef(new MaxHeap());
 
+
+    //set pixel if canvas width and height change
     const setPixel = useCallback(() => {
         const canvas = canvasRef.current;
 
@@ -35,20 +40,41 @@ function Heaps() {
 
     const addNode = useCallback(() => {
         // drawSquare(addInput);
-        maxHeapRef.current.insert(addInput, canvasRef);
 
-        setHeap(prev => [...prev, addInput]);
+        switch (heapType) {
+            case 0:
+                maxHeapRef.current.insert(addInput, canvasRef);
+                // setHeap(prev => [...prev, addInput]);
+                break;
+            case 1:
+                minHeapRef.current.insert(addInput, canvasRef);
+                // setHeap(prev => [...prev, addInput]);
+                break;
+            default:
+        }
 
-    }, [addInput])
+
+    }, [addInput, heapType])
 
     useEffect(() => {
-
-        setPixel();
         const canvas = canvasRef.current;
+
+        let ctx = canvas.getContext("2d");
+        ctx.reset();
+        
+        setPixel();
         let width = canvas.width;
         let height = 0.5
 
-    }, []);
+        switch(heapType)
+        {
+            case 0: maxHeapRef.current= new MaxHeap();
+                break;
+            case 1: minHeapRef.current= new MinHeap();
+                break;
+            default:
+        }
+    }, [heapType]);
 
     const buttons = [
         {
@@ -66,11 +92,11 @@ function Heaps() {
                 <p id="top-text">Heaps Algorithms</p>
                 <div id="heap-button">
                     <div>
-                        <input type="radio" name="heap" />
+                        <input type="radio" name="heap" checked={heapType === 0} onChange={() => { setHeapType(0) }} />
                         <label>MaxHeap</label>
                     </div>
                     <div>
-                        <input type="radio" name="heap" />
+                        <input type="radio" name="heap" checked={heapType === 1} onChange={() => { setHeapType(1) }} />
                         <label>Min  Heap</label>
                     </div>
                 </div>
