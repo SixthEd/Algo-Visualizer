@@ -9,7 +9,7 @@ import MinHeap from '../DsaAlgo/minheap';
 function Heaps() {
 
 
-    const [addInput, setAddInput] = useState("1");
+    const [addInput, setAddInput] = useState([1,2,3,4,5]);
     // const [heap, setHeap] = useState([]);
     const [heapType, setHeapType] = useState(null);
 

@@ -8,7 +8,7 @@ async function swap(arr, parent, index, canvasRef) {
 
     drawSquare(arr[index].data, arr[index].x, arr[index].y, false, true, false,canvasRef);
 
-    await time(25);
+    await time(5);
 
     [arr[parent].data, arr[index].data] = [arr[index].data, arr[parent].data];
 
@@ -17,7 +17,7 @@ async function swap(arr, parent, index, canvasRef) {
 
     drawSquare(arr[index].data, arr[index].x, arr[index].y, false, false, true, canvasRef);
 
-    await time(25)
+    await time(5)
 
     //recreate square and remove the swapping color
     drawSquare(arr[parent].data, arr[parent].x, arr[parent].y, false, false, false, canvasRef);
