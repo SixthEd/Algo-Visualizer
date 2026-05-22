@@ -4,11 +4,6 @@
         let ctx = canvas.getContext("2d")
         ctx.beginPath();
 
-        // let x1 = 0;
-        // let x2 = 200;
-        // let y1 = 0;
-        // let y2 = 100;
-        // Set a start-point
         ctx.moveTo(x1, y1);
 
         // Set an end-point

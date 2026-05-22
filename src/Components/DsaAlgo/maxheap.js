@@ -3,6 +3,7 @@ import drawSquare from "../Dsa/drawSquare";
 import drawArrow from "../Dsa/drawArrow";
 import swap from "./swap";
 import time from "./time";
+import clearNode from "./clearNode";
 
 class MaxHeap {
 
@@ -69,8 +70,10 @@ class MaxHeap {
 
     async insert(data, canvasRef) {
 
+        //add new inputs
         this.inputs.push(...data)
 
+        //check the previous insertion of inputs is still running then return
         if (this.run) {
             return;
         }
@@ -122,6 +125,70 @@ class MaxHeap {
 
         this.run = false;
 
+    }
+
+    async delete(canvasRef) {
+
+        if (!this.size) {
+            return;
+        }
+
+        //set root equal to last node data
+        // this.arr[0].data = this.arr[this.size - 1].data;
+
+        //then swap root with last node
+        await swap(this.arr, 0, this.size - 1, canvasRef);
+
+        // then clear the last node
+        clearNode(this.arr, this.size-1, canvasRef)
+        
+        //add that node parent and add in level array
+        let parent = Math.floor((this.size-1-1) / 2);
+
+        this.level.unshift(this.arr[parent]);
+
+        //remove it from the node 
+        this.arr.pop();
+        this.size--;
+
+        let index = 0;
+
+        while (index < this.size) {
+            let largest = index;
+
+            let left = 2 * index + 1;
+            let right = 2 * index + 2;
+
+            if (left < this.size && this.arr[left].data > this.arr[largest].data) {
+                largest = left;
+            }
+
+            if (right < this.size && this.arr[right].data > this.arr[largest].data) {
+                largest = right;
+            }
+
+            if (largest !== index) {
+                console.log(largest, index)
+                await swap(this.arr, largest, index, canvasRef);
+                index = largest;
+            }
+            else {
+                break;
+            }
+        }
+
+        //check which array has been removed the set its parent left or right node to null
+        let left = 2 * parent + 1;
+        let right = 2 * parent + 2;
+
+        if (left === this.size) {
+            this.arr[parent].leftNode = null;
+        }
+        else if (right === this.size) {
+            this.arr[parent].rightNode = null;
+        }
+
+  
     }
 }
 

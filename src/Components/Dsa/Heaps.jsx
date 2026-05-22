@@ -70,7 +70,7 @@ function Heaps() {
     const buttons = [
         {
             label: "TAKE OUT MAXIMUM ELEMENT",
-            onclick: () => { console.log("Working") }
+            onclick: () => { maxHeapRef.current.delete(canvasRef) }
         }
     ]
 
