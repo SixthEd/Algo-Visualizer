@@ -43,7 +43,7 @@ function Heaps() {
 
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
-        console.log(data)
+        // console.log(data)
 
         switch (heapType) {
             case 0:
@@ -67,13 +67,20 @@ function Heaps() {
     }, [addInput, heapType])
 
 
-    const buttons = [
-        {
-            label: "TAKE OUT MAXIMUM ELEMENT",
-            onclick: () => { maxHeapRef.current.delete(canvasRef) }
-        }
-    ]
-
+    const buttons = {
+        0: [
+            {
+                label: "TAKE OUT MAXIMUM ELEMENT",
+                onclick: () => { maxHeapRef.current?.delete(canvasRef) }
+            }
+        ],
+        1: [
+            {
+                label: "TAKE OUT MINIMUM ELEMENT",
+                onclick: () => { minHeapRef.current?.delete(canvasRef) }
+            }
+        ]
+    }
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
@@ -101,7 +108,7 @@ function Heaps() {
                         <label>Min  Heap</label>
                     </div>
                 </div>
-                {buttons.map((e, index) => {
+                {buttons[heapType]?.map((e, index) => {
                     return <button onClick={() => { e.onclick() }} className="action-button" key={index}>{e.label} </button>
                 })}
 
