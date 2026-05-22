@@ -9,46 +9,56 @@ import MinHeap from '../DsaAlgo/minheap';
 function Heaps() {
 
 
-    const [addInput, setAddInput] = useState([1,2,3,4,5]);
+    const [addInput, setAddInput] = useState("1,2,3,4,5");
     // const [heap, setHeap] = useState([]);
     const [heapType, setHeapType] = useState(null);
 
     let canvasRef = useRef(null);
-    let maxHeapRef = useRef(new MaxHeap());
-    let minHeapRef = useRef(new MaxHeap());
+    let maxHeapRef = useRef(null);
+    let minHeapRef = useRef(new MinHeap());
 
 
     //set pixel if canvas width and height change
-    const setPixel = useCallback(() => {
-        const canvas = canvasRef.current;
+    // const setPixel = useCallback(() => {
+    //     const canvas = canvasRef.current;
 
-        const dpr = window.devicePixelRatio || 1;
+    //     const dpr = window.devicePixelRatio || 1;
 
-        // Logical size
-        const width = canvas.width;
-        const height = canvas.height;
+    //     // Logical size
+    //     const width = canvas.width;
+    //     const height = canvas.height;
 
-        // Keep visual size same
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
+    //     // Keep visual size same
+    //     canvas.style.width = width + "px";
+    //     canvas.style.height = height + "px";
 
-        // Increase resolution
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-    })
+    //     // Increase resolution
+    //     canvas.width = width * dpr;
+    //     canvas.height = height * dpr;
+    // })
 
 
     const addNode = useCallback(() => {
         // drawSquare(addInput);
 
+        let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
+
+        console.log(data)
+
         switch (heapType) {
             case 0:
-                maxHeapRef.current.insert(addInput, canvasRef);
-                // setHeap(prev => [...prev, addInput]);
+                if (!maxHeapRef.current) {
+                    minHeapRef.current = null;
+                    maxHeapRef.current = new MaxHeap();
+                }
+                maxHeapRef.current.insert(data, canvasRef);
                 break;
             case 1:
-                minHeapRef.current.insert(addInput, canvasRef);
-                // setHeap(prev => [...prev, addInput]);
+                if (!minHeapRef.current) {
+                    maxHeapRef.current = null;
+                    minHeapRef.current = new MinHeap();
+                }
+                minHeapRef.current.insert(data, canvasRef);
                 break;
             default:
         }
@@ -56,25 +66,6 @@ function Heaps() {
 
     }, [addInput, heapType])
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-
-        let ctx = canvas.getContext("2d");
-        ctx.reset();
-        
-        setPixel();
-        let width = canvas.width;
-        let height = 0.5
-
-        switch(heapType)
-        {
-            case 0: maxHeapRef.current= new MaxHeap();
-                break;
-            case 1: minHeapRef.current= new MinHeap();
-                break;
-            default:
-        }
-    }, [heapType]);
 
     const buttons = [
         {
@@ -92,11 +83,21 @@ function Heaps() {
                 <p id="top-text">Heaps Algorithms</p>
                 <div id="heap-button">
                     <div>
-                        <input type="radio" name="heap" checked={heapType === 0} onChange={() => { setHeapType(0) }} />
+                        <input type="radio" name="heap" checked={heapType === 0} onChange={() => {
+                            setHeapType(0);
+                            const canvas = canvasRef.current;
+                            let ctx = canvas.getContext("2d");
+                            ctx.reset();
+                        }} />
                         <label>MaxHeap</label>
                     </div>
                     <div>
-                        <input type="radio" name="heap" checked={heapType === 1} onChange={() => { setHeapType(1) }} />
+                        <input type="radio" name="heap" checked={heapType === 1} onChange={() => {
+                            setHeapType(1);
+                            const canvas = canvasRef.current;
+                            let ctx = canvas.getContext("2d");
+                            ctx.reset();
+                        }} />
                         <label>Min  Heap</label>
                     </div>
                 </div>

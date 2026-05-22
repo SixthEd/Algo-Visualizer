@@ -69,11 +69,11 @@ class MaxHeap {
 
     async insert(data, canvasRef) {
 
-        console.log(data,this)
+        this.inputs.push(...data)
+
         if (this.run) {
             return;
         }
-        this.inputs.push(...data)
         //creating first node   
 
 
@@ -115,7 +115,7 @@ class MaxHeap {
                     index = parent;
                 }
                 else {
-                    continue;
+                    break;
                 }
             }
         }
