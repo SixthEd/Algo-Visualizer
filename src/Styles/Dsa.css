@@ -264,3 +264,14 @@ li {
     flex-direction: column;
 }
 
+#output-board{
+    position: absolute;
+    width: 80%;
+    height: 100px;
+    bottom: 0;
+    background-color: whitesmoke;
+}
+
+#output-board p{
+    color: #000;
+}

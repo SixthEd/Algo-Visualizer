@@ -2,18 +2,22 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Canvas from "./Canvas";
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
+import BinaryTree from '../DsaAlgo/binaryTree';
 
 function BinaryTrees() {
 
-    const [addInput, SetAddInput] = useState("1");
+    const [addInput, SetAddInput] = useState("1,2,3,4,5,6");
     const [deleteInput, SetDeleteInput] = useState("");
     const [searchInput, SetSearchInput] = useState("");
-
+    const binaryTreeRef = useRef(new BinaryTree());
+    const canvasRef = useRef(null);
+    const [traversalType, setTraversalType] = useState(null);
+    const [traversalOutput, setTraversalOutput] = useState([]);
     const buttons = [
         {
             label: "INORDER TRAVERSAL",
-            onclick: () => { console.log("Working") }
+            onclick: () => { binaryTreeRef.current.inorder(binaryTreeRef.current.root,send, canvasRef);  }
         },
         {
             label: "PREORDER TRAVERSAL",
@@ -30,6 +34,21 @@ function BinaryTrees() {
         }
     ]
 
+    const send = useCallback((data)=>{
+        console.log("send",data)
+        setTraversalOutput((prev)=>{return [...prev,data]});
+    },[traversalOutput])
+
+    const addNode = useCallback(() => {
+        // drawSquare(addInput);
+
+        let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
+
+        binaryTreeRef.current.insert(data, canvasRef)
+
+
+
+    }, [])
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
@@ -39,32 +58,38 @@ function BinaryTrees() {
                 <p id="top-text">Binary Tree Algorithms</p>
 
                 {buttons.map((e, index) => {
-                    return <button onClick={() => { e.onclick() }} className="action-button" key={index}>{e.label} </button>
+                    return <button onClick={() => {
+                        setTraversalType(e.label);
+                        setTraversalOutput([]);
+                        e.onclick(); 
+                    }}
+
+                        className="action-button" key={index}>{e.label} </button>
                 })}
 
                 <div id="input-containers">
-                     <div className="input-button">
+                    <div className="input-button">
                         <div className="input-label">
                             <label>Add New Node</label>
-                            <input onChange={(e)=>{SetAddInput(e.target.value)}} value={addInput}></input>
+                            <input onChange={(e) => { SetAddInput(e.target.value) }} value={addInput}></input>
                         </div>
-                        <button onClick={() => {  }} style={{ backgroundColor: "#2ecc71"}}><AddIcon /></button>
+                        <button onClick={() => { addNode() }} style={{ backgroundColor: "#2ecc71" }}><AddIcon /></button>
                     </div>
-                  
-                     <div className="input-button">
+
+                    <div className="input-button">
                         <div className="input-label">
                             <label>Delete Node</label>
-                            <input onChange={(e)=>{SetDeleteInput(e.target.value)}} value={deleteInput}></input>
+                            <input onChange={(e) => { SetDeleteInput(e.target.value) }} value={deleteInput}></input>
                         </div>
-                        <button onClick={() => {  }} style={{ backgroundColor: "#e74c3c"}}><DeleteIcon /></button>
+                        <button onClick={() => { }} style={{ backgroundColor: "#e74c3c" }}><DeleteIcon /></button>
                     </div>
-                  
-                     <div className="input-button">
+
+                    <div className="input-button">
                         <div className="input-label">
                             <label>Search Node</label>
-                            <input onChange={(e)=>{SetSearchInput(e.target.value)}} value={searchInput}></input>
+                            <input onChange={(e) => { SetSearchInput(e.target.value) }} value={searchInput}></input>
                         </div>
-                        <button onClick={() => {  }} style={{ backgroundColor: "#3298dc"}}><SearchIcon /></button>
+                        <button onClick={() => { }} style={{ backgroundColor: "#3298dc" }}><SearchIcon /></button>
                     </div>
                 </div>
 
@@ -84,7 +109,13 @@ function BinaryTrees() {
                 <div>
                     <Arrow />
                 </div> */}
-            <Canvas />
+            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+
+            </canvas>
+            {traversalType &&
+                <div id="output-board">
+                    {traversalOutput?.map((e) => { return <p>{e}</p> })}
+                </div>}
         </div>
     </div>
 }
