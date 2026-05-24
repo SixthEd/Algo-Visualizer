@@ -17,15 +17,15 @@ function BinaryTrees() {
     const buttons = [
         {
             label: "INORDER TRAVERSAL",
-            onclick: () => { binaryTreeRef.current.inorder(binaryTreeRef.current.root,send, canvasRef);  }
+            onclick: () => { binaryTreeRef.current.inOrder(binaryTreeRef.current.root,send, canvasRef);  }
         },
         {
             label: "PREORDER TRAVERSAL",
-            onclick: () => { console.log("Working") }
+            onclick: () => {  binaryTreeRef.current.preOrder(binaryTreeRef.current.root,send, canvasRef); }
         },
         {
             label: "POSTORDER TRAVERSAL",
-            onclick: () => { console.log("Working") }
+            onclick: () => {  binaryTreeRef.current.postOrder(binaryTreeRef.current.root,send, canvasRef); }
 
         },
         {
@@ -45,10 +45,11 @@ function BinaryTrees() {
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
         binaryTreeRef.current.insert(data, canvasRef)
-
-
-
     }, [])
+
+    const search = useCallback(()=>{
+        binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root,canvasRef);
+    },[searchInput])
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
@@ -87,9 +88,9 @@ function BinaryTrees() {
                     <div className="input-button">
                         <div className="input-label">
                             <label>Search Node</label>
-                            <input onChange={(e) => { SetSearchInput(e.target.value) }} value={searchInput}></input>
+                            <input onChange={(e) => { SetSearchInput(e.target.value); }} value={searchInput}></input>
                         </div>
-                        <button onClick={() => { }} style={{ backgroundColor: "#3298dc" }}><SearchIcon /></button>
+                        <button onClick={() => { search() }} style={{ backgroundColor: "#3298dc" }}><SearchIcon /></button>
                     </div>
                 </div>
 
@@ -114,7 +115,7 @@ function BinaryTrees() {
             </canvas>
             {traversalType &&
                 <div id="output-board">
-                    {traversalOutput?.map((e) => { return <p>{e}</p> })}
+                    {traversalOutput?.map((e,index) => { return <p key={index}>{e} {traversalOutput.length-1!==index && <span>--&gt;</span>}</p> })}
                 </div>}
         </div>
     </div>

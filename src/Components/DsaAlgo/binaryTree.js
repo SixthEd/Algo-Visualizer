@@ -118,13 +118,13 @@ class BinaryTree {
 
     }
 
-    async inorder(root, send, canvasRef) {
+    async inOrder(root, send, canvasRef) {
 
         if (!root) {
             return;
         }
 
-        await this.inorder(root.leftNode, send, canvasRef);
+        await this.inOrder(root.leftNode, send, canvasRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
         await time(5)
@@ -132,7 +132,7 @@ class BinaryTree {
 
         send(root.data);
 
-        await this.inorder(root.rightNode, send, canvasRef);
+        await this.inOrder(root.rightNode, send, canvasRef);
     }
 
 
@@ -171,6 +171,40 @@ class BinaryTree {
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
+    }
+
+    async search(data, root, canvasRef) {
+        if (!root) {
+            return;
+        }
+
+        if (root.data === data) {
+            drawSquare(root.data, root.x, root.y, false, false, true, canvasRef);
+
+            setTimeout(() => {
+                drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
+            }, 2000);
+            
+            return true;
+        }
+
+        drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
+        await time(5)
+        drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
+
+        if (await this.search(data, root.leftNode, canvasRef)) {
+            return true;
+        }
+
+
+
+        if (await this.search(data, root.rightNode, canvasRef)) {
+            return true;
+        }
+
+
+
+
     }
 }
 
