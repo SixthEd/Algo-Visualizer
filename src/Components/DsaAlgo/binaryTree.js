@@ -173,6 +173,91 @@ class BinaryTree {
         send(root.data);
     }
 
+    // inverted(root, canvasRef) {
+    //     if (!root) {
+    //         return;
+    //     }
+
+    //     drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
+
+    //     if (root.leftNode && root.rightNode) {
+    //         root.leftNode.x=1450-root.leftNode.x;
+    //     }
+    //     else if(root.leftNode)
+    //     {
+    //         root.leftNode.x=root.x+ 2*root.gap;
+    //     }
+    //     else if(root.rightNode)
+    //     {
+    //         root.rightNode.x=root.x-2*root.gap;
+    //     }
+
+    //     [root.leftNode,root.rightNode] =[root.rightNode, root.leftNode];
+
+    //     this.inverted(root.leftNode,canvasRef);
+    //     this.inverted(root.rightNode,canvasRef);
+
+    // }
+
+
+    removesquare(width, height, canvasRef) {
+        const canvas = canvasRef.current;
+
+        const ctx = canvas.getContext("2d");
+
+
+        // Scale back to logical coordinates
+        const rectWidth = 35;
+        const rectHeight = 35;
+        const x = Math.floor((width - rectWidth) / 2) + 0.5;
+        const y = height;
+
+        // clear rectangle
+        ctx.fillStyle = "black"
+
+        ctx.clearRect(x - 1, y - 1, rectWidth + 1, rectHeight + 1, 5)
+
+        ctx.fill()
+    }
+
+
+    inverted(root, canvasRef) {
+        if (!root) {
+            return;
+        }
+
+        drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
+
+        if (root.leftNode && !root.rightNode) {
+            this.removesquare(root.leftNode.x, root.leftNode.y, canvasRef);
+        }
+        if (root.rightNode && !root.leftNode) {
+            this.removesquare(root.rightNode.x, root.rightNode.y, canvasRef);
+        }
+
+        if (root.leftNode) {
+            // now root.leftNode will be right of root
+            root.leftNode.x = (root.x + 2 * root.leftNode.gap);
+        }
+
+        if (root.rightNode) {
+            // now root.rightNode will be left of root
+            root.rightNode.x = (root.x - 2 * root.rightNode.gap);
+        }
+
+
+        
+
+        [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
+
+
+        this.inverted(root.leftNode, canvasRef);
+        this.inverted(root.rightNode, canvasRef);
+    }
+
+
+    //search
+
     async search(data, root, canvasRef) {
         if (!root) {
             return;
@@ -184,7 +269,7 @@ class BinaryTree {
             setTimeout(() => {
                 drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
             }, 2000);
-            
+
             return true;
         }
 

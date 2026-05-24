@@ -30,7 +30,10 @@ function BinaryTrees() {
         },
         {
             label: "INVERT BINARY TREE",
-            onclick: () => { console.log("Working") }
+            onclick: () => { 
+                binaryTreeRef.current.inverted(binaryTreeRef.current.root, canvasRef);
+                console.log(binaryTreeRef.current.root)
+             }
         }
     ]
 
@@ -45,7 +48,8 @@ function BinaryTrees() {
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
         binaryTreeRef.current.insert(data, canvasRef)
-    }, [])
+        console.log(binaryTreeRef.current.root)
+    }, [addInput])
 
     const search = useCallback(()=>{
         binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root,canvasRef);
