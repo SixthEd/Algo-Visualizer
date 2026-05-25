@@ -7,7 +7,7 @@ import BinaryTree from '../DsaAlgo/binaryTree';
 
 function BinaryTrees() {
 
-    const [addInput, SetAddInput] = useState("1,2,3,4,5");
+    const [addInput, SetAddInput] = useState("1,2,3,4,5,6");
     const [deleteInput, SetDeleteInput] = useState("");
     const [searchInput, SetSearchInput] = useState("");
     const binaryTreeRef = useRef(new BinaryTree());
