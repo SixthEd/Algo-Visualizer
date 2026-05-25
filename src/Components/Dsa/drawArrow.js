@@ -4,6 +4,7 @@ const drawArrow = (x1, y1, x2, y2, canvasRef, remove = false) => {
     let ctx = canvas.getContext("2d");
     ctx.beginPath();
 
+    ctx.strokeStyle = !remove ? "rgb(52, 152, 219)" : "#000";
     ctx.moveTo(x1, y1);
 
     // Set an end-point

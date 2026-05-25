@@ -35,6 +35,7 @@ class Node {
     }
 
     // Draw arrow from parent to this node
+    // TODO: this goes from child to parent, make sure this goes from parent to child
     drawArrow(canvasRef, remove = false) {
         if (!this.previous) return;
 

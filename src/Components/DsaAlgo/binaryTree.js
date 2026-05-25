@@ -345,20 +345,22 @@ class BinaryTree {
             return;
         }
 
+        console.log('root.data', root.data);
+
         const midX = (minX + maxX) / 2;
 
-        // Clear both squares
+        // Clear both children squares and arrows
         if (root.leftNode) {
             let node = root.leftNode.copy();
-            node.drawArrow(canvasRef, true);
             node.x = (minX + midX) / 2 - SquareWidth / 2;
+            node.drawArrow(canvasRef, true);
             this.removeSquare(node.x, node.y, canvasRef);
         }
 
         if (root.rightNode) {
             let node = root.rightNode.copy();
-            node.drawArrow(canvasRef, true);
             node.x = (minX + midX) / 2 - SquareWidth / 2;
+            node.drawArrow(canvasRef, true);
             this.removeSquare(node.x, node.y, canvasRef);
         }
 
