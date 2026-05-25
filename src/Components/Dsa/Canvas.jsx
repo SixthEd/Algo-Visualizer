@@ -5,23 +5,23 @@ function Canvas() {
     let previousSquareWidth= useRef(null);
     let previousSquareHeight= useRef(null);
 
-    const setPixel = useCallback(() => {
-        const canvas = canvasRef.current;
+    // const setPixel = useCallback(() => {
+    //     const canvas = canvasRef.current;
 
-        const dpr = window.devicePixelRatio || 1;
+    //     const dpr = window.devicePixelRatio || 1;
 
-        // Logical size
-        const width = canvas.width;
-        const height = canvas.height;
+    //     // Logical size
+    //     const width = canvas.width;
+    //     const height = canvas.height;
 
-        // Keep visual size same
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
+    //     // Keep visual size same
+    //     canvas.style.width = width + "px";
+    //     canvas.style.height = height + "px";
 
-        // Increase resolution
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-    })
+    //     // Increase resolution
+    //     canvas.width = width * dpr;
+    //     canvas.height = height * dpr;
+    // })
 
     const drawSquare = useCallback((text, width, height) => {
 
@@ -114,7 +114,7 @@ function Canvas() {
 
     useEffect(() => {
 
-        setPixel();
+        // setPixel();
 
         const canvas = canvasRef.current;
         let width = canvas.width;

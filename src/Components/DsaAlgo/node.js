@@ -9,6 +9,8 @@ class Node {
         this.compare = false;
         this.gap=gap;
         this.previous=null;
+        this.oldX=null;
+        this.oldY=null;
     }
 }
 

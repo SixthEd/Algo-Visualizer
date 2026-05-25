@@ -7,7 +7,7 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
         const dpr = window.devicePixelRatio || 1;
 
         // Scale back to logical coordinates
-        ctx.scale(dpr, dpr);
+        // ctx.scale(dpr, dpr);
         const rectWidth = 35;
         const rectHeight = 35;
 
