@@ -11,6 +11,7 @@ class Node {
         this.previous=null;
         this.oldX=null;
         this.oldY=null;
+        this.depth=null;
     }
 }
 

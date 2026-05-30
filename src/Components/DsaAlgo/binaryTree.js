@@ -29,13 +29,13 @@ class BinaryTree {
 
             let node = new Node(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, currentLevelNode.gap / 2);
             node.previous = currentLevelNode;
-
+            node.depth = currentLevelNode.depth + 1;
             //create arrow and square with current node color
             drawArrow((currentLevelNode.x - squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x - currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(5);
+            // await time(5);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -50,13 +50,13 @@ class BinaryTree {
 
             let node = new Node(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, currentLevelNode.gap / 2);
             node.previous = currentLevelNode;
-
+            node.depth = currentLevelNode.depth + 1;
             //create arrow and square with current node color
             drawArrow((currentLevelNode.x + squareSize) / 2, currentLevelNode.y + squareSize, (currentLevelNode.x + currentLevelNode.gap) / 2, currentLevelNode.y + 120, canvasRef)
 
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(25);
+            // await time(25);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -94,10 +94,10 @@ class BinaryTree {
                 //first node is added in level for ui
                 this.level.push(node);
                 this.arr.push(node);
-
+                node.depth = 1;
                 //draw square with node push color
                 drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
-                await time(5);
+                // await time(5);
                 //draw square with remove node push color
                 drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
@@ -174,74 +174,67 @@ class BinaryTree {
     }
 
 
-    removeSquare(width, height, canvasRef) {
+    removeSquare(width, height, rectWidth, rectHeight, canvasRef, tree = false) {
 
         const canvas = canvasRef.current;
 
         const ctx = canvas.getContext("2d");
+        // const rectWidth = 35;
+        // const rectHeight = 35;
 
-
-        // Scale back to logical coordinates
-        const rectWidth = 35;
-        const rectHeight = 35;
         const x = Math.floor((width - rectWidth) / 2) + 0.5;
         const y = height;
 
-        //it could be possible canvas store previous rectangle values so we need to use it to  restart the ctx rectangle
-        ctx.beginPath();
-
         // clear rectangle
-        ctx.clearRect(x - 1, y - 1, x + rectWidth + 1, y + rectHeight + 1)
 
-        ctx.fillStyle = "black"
-        ctx.fill()
+        ctx.clearRect(x, y, rectWidth, rectHeight, 5)
 
+
+        ctx.fillStyle = "black";
+
+
+        //draw rectangle
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1;
+
+        ctx.beginPath();
+        ctx.roundRect(x, y, tree ? rectWidth : 35, tree ? rectHeight : 35, 5);
+        ctx.fill();
+
+        ctx.stroke();
+
+        console.log(x, y, rectWidth, rectHeight)
 
     }
 
-    removeArrow(x,y, gap, removedChild, canvasRef) {
-        const canvas = canvasRef.current;
-
-        const ctx = canvas.getContext("2d");
-
-        const rectWidth = 35;
-        const rectHeight = 35;
-
-        let width = null;
-        let height = y + rectHeight + 2;
-        let x1 = null;
-        let y1 = null;
-        let x2 = null;
-        let y2 = null;
-
-        console.log(removedChild)
-        switch (removedChild) {
-            case "right":
-                width = x + rectWidth;
-                x1 = Math.floor((width - rectWidth) / 2) + 0.5;
-                y1 = height;
-                x2 = rectWidth +gap;
-                y2 = rectHeight + 100;
-
-                break;
-            case "left":
-                width = x;
-                x1 = Math.floor((width - rectWidth) / 2) + 0.5;
-                y1 = height;
-                x2 = rectWidth - gap;
-                y2 = rectHeight + 100;
-                break;
-            default:
+    createTree(root, canvasRef) {
+        if (!root) {
+            return;
         }
 
-        // clear rectangle
-        ctx.clearRect(
-            x1 - 1,
-            y1 - 1,
-            x2,
-            y2
-        );
+        if (root.rightNode) {
+
+            root.rightNode.x = root.x + root.gap;
+            root.rightNode.gap = root.gap / 2;
+
+            drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
+            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
+        }
+
+        if (root.leftNode) {
+            root.leftNode.x = root.x - root.gap;
+            root.leftNode.gap = root.gap / 2;
+
+
+            drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
+            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
+        }
+
+        this.createTree(root.leftNode, canvasRef);
+        this.createTree(root.rightNode, canvasRef);
     }
+
 
     //inverted
 
@@ -250,49 +243,80 @@ class BinaryTree {
             return;
         }
 
-        drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
+        if (root.leftNode) {
+            drawArrow((root.leftNode.x + root.gap - 35) / 2, root.y + 35, (root.leftNode.x) / 2, root.y + 120, canvasRef, true)
+            debugger;
 
-        //check if root does not have any left and right child then remove it after inverting on the opposite side
-        if (!root.leftNode && !root.rightNode) {
-
-            this.removeSquare(root.x - root.gap, root.y + 120, canvasRef);
-            this.removeSquare(root.x + root.gap, root.y + 120, canvasRef);
-
-            this.removeArrow(root.x , root.y, root.gap , "left", canvasRef);
-            this.removeArrow(root.x , root.y, root.gap , "right", canvasRef);
+            this.removeSquare(root.leftNode.x, root.leftNode.y, 2 * root.leftNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
 
         }
+        if (root.rightNode) {
+            debugger;
+            drawArrow((root.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.rightNode.x) / 2, root.y + 120, canvasRef, true)
 
-        //check if leftNode is exist but rightNode does not then after creating the inverted image we need remove leftNode
-        if (root.leftNode && !root.rightNode) {
-
-            this.removeSquare(root.leftNode.x - 4 * root.gap, root.leftNode.y, canvasRef);
-            this.removeArrow(root.x , root.y, root.gap , "left", canvasRef);
+            this.removeSquare(root.rightNode.x, root.rightNode.y, 2 * root.rightNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
 
         }
+        [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
 
-        //check if rightNode is exist but leftNode does not then after creating the inverted image we need remove rightNode
-        if (root.rightNode && !root.leftNode) {
-            
-            this.removeSquare(root.rightNode.x + 4 * root.gap, root.rightNode.y, canvasRef);
-            this.removeArrow(root.x , root.y, root.gap , "right", canvasRef);
+        // if (root.leftNode && root.leftNode.depth === Math.floor(Math.log2(this.arr.length + 1)) + 1) {
+
+        //     this.removeSquare(root.leftNode.x, root.y + 120, canvasRef);
+        //     drawArrow((root.leftNode.x+root.gap- 35) / 2, root.y + 35, (root.leftNode.x ) / 2, root.y + 120, canvasRef, true)
+
+        // }
+
+        // if (root.rightNode && root.rightNode.depth === Math.floor(Math.log2(this.arr.length + 1)) + 1) {
+
+        //     drawArrow((root.rightNode.x-root.gap+ 35) / 2, root.y + 35, (root.rightNode.x ) / 2, root.y + 120, canvasRef, true)
+        //     this.removeSquare(root.rightNode.x, root.y + 120, canvasRef);
+
+
+        // }
+
+
+        // if (root.leftNode) {
+        //     // debugger;
+        //     console.log(root.leftNode.depth)
+        //     this.removeSquare(root.x - root.gap, root.y + 120, canvasRef);
+        //     drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef, true)
+
+        // }
+
+        // if (root.rightNode) {
+        //     // debugger;
+        //     this.removeSquare(root.x + root.gap, root.y + 120, canvasRef);
+        //     drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef, true)
+
+        // }
+
+
+        // [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
+        if (root.rightNode) {
+
+            root.rightNode.x = root.x + root.gap;
+            root.rightNode.gap = root.gap / 2;
+
+            drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
+            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
+
+            this.createTree(root.rightNode, canvasRef);
 
         }
 
         if (root.leftNode) {
-            // now root.leftNode will be right of root
+            root.leftNode.x = root.x - root.gap;
+            root.leftNode.gap = root.gap / 2;
 
-            root.leftNode.x = (root.x + 2 * root.leftNode.gap);
+
+            drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
+            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
+
+            this.createTree(root.leftNode, canvasRef);
+
         }
 
-        if (root.rightNode) {
-            // now root.rightNode will be left of root
 
-            root.rightNode.x = (root.x - 2 * root.rightNode.gap);
-        }
-
-
-        [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
 
 
         this.inverted(root.leftNode, canvasRef);

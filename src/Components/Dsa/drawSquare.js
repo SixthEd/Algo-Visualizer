@@ -1,10 +1,9 @@
-const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasRef) => {
+const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasRef, remove=false) => {
     
         const canvas = canvasRef.current;
 
         const ctx = canvas.getContext("2d");
 
-        const dpr = window.devicePixelRatio || 1;
 
         // Scale back to logical coordinates
         // ctx.scale(dpr, dpr);
