@@ -36,7 +36,7 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
 
         //draw rectangle
         
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = remove?"black":"white";
         ctx.lineWidth = 1;
 
         ctx.beginPath();
@@ -46,6 +46,8 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
         ctx.stroke();
 
         // Center text
+        if(remove) return;
+        
         ctx.fillStyle = "white";
         ctx.font = "10px";
         ctx.textAlign = "center";
