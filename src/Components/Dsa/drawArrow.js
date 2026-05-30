@@ -29,7 +29,7 @@ const drawArrow = (x1, y1, x2, y2, canvasRef, remove = false) => {
     ctx.closePath();
 
     ctx.strokeStyle = !remove ? "rgb(52, 152, 219)" : "#000";
-    ctx.lineWidth = 1;
+    ctx.lineWidth = remove?2:1;
     ctx.fillStyle = !remove ? "rgb(52, 152, 219)" : "#000";
     ctx.fill();
     ctx.stroke();
