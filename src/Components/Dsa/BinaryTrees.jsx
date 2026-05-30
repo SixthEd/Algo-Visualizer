@@ -39,7 +39,7 @@ function BinaryTrees() {
     const send = useCallback((data)=>{
         console.log("send",data)
         setTraversalOutput((prev)=>{return [...prev,data]});
-    },[traversalOutput])
+    },[])
 
     const addNode = useCallback(() => {
         // drawSquare(addInput);

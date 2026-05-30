@@ -114,7 +114,7 @@ class BinaryTree {
             this.arr.push(node);
             this.size++;
 
-            let index = this.size - 1;
+            // let index = this.size - 1;
 
         }
 
