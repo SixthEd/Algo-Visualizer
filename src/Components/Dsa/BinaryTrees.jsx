@@ -55,6 +55,11 @@ function BinaryTrees() {
         binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root,canvasRef);
     },[searchInput])
 
+    const deletion = useCallback(()=>{
+        binaryTreeRef.current.delete(parseInt(deleteInput),binaryTreeRef.current.root, canvasRef);
+    },[deleteInput])
+
+
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
     return <div id="dsa-container">
@@ -86,7 +91,7 @@ function BinaryTrees() {
                             <label>Delete Node</label>
                             <input onChange={(e) => { SetDeleteInput(e.target.value) }} value={deleteInput}></input>
                         </div>
-                        <button onClick={() => { }} style={{ backgroundColor: "#e74c3c" }}><DeleteIcon /></button>
+                        <button onClick={() => { deletion()}} style={{ backgroundColor: "#e74c3c" }}><DeleteIcon /></button>
                     </div>
 
                     <div className="input-button">
