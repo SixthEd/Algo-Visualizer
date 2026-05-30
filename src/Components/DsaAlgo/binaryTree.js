@@ -217,9 +217,10 @@ class BinaryTree {
             root.rightNode.x = root.x + root.gap;
             root.rightNode.gap = root.gap / 2;
             await time(25)
-
-            drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
-            await time(25)
+            drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef);
+            await time(25);
+            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, true, false, false, canvasRef);
+            await time(25);
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -230,7 +231,9 @@ class BinaryTree {
             await time(25)
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
-            await time(25)
+            await time(25);
+            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, true, false, false, canvasRef);
+            await time(25);
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -271,7 +274,8 @@ class BinaryTree {
             await time(25)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
             await time(25)
-            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
+            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, true, canvasRef);
+           
 
             await this.createTree(root.rightNode, canvasRef);
 
@@ -285,13 +289,25 @@ class BinaryTree {
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
             await time(25)
-            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
+            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, true, canvasRef);
+           
 
             await this.createTree(root.leftNode, canvasRef);
 
         }
 
+        if(root.rightNode)
+        {
+            await time(25)
+            drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
 
+        }
+        if(root.leftNode)
+        {
+            await time(25)
+            drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
+
+        }
 
 
         await this.inverted(root.leftNode, canvasRef);
