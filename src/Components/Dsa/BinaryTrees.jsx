@@ -1,6 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Canvas from "./Canvas";
 import SearchIcon from '@mui/icons-material/Search';
 import { useState, useCallback, useRef } from 'react';
 import BinaryTree from '../DsaAlgo/binaryTree';

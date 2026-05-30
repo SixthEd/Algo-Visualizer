@@ -1,10 +1,8 @@
 import Node from "./node";
 import drawSquare from "../Dsa/drawSquare";
 import drawArrow from "../Dsa/drawArrow";
-import swap from "./swap";
 import time from "./time";
-import clearNode from "./clearNode";
-import removeArrow from "./removeArrow"
+
 
 class BinaryTree {
 
@@ -36,7 +34,7 @@ class BinaryTree {
 
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            // await time(5);
+            await time(5);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -55,7 +53,7 @@ class BinaryTree {
 
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            // await time(25);
+            await time(25);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -103,7 +101,7 @@ class BinaryTree {
 
                 //draw square with node push color
                 drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
-                // await time(5);
+                await time(25);
                 //draw square with remove node push color
                 drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
@@ -134,7 +132,7 @@ class BinaryTree {
         await this.inOrder(root.leftNode, send, canvasRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(25)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -151,7 +149,7 @@ class BinaryTree {
         }
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(25)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -174,7 +172,7 @@ class BinaryTree {
         await this.postOrder(root.rightNode, send, canvasRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(25)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -383,14 +381,23 @@ class BinaryTree {
             if (root.previous.leftNode.data === data) {
                 drawArrow((root.previous.leftNode.x + root.previous.gap - 35) / 2, root.previous.y + 35, (root.previous.leftNode.x) / 2, root.previous.y + 120, canvasRef, true)
                 root.previous.leftNode=null;
+                
+                //when root left node remove we need to add it to level
                 this.level.unshift(root.previous)
+
+                //need to remove last node which is removed in the tree from level arr
                 this.level =[...this.level.filter((node)=>node.data!==data)]
 
             }
             else {
                 drawArrow((root.previous.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.previous.rightNode.x) / 2, root.y + 120, canvasRef, true)
                 root.previous.rightNode=null;
+
+
+                //when root left node remove we need to add it to level
                 this.level.shift(root.previous)
+
+                //need to remove last node which is removed in the tree from level arr
                 this.level =[...this.level.filter((node)=>node.data!==data)]
 
             }
