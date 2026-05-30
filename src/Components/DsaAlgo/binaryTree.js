@@ -179,8 +179,7 @@ class BinaryTree {
         const canvas = canvasRef.current;
 
         const ctx = canvas.getContext("2d");
-        // const rectWidth = 35;
-        // const rectHeight = 35;
+
 
         const x = Math.floor((width - rectWidth) / 2) + 0.5;
         const y = height;
@@ -208,7 +207,7 @@ class BinaryTree {
 
     }
 
-    createTree(root, canvasRef) {
+    async createTree(root, canvasRef) {
         if (!root) {
             return;
         }
@@ -217,8 +216,10 @@ class BinaryTree {
 
             root.rightNode.x = root.x + root.gap;
             root.rightNode.gap = root.gap / 2;
+            await time(25)
 
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
+            await time(25)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -226,81 +227,53 @@ class BinaryTree {
             root.leftNode.x = root.x - root.gap;
             root.leftNode.gap = root.gap / 2;
 
+            await time(25)
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
+            await time(25)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
-        this.createTree(root.leftNode, canvasRef);
-        this.createTree(root.rightNode, canvasRef);
+        await this.createTree(root.leftNode, canvasRef);
+        await this.createTree(root.rightNode, canvasRef);
     }
 
 
     //inverted
 
-    inverted(root, canvasRef) {
+    async inverted(root, canvasRef) {
         if (!root) {
             return;
         }
 
         if (root.leftNode) {
-            drawArrow((root.leftNode.x + root.gap - 35) / 2, root.y + 35, (root.leftNode.x) / 2, root.y + 120, canvasRef, true)
-            debugger;
-
+            await time(25)
             this.removeSquare(root.leftNode.x, root.leftNode.y, 2 * root.leftNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
+            await time(25)
+            drawArrow((root.leftNode.x + root.gap - 35) / 2, root.y + 35, (root.leftNode.x) / 2, root.y + 120, canvasRef, true)
+
 
         }
         if (root.rightNode) {
-            debugger;
-            drawArrow((root.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.rightNode.x) / 2, root.y + 120, canvasRef, true)
-
+            await time(25)
             this.removeSquare(root.rightNode.x, root.rightNode.y, 2 * root.rightNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
+            await time(25)
+            drawArrow((root.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.rightNode.x) / 2, root.y + 120, canvasRef, true)
 
         }
         [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
 
-        // if (root.leftNode && root.leftNode.depth === Math.floor(Math.log2(this.arr.length + 1)) + 1) {
 
-        //     this.removeSquare(root.leftNode.x, root.y + 120, canvasRef);
-        //     drawArrow((root.leftNode.x+root.gap- 35) / 2, root.y + 35, (root.leftNode.x ) / 2, root.y + 120, canvasRef, true)
-
-        // }
-
-        // if (root.rightNode && root.rightNode.depth === Math.floor(Math.log2(this.arr.length + 1)) + 1) {
-
-        //     drawArrow((root.rightNode.x-root.gap+ 35) / 2, root.y + 35, (root.rightNode.x ) / 2, root.y + 120, canvasRef, true)
-        //     this.removeSquare(root.rightNode.x, root.y + 120, canvasRef);
-
-
-        // }
-
-
-        // if (root.leftNode) {
-        //     // debugger;
-        //     console.log(root.leftNode.depth)
-        //     this.removeSquare(root.x - root.gap, root.y + 120, canvasRef);
-        //     drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef, true)
-
-        // }
-
-        // if (root.rightNode) {
-        //     // debugger;
-        //     this.removeSquare(root.x + root.gap, root.y + 120, canvasRef);
-        //     drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef, true)
-
-        // }
-
-
-        // [root.leftNode, root.rightNode] = [root.rightNode, root.leftNode];
         if (root.rightNode) {
 
             root.rightNode.x = root.x + root.gap;
             root.rightNode.gap = root.gap / 2;
-
+            await time(25)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
+            await time(25)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
 
-            this.createTree(root.rightNode, canvasRef);
+            await this.createTree(root.rightNode, canvasRef);
 
         }
 
@@ -308,19 +281,21 @@ class BinaryTree {
             root.leftNode.x = root.x - root.gap;
             root.leftNode.gap = root.gap / 2;
 
+            await time(25)
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
+            await time(25)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
 
-            this.createTree(root.leftNode, canvasRef);
+            await this.createTree(root.leftNode, canvasRef);
 
         }
 
 
 
 
-        this.inverted(root.leftNode, canvasRef);
-        this.inverted(root.rightNode, canvasRef);
+        await this.inverted(root.leftNode, canvasRef);
+        await this.inverted(root.rightNode, canvasRef);
     }
     //search
 
