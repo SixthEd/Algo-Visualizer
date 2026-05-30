@@ -37,7 +37,7 @@ const drawSquare =(text, width, height, nodePush, nodeCompare, nodeSwap, canvasR
         //draw rectangle
         
         ctx.strokeStyle = remove?"black":"white";
-        ctx.lineWidth = 1;
+        ctx.lineWidth = remove?2:1;
 
         ctx.beginPath();
         ctx.roundRect(x, y, rectWidth, rectHeight, 5);

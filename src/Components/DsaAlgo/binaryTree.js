@@ -378,7 +378,7 @@ class BinaryTree {
             drawSquare(root.data, root.x, root.y, false, false, false, canvasRef, true);
 
             //check if it left node remove if it is the remove the left arrow otherwise remove right arrow
-            if (root.previous.leftNode.data === data) {
+            if (root.previous.leftNode?.data === data) {
                 drawArrow((root.previous.leftNode.x + root.previous.gap - 35) / 2, root.previous.y + 35, (root.previous.leftNode.x) / 2, root.previous.y + 120, canvasRef, true)
                 root.previous.leftNode=null;
                 
@@ -390,7 +390,7 @@ class BinaryTree {
 
             }
             else {
-                drawArrow((root.previous.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.previous.rightNode.x) / 2, root.y + 120, canvasRef, true)
+                drawArrow((root.previous.rightNode.x - root.previous.gap + 35) / 2, root.previous.y + 35, (root.previous.rightNode.x) / 2, root.previous.y + 120, canvasRef, true)
                 root.previous.rightNode=null;
 
 
@@ -424,7 +424,7 @@ class BinaryTree {
 
             [root.data, root.rightNode.data] = [root.rightNode.data, root.data];
             drawSquare(root.data, root.x, root.y, false, false, true, canvasRef);
-            drawSquare(root.rightNode.data, root.rightNode.x, root.leftNode.y, false, false, true, canvasRef);
+            drawSquare(root.rightNode.data, root.rightNode.x, root.rightNode.y, false, false, true, canvasRef);
             await time(5);
             drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
             drawSquare(root.rightNode.data, root.rightNode.x, root.rightNode.y, false, false, false, canvasRef);
