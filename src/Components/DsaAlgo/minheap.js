@@ -3,6 +3,8 @@ import drawSquare from "../Dsa/drawSquare";
 import drawArrow from "../Dsa/drawArrow";
 import swap from "./swap";
 import time from "./time";
+import clearNode from "./clearNode";
+import removeArrow from "./removeArrow";
 
 class MinHeap {
 
@@ -121,6 +123,82 @@ class MinHeap {
         }
 
         this.run = false;
+
+    }
+
+    async delete(canvasRef) {
+
+        if (!this.size) {
+            return;
+        }
+
+        if (this.size === 1) {
+            clearNode(this.arr, this.size - 1, canvasRef);
+            this.arr.pop();
+            this.size--;
+            return;
+        }
+
+        //then swap root with last node
+        await swap(this.arr, 0, this.size - 1, canvasRef);
+
+        // then clear the last node
+        clearNode(this.arr, this.size - 1, canvasRef)
+
+        //add that node parent and add in level array
+        let parent = Math.floor((this.size - 2) / 2);
+
+        let left = 2 * parent + 1;
+        let right = 2 * parent + 2;
+        if (right === this.size - 1) {
+            console.log("right")
+            this.level.unshift(this.arr[parent]);
+
+        }
+
+        //remove it from the node 
+        this.arr.pop();
+        this.size--;
+
+        let index = 0;
+
+        while (index < this.size) {
+            let smallest = index;
+
+            let left = 2 * index + 1;
+            let right = 2 * index + 2;
+
+            if (left < this.size && this.arr[left].data < this.arr[smallest].data) {
+                smallest = left;
+            }
+
+            if (right < this.size && this.arr[right].data < this.arr[smallest].data) {
+                smallest = right;
+            }
+
+            if (smallest !== index) {
+                console.log(smallest, index)
+                await swap(this.arr, smallest, index, canvasRef);
+                index = smallest;
+            }
+            else {
+                break;
+            }
+        }
+
+        //check which array has been removed the set its parent left or right node to null
+
+         let removedChild = null;
+        if (left === this.size) {
+            this.arr[parent].leftNode = null;
+            removedChild = "left";
+        }
+        else if (right === this.size) {
+            this.arr[parent].rightNode = null;
+            removedChild = "right";
+        }
+        removeArrow(this.arr, parent, removedChild, canvasRef)
+
 
     }
 }
