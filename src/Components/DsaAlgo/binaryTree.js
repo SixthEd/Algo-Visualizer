@@ -383,10 +383,16 @@ class BinaryTree {
             if (root.previous.leftNode.data === data) {
                 drawArrow((root.previous.leftNode.x + root.previous.gap - 35) / 2, root.previous.y + 35, (root.previous.leftNode.x) / 2, root.previous.y + 120, canvasRef, true)
                 root.previous.leftNode=null;
+                this.level.unshift(root.previous)
+                this.level =[...this.level.filter((node)=>node.data!==data)]
+
             }
             else {
                 drawArrow((root.previous.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.previous.rightNode.x) / 2, root.y + 120, canvasRef, true)
                 root.previous.rightNode=null;
+                this.level.shift(root.previous)
+                this.level =[...this.level.filter((node)=>node.data!==data)]
+
             }
             return true;
         }

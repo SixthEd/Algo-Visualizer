@@ -56,6 +56,7 @@ function BinaryTrees() {
     },[searchInput])
 
     const deletion = useCallback(()=>{
+        console.log(binaryTreeRef.current.level)
         binaryTreeRef.current.delete(parseInt(deleteInput),binaryTreeRef.current.root, canvasRef);
     },[deleteInput])
 
