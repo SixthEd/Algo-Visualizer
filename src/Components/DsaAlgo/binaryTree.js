@@ -53,7 +53,7 @@ class BinaryTree {
 
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(25);
+            await time(5);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -101,7 +101,7 @@ class BinaryTree {
 
                 //draw square with node push color
                 drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
-                await time(25);
+                await time(5);
                 //draw square with remove node push color
                 drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
@@ -132,7 +132,7 @@ class BinaryTree {
         await this.inOrder(root.leftNode, send, canvasRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(25)
+        await time(5)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -149,7 +149,7 @@ class BinaryTree {
         }
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(25)
+        await time(5)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -172,7 +172,7 @@ class BinaryTree {
         await this.postOrder(root.rightNode, send, canvasRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(25)
+        await time(5)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -225,13 +225,13 @@ class BinaryTree {
             root.rightNode.gap = root.gap / 2;
 
             //first create arrow then draw square
-            await time(25)
+            await time(5)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef);
 
 
-            await time(25);
+            await time(5);
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, true, false, false, canvasRef);
-            await time(25);
+            await time(5);
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -241,12 +241,12 @@ class BinaryTree {
             root.leftNode.gap = root.gap / 2;
 
             //first create arrow then square
-            await time(25)
+            await time(5)
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef);
 
-            await time(25);
+            await time(5);
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, true, false, false, canvasRef);
-            await time(25);
+            await time(5);
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -264,9 +264,9 @@ class BinaryTree {
 
         //check left node is exist if it is then remve left part of the root node and arrow
         if (root.leftNode) {
-            await time(25)
+            await time(5)
             this.removeSquare(root.leftNode.x, root.leftNode.y, 2 * root.leftNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
-            await time(25)
+            await time(5)
             drawArrow((root.leftNode.x + root.gap - 35) / 2, root.y + 35, (root.leftNode.x) / 2, root.y + 120, canvasRef, true)
 
 
@@ -274,9 +274,9 @@ class BinaryTree {
 
         //check right node is exist if it is then remve right part of the root node and arrow
         if (root.rightNode) {
-            await time(25)
+            await time(5)
             this.removeSquare(root.rightNode.x, root.rightNode.y, 2 * root.rightNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
-            await time(25)
+            await time(5)
             drawArrow((root.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.rightNode.x) / 2, root.y + 120, canvasRef, true)
 
         }
@@ -289,9 +289,9 @@ class BinaryTree {
 
             root.rightNode.x = root.x + root.gap;
             root.rightNode.gap = root.gap / 2;
-            await time(25)
+            await time(5)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
-            await time(25)
+            await time(5)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, true, canvasRef);
 
 
@@ -304,10 +304,10 @@ class BinaryTree {
             root.leftNode.x = root.x - root.gap;
             root.leftNode.gap = root.gap / 2;
 
-            await time(25)
+            await time(5)
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
-            await time(25)
+            await time(5)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, true, canvasRef);
 
 
@@ -317,14 +317,14 @@ class BinaryTree {
 
         //after create right sub-tree changing the color of swap nodes
         if (root.rightNode) {
-            await time(25)
+            await time(5)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
 
         }
 
         //after create right sub-tree changing the color of swap nodes
         if (root.leftNode) {
-            await time(25)
+            await time(5)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
 
         }
@@ -429,7 +429,7 @@ class BinaryTree {
             drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
             drawSquare(root.rightNode.data, root.rightNode.x, root.rightNode.y, false, false, false, canvasRef);
 
-            if (await this.swapping(data,root.leftNode, canvasRef)) {
+            if (await this.swapping(data,root.rightNode, canvasRef)) {
                 return true;
             }
 
