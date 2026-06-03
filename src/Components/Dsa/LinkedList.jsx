@@ -2,10 +2,15 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Canvas from "./Canvas";
 import { useState } from 'react';
+import { useCallback } from 'react';
+import { useRef } from 'react';
+import linkedList from '../DsaAlgo/linkedList';
 
 function LinkedList() {
-    const [addInput, SetAddInput] = useState("1");
+    const [addInput, SetAddInput] = useState("1,2,3,4,5,6");
     const [deleteInput, SetDeleteInput] = useState("");
+    const linkedListRef= useRef(null);
+    const canvasRef= useRef(null);
 
     const buttons = [
         {
@@ -15,6 +20,29 @@ function LinkedList() {
     ]
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
+
+    const add = useCallback(()=>{
+        
+        if(!linkedListRef.current)
+        {
+            linkedListRef.current= new linkedList();
+        }
+        
+        let arr= addInput.split(",").map((e)=>Number(e)).filter((e)=>!isNaN(e))
+
+        linkedListRef.current.insert(arr,canvasRef)
+
+    },[addInput]);
+
+    const deletion = useCallback(()=>{
+        if(!linkedListRef.current)
+        {
+            return;
+        }
+
+        linkedListRef.current.deleteByData(Number(deleteInput),canvasRef);
+
+    },[deleteInput])
 
     return <div id="dsa-container">
         <div id="dsa-container-left">
@@ -31,7 +59,7 @@ function LinkedList() {
                             <label>Add New Node</label>
                             <input onChange={(e)=>{SetAddInput(e.target.value)}} value={addInput}></input>
                         </div>
-                        <button onClick={() => {  }} style={{ backgroundColor: "#2ecc71"}}><AddIcon /></button>
+                        <button onClick={() => { add()}} style={{ backgroundColor: "#2ecc71"}}><AddIcon /></button>
                     </div>
                   
                      <div className="input-button">
@@ -39,7 +67,7 @@ function LinkedList() {
                             <label>Delete Node</label>
                             <input onChange={(e)=>{SetDeleteInput(e.target.value)}} value={deleteInput}></input>
                         </div>
-                        <button onClick={() => {  }} style={{ backgroundColor: "#e74c3c"}}><DeleteIcon /></button>
+                        <button onClick={() => { deletion() }} style={{ backgroundColor: "#e74c3c"}}><DeleteIcon /></button>
                     </div>
                 </div>
 
@@ -59,7 +87,9 @@ function LinkedList() {
                 <div>
                     <Arrow />
                 </div> */}
-            <Canvas />
+            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+
+            </canvas>
         </div>
     </div>
 }
