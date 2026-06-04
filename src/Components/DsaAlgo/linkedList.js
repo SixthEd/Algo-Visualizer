@@ -156,6 +156,7 @@ class LinkedList {
         this.tail = null;
         this.size = 0;
         this.run = false;
+        this.delRun = false;
         this.input = [];
         this.arr = [];
         this.squareWidth = 35;
@@ -191,9 +192,14 @@ class LinkedList {
 
     async insert(data, canvasRef) {
 
+        //if delete node function is running then do not insert
+        if (this.delRun) {
+            return
+        }
 
         //insertion of data coming from user
         this.input.push(...data);
+
 
         //check the insertion is still in running  process if true then return
         if (this.run) {
@@ -342,8 +348,13 @@ class LinkedList {
 
         }
 
-        //remove
+        //check is the delete data function is running already if it is then do not delete
+        if (this.delRun) {
+            return;
+        }
 
+        //remove
+        this.delRun = true;
         if (data === this.head.data) {
 
             let deleteNode;
@@ -365,6 +376,7 @@ class LinkedList {
                 this.head = null;
                 this.tail = null;
                 this.size--;
+                this.delRun = false;
                 return;
             }
             else {
@@ -393,6 +405,7 @@ class LinkedList {
 
 
             this.size--;
+            this.delRun = false;
             return this.head;
         }
 
@@ -440,6 +453,7 @@ class LinkedList {
         await this.backSquareCreate(deleteNode, canvasRef);
         await this.changeAxis(deleteNode);
 
+        this.delRun = false;
         return this.head;
     }
 
