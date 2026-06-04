@@ -44,6 +44,7 @@ function LinkedList() {
 
     },[deleteInput])
 
+    //canvas board size set 
     useEffect(() => {
     
        canvasRef.current.height = canvasRef.current.clientHeight;
@@ -95,6 +96,8 @@ function LinkedList() {
                 <div>
                     <Arrow />
                 </div> */}
+
+            //canvas div size set to 100%
             <canvas ref={canvasRef} style={{height:"100%", width:"100%"}}>
 
             </canvas>

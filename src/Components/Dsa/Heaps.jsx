@@ -83,6 +83,14 @@ function Heaps() {
     }
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
+    
+
+    useEffect(() => {
+
+        canvasRef.current.height = canvasRef.current.clientHeight;
+        canvasRef.current.width = canvasRef.current.clientWidth;
+
+    }, [])
 
     return <div id="dsa-container">
         <div id="dsa-container-left">
@@ -134,7 +142,8 @@ function Heaps() {
             </div>
         </div>
         <div id="dsa-container-right">
-            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+            <canvas ref={canvasRef} style={{ height: "100%", width: "100%" }}>
+
             </canvas>
         </div>
     </div>

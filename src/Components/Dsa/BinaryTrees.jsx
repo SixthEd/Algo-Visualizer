@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef , useEffect} from 'react';
 import BinaryTree from '../DsaAlgo/binaryTree';
 
 function BinaryTrees() {
@@ -16,30 +16,30 @@ function BinaryTrees() {
     const buttons = [
         {
             label: "INORDER TRAVERSAL",
-            onclick: () => { binaryTreeRef.current.inOrder(binaryTreeRef.current.root,send, canvasRef);  }
+            onclick: () => { binaryTreeRef.current.inOrder(binaryTreeRef.current.root, send, canvasRef); }
         },
         {
             label: "PREORDER TRAVERSAL",
-            onclick: () => {  binaryTreeRef.current.preOrder(binaryTreeRef.current.root,send, canvasRef); }
+            onclick: () => { binaryTreeRef.current.preOrder(binaryTreeRef.current.root, send, canvasRef); }
         },
         {
             label: "POSTORDER TRAVERSAL",
-            onclick: () => {  binaryTreeRef.current.postOrder(binaryTreeRef.current.root,send, canvasRef); }
+            onclick: () => { binaryTreeRef.current.postOrder(binaryTreeRef.current.root, send, canvasRef); }
 
         },
         {
             label: "INVERT BINARY TREE",
-            onclick: () => { 
+            onclick: () => {
                 binaryTreeRef.current.inverted(binaryTreeRef.current.root, canvasRef);
                 // console.log(binaryTreeRef.current.root)
-             }
+            }
         }
     ]
 
-    const send = useCallback((data)=>{
-        console.log("send",data)
-        setTraversalOutput((prev)=>{return [...prev,data]});
-    },[])
+    const send = useCallback((data) => {
+        console.log("send", data)
+        setTraversalOutput((prev) => { return [...prev, data] });
+    }, [])
 
     const addNode = useCallback(() => {
         // drawSquare(addInput);
@@ -50,17 +50,24 @@ function BinaryTrees() {
         console.log(binaryTreeRef.current.root)
     }, [addInput])
 
-    const search = useCallback(()=>{
-        binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root,canvasRef);
-    },[searchInput])
+    const search = useCallback(() => {
+        binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root, canvasRef);
+    }, [searchInput])
 
-    const deletion = useCallback(()=>{
+    const deletion = useCallback(() => {
         console.log(binaryTreeRef.current.level)
-        binaryTreeRef.current.delete(parseInt(deleteInput),binaryTreeRef.current.root, canvasRef);
-    },[deleteInput])
+        binaryTreeRef.current.delete(parseInt(deleteInput), binaryTreeRef.current.root, canvasRef);
+    }, [deleteInput])
 
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
+
+    useEffect(() => {
+
+        canvasRef.current.height = canvasRef.current.clientHeight;
+        canvasRef.current.width = canvasRef.current.clientWidth;
+
+    }, [])
 
     return <div id="dsa-container">
         <div id="dsa-container-left">
@@ -71,7 +78,7 @@ function BinaryTrees() {
                     return <button onClick={() => {
                         setTraversalType(e.label);
                         setTraversalOutput([]);
-                        e.onclick(); 
+                        e.onclick();
                     }}
 
                         className="action-button" key={index}>{e.label} </button>
@@ -91,7 +98,7 @@ function BinaryTrees() {
                             <label>Delete Node</label>
                             <input onChange={(e) => { SetDeleteInput(e.target.value) }} value={deleteInput}></input>
                         </div>
-                        <button onClick={() => { deletion()}} style={{ backgroundColor: "#e74c3c" }}><DeleteIcon /></button>
+                        <button onClick={() => { deletion() }} style={{ backgroundColor: "#e74c3c" }}><DeleteIcon /></button>
                     </div>
 
                     <div className="input-button">
@@ -119,12 +126,12 @@ function BinaryTrees() {
                 <div>
                     <Arrow />
                 </div> */}
-            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+            <canvas ref={canvasRef} style={{height:"100%", width:"100%"}}>
 
             </canvas>
             {traversalType &&
                 <div id="output-board">
-                    {traversalOutput?.map((e,index) => { return <p key={index}>{e} {traversalOutput.length-1!==index && <span>--&gt;</span>}</p> })}
+                    {traversalOutput?.map((e, index) => { return <p key={index}>{e} {traversalOutput.length - 1 !== index && <span>--&gt;</span>}</p> })}
                 </div>}
         </div>
     </div>
