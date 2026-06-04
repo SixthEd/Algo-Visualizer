@@ -1,3 +1,5 @@
+import time from "./time"
+
 //LinkedList
 function drawSquare(text, width, height, nodePush, nodeCompare, nodeSwap, canvasRef, remove = false) {
 
@@ -46,7 +48,7 @@ function drawSquare(text, width, height, nodePush, nodeCompare, nodeSwap, canvas
     if (remove) return;
 
     ctx.fillStyle = "white";
-    ctx.font = "10px";
+    ctx.font = "10px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -60,7 +62,7 @@ function drawSquare(text, width, height, nodePush, nodeCompare, nodeSwap, canvas
 }
 
 
-function drawArrow(x1, y1, x2, y2, canvasRef, remove = false) {
+function drawArrow(x1, y1, x2, y2, canvasRef, remove = false, ptr = false) {
 
 
     const canvas = canvasRef.current;
@@ -68,7 +70,16 @@ function drawArrow(x1, y1, x2, y2, canvasRef, remove = false) {
     let ctx = canvas.getContext("2d");
     ctx.beginPath();
 
-    ctx.strokeStyle = !remove ? "rgb(52, 152, 219)" : "#000";
+    if (remove) {
+        ctx.strokeStyle = "#000";
+
+    }
+    else if (ptr) {
+        ctx.strokeStyle = "rgb(231, 76, 60)"
+    }
+    else {
+        ctx.strokeStyle = "rgb(52, 152, 219)";
+    }
     ctx.moveTo(x1, y1);
 
     // Set an end-point
@@ -92,10 +103,37 @@ function drawArrow(x1, y1, x2, y2, canvasRef, remove = false) {
     // Connect last point back to first point
     ctx.closePath();
 
-    ctx.strokeStyle = !remove ? "rgb(52, 152, 219)" : "#000";
-    ctx.fillStyle = !remove ? "rgb(52, 152, 219)" : "#000";
+
+    if (remove) {
+        ctx.strokeStyle = "#000";
+        ctx.fillStyle = "#000";
+
+    }
+    else if (ptr) {
+        ctx.strokeStyle = "rgb(231, 76, 60)"
+        ctx.fillStyle = "rgb(231, 76, 60)"
+    }
+    else {
+        ctx.strokeStyle = "rgb(52, 152, 219)";
+        ctx.fillStyle = "rgb(52, 152, 219)"
+    }
+
     ctx.fill();
     ctx.stroke();
+
+    if (!ptr) return;
+
+
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    ctx.fillText(
+        "ptr",
+        x2,
+        y1 + 10
+    );
 };
 
 
@@ -120,112 +158,290 @@ class LinkedList {
         this.run = false;
         this.input = [];
         this.arr = [];
+        this.squareWidth = 35;
+        this.squareHeight = 35;
     }
+    //     // console.log(data)
+    //     this.input.push(...data);
+    //     this.arr.push(...data)
 
-    insert(data, canvasRef) {
+    //     if (this.run) {
+    //         return;
+    //     }
 
-        // console.log(data)
+    //     this.run = true;
+
+    //     while (this.input.length) {
+    //         if (this.size === 0) {
+
+    //             let node = new Node(this.input[0], 50, (canvasRef.current.height / 2) - 35);
+
+    //             this.head = node;
+    //             this.tail = node;
+    //             this.size++;
+    //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
+    //             await time(25)
+    //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
+    //             this.input.shift();
+    //             continue;
+    //         }
+
+    //         let node = new Node(this.input[0], this.tail.x + 100, (canvasRef.current.height / 2) - 35);
+
+
+    async insert(data, canvasRef) {
+
+
+        //insertion of data coming from user
         this.input.push(...data);
-        this.arr.push(...data)
 
+        //check the insertion is still in running  process if true then return
         if (this.run) {
             return;
         }
 
+        // run for the first time so run become true to hold the upcoming insertion
         this.run = true;
 
         while (this.input.length) {
+            //check the linked list length is zero
             if (this.size === 0) {
 
-                let node = new Node(this.input[0], 50, (canvasRef.current.height / 2) - 35);
+                //create node
+                let node = new Node(this.input[0], 50, (canvasRef.current.height / 2) - this.squareHeight);
 
+                //head and tail both are equal to node 
                 this.head = node;
                 this.tail = node;
                 this.size++;
 
+
+                // remove older square and create new
+                drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
+                await time(25)
                 drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
+
+                // remove inserted element 
                 this.input.shift();
+                this.arr.push(node);
+
+                //create for null
+
+                drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
+                await time(25)
+                drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
+
+                //removing old square and create new one
+                drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef, true);
+                await time(25)
+                drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef);
                 continue;
             }
 
-            let node = new Node(this.input[0], this.tail.x + 100, (canvasRef.current.height / 2) - 35);
+            // create a pointer called current
+            let current = this.head;
 
-            drawSquare(node.data, node.x, node.y, false, false, false, canvasRef)
-            drawArrow(this.tail.x + 35, this.tail.y + 35 / 2, node.x, node.y + 35 / 2, canvasRef)
+            //first current pointer arrow create then remove
+            await time(25)
+            drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
+            await time(25)
+            drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+            drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
 
-            this.tail.next = node;
+
+            //go to the last node  and create arrow as we go to the next node;
+            while (current.next) {
+                current = current.next;
+                drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
+                await time(25);
+                drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+                drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
+
+            }
+
+            //last node next point to new node
+            let node = new Node(this.input[0], current.x + 100, current.y);
             this.tail = node;
+            current.next = node;
+
+            // remove old arrow point to the next node then create 
+            drawArrow(current.x + this.squareWidth + 5, current.y + this.squareHeight / 2, node.x - 5, node.y + 35 / 2, canvasRef, true)
+            drawArrow(current.x + this.squareWidth + 5, current.y + this.squareHeight / 2, node.x - 5, node.y + 35 / 2, canvasRef)
+
+            //removing old square and create new one
+            drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
+            drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
+
             this.size++;
             this.input.shift();
 
+            //create for null
+            drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
+            await time(25)
+            drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
+
+            //removing old square and create new one
+            drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef, true);
+            await time(25)
+            drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef);
+
+            this.arr.push(node);
+
+        }
+        this.run = false
+    }
+
+    //sending remove node and create square and arrow from that again by checking next node
+    async backSquareCreate(node, canvasRef) {
+
+        while (node.next) {
+            //remove old square and create new
+            drawSquare(node.next.data, node.x, node.y, false, false, false, canvasRef, true);
+            await time(25)
+            drawSquare(node.next.data, node.x, node.y, false, false, false, canvasRef);
+
+
+            //create for next
+            await time(25)
+            drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
+            await time(25)
+            drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
+
+            node = node.next;
         }
 
-        drawSquare("null", this.tail.x + 100, this.tail.y, false, false, false, canvasRef)
-        drawArrow(this.tail.x + 35, this.tail.y + 35 / 2, this.tail.x + 100, this.tail.y + 35 / 2, canvasRef)
-        this.run = false;
-        return this.head;
+        // removing last node
+        drawSquare("null", node.x, node.y, false, false, false, canvasRef, true);
+        await time(25)
+
+        //replacing last node with null 
+        drawSquare("null", node.x, node.y, false, false, false, canvasRef);
+        drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef, true);
+
+        drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
+
+    }
+
+    //change node position 
+    async changeAxis(node) {
+        console.log(node)
+        while (node) {
+            //remove old square and create new
+            node.x -= 100;
+            node = node.next;
+        }
+
     }
 
 
-    deleteByData(data, canvasRef) {
+    //delete node by data to create a new list  from where it was deleted
+    async deleteByData(data, canvasRef) {
 
         if (this.size === 0) {
             return;
 
         }
 
+        //remove
+
         if (data === this.head.data) {
+
+            let deleteNode;
             if (this.size === 1) {
+
+                //pointer
+                drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, false, true);
+                await time(25)
+                drawSquare(this.head.data, this.head.x, this.head.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+                drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, true);
+
+                //remove square and arrow 
                 drawSquare(this.head.data, this.head.x, this.head.y, false, false, false, canvasRef, true)
-                drawArrow(this.head.x + 35, this.head.y + 35 / 2, this.head.x + 100, this.head.y + 35 / 2, canvasRef, true)
+                await time(25);
+                drawArrow(this.head.x + this.squareWidth + 5, this.head.y + this.squareHeight / 2, this.head.x + 100 - 5, this.head.y + 35 / 2, canvasRef, true)
+
+                deleteNode = this.head;
 
                 this.head = null;
                 this.tail = null;
+                this.size--;
+                return;
             }
             else {
-                drawSquare(this.head.data, this.head.x, this.head.y, false, false, false, canvasRef, true)
-                drawArrow(this.head.x + 35, this.head.y + 35 / 2, this.head.x + 100, this.head.y + 35 / 2, canvasRef, true)
 
+                //pointer
+                drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, false, true);
+                await time(25)
+                drawSquare(this.head.data, this.head.x, this.head.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+                drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, true);
+
+
+                //remove square and arrow 
+                drawSquare(this.head.data, this.head.x, this.head.y, false, false, false, canvasRef, true)
+                await time(25);
+
+                drawArrow(this.head.x + this.squareWidth + 5, this.head.y + this.squareHeight / 2, this.head.x + 100 - 5, this.head.y + 35 / 2, canvasRef, true)
+
+                deleteNode = this.head;
                 this.head = this.head.next;
             }
 
 
-            let val = this.arr.filter((e) => e !== data)
+            await this.backSquareCreate(deleteNode, canvasRef);
+            await this.changeAxis(deleteNode)
 
-            this.size = 0;
-            this.arr = []
-            let lastX = this.tail.x;
-            let lastY = this.tail.y;
-            this.insert(val, canvasRef);
-            drawSquare("null", lastX+100, lastY, false, false, false, canvasRef, true)
-            drawArrow(lastX + 35, lastY + 35 / 2, lastX + 100, lastY + 35 / 2, canvasRef, true)
+
 
             this.size--;
             return this.head;
         }
 
-        // let current = this.head;
+        let current = this.head;
 
-        // while (current) {
-        //     if (current.next && current.next.data === data) {
-        //         break;
-        //     }
-        //     current = current.next;
-        // }
 
-        // if (!current) {
-        //     return this.head;
-        // }
+        while (current) {
+            //pointer
+            drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
+            await time(25)
+            //remove pointer
+            drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+            drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
 
-        // if (current.next.next === null) {
-        //     this.tail = current;
-        // }
+            if (current.next && current.next.data === data) {
+                break;
+            }
+            current = current.next;
+        }
 
-        // current.next = current.next.next;
-        // this.size--;
-        // return this.head;
+        if (!current) {
+            return this.head;
+        }
+
+        if (current.next.next === null) {
+            this.tail = current;
+        }
+
+        //pointer
+        drawArrow(current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 100, current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 10, canvasRef, false, true);
+        await time(25)
+        //remove last pointer
+        drawSquare(current.data, current.x + 100, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
+        drawArrow(current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 100, current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 10, canvasRef, true);
+
+
+        let deleteNode = current.next;
+
+
+        console.log(deleteNode)
+        current.next = current.next.next;
+        this.size--;
+
+        //sending deleteNode
+        await this.backSquareCreate(deleteNode, canvasRef);
+        await this.changeAxis(deleteNode);
+
+        return this.head;
     }
-
 
 }
 

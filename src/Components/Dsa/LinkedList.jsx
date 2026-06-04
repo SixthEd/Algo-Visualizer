@@ -44,6 +44,22 @@ function LinkedList() {
 
     },[deleteInput])
 
+
+    //   useEffect(() => {
+    //     const resize = window.addEventListener("resize", () => {
+    //         canvasRef.current.height = canvasRef.current.clientHeight;
+    //         canvasRef.current.width = canvasRef.current.clientWidth;
+
+    //         // console.log(canvasRef.current.style.height)
+
+    //     })
+    //     canvasRef.current.height = canvasRef.current.clientHeight;
+    //     canvasRef.current.width = canvasRef.current.clientWidth;
+
+
+
+    // }, [])
+
     return <div id="dsa-container">
         <div id="dsa-container-left">
             <div id="inner-left">
