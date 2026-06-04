@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Canvas from "./Canvas";
 import { useState } from 'react';
-import { useCallback } from 'react';
+import { useCallback , useEffect} from 'react';
 import { useRef } from 'react';
 import linkedList from '../DsaAlgo/linkedList';
 
@@ -44,21 +44,13 @@ function LinkedList() {
 
     },[deleteInput])
 
+    useEffect(() => {
+    
+       canvasRef.current.height = canvasRef.current.clientHeight;
+       canvasRef.current.width = canvasRef.current.clientWidth;
 
-    //   useEffect(() => {
-    //     const resize = window.addEventListener("resize", () => {
-    //         canvasRef.current.height = canvasRef.current.clientHeight;
-    //         canvasRef.current.width = canvasRef.current.clientWidth;
+   }, [])
 
-    //         // console.log(canvasRef.current.style.height)
-
-    //     })
-    //     canvasRef.current.height = canvasRef.current.clientHeight;
-    //     canvasRef.current.width = canvasRef.current.clientWidth;
-
-
-
-    // }, [])
 
     return <div id="dsa-container">
         <div id="dsa-container-left">
@@ -103,7 +95,7 @@ function LinkedList() {
                 <div>
                     <Arrow />
                 </div> */}
-            <canvas ref={canvasRef} height={"800px"} width={"1450px"}>
+            <canvas ref={canvasRef} style={{height:"100%", width:"100%"}}>
 
             </canvas>
         </div>
