@@ -6,10 +6,8 @@ import HomeIcon from '@mui/icons-material/Home';
 function PathFinderNavBar(props) {
 
     let [speed, setSpeed] = useState(0.05);
-    let [cells, setCells] = useState(10);
 
     let [speedToggle, setSpeedToggle] = useState(false);
-    let [cellToggle, setCellToggle] = useState(false);
     let [algoToggle, setAlgoToggle] = useState(false);
     let [mazeToggle, setMazeToggle] = useState(false);
 
@@ -36,17 +34,6 @@ function PathFinderNavBar(props) {
                             setSpeed(val);
                             props.setSpeed(val);
                         }} />
-                    </li>
-                </div>}
-            </ul>
-                
-            <ul onClick={() => { setCellToggle((prev) => !prev) }}>Cell Size ▼
-                {cellToggle && <div id="sorting-navarray">
-                    <li>
-                        Cells: {cells}
-                    </li>
-                    <li>
-                        <input type="range" min="5" max="30" step={5} onChange={(e) => { setCells(e.target.value); props.setCellSize(e.target.value) }} />
                     </li>
                 </div>}
             </ul>
