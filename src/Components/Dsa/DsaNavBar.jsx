@@ -1,4 +1,6 @@
 import { useState } from "react";
+import HomeIcon from '@mui/icons-material/Home';
+
 function DsaNavBar(props) {
 
     const [speed, setSpeed] = useState(0.05);
@@ -9,7 +11,7 @@ function DsaNavBar(props) {
 
     return <div id="dsa-navbar">
         <ul id="dsa-left-navbar">
-            <li>Home</li>
+            <li><a href="/home"><HomeIcon sx={{ fontSize: 30, color: "rgb(46, 204, 113)" }}/></a></li>
 
         </ul>
 

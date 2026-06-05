@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import HomeIcon from '@mui/icons-material/Home';
 
 function SortingNavBar(props) {
 
@@ -13,7 +14,7 @@ function SortingNavBar(props) {
 
     return <div id="sorting-navbar">
         <ul id="sorting-left-navbar">
-            <li>Home</li>
+            <li><a href="/home"><HomeIcon sx={{ fontSize: 30, color: "rgb(46, 204, 113)" }}/></a></li>
             <ul onClick={() => { setAlgoToggle((prev) => !prev) }}>Algorithms ▼
                 {algoToggle && <div id="sorting-algo">
                     <button onClick={() => props.setAlgo("bubble")}>Bubble Sort</button>
