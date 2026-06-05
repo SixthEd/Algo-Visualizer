@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 function Cards() {
     return <div id="cards">
         <div id="heading">Algorithm Visualizer</div>

@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Sorting from './Components/Sorting/Sorting.jsx';
 import Dsa from './Components/Dsa/Dsa.jsx';
 import PathFinder from './Components/Path Finder/PathFinder.jsx';
 import Home from "./Components/Cards.jsx";
-import { Component } from 'react';
 function App() {
   return <div>
     <BrowserRouter>
