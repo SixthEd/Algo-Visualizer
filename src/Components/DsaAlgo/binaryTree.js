@@ -17,7 +17,7 @@ class BinaryTree {
     }
 
     //check left and right are present if not then add and draw arrow then draw square
-    async createUi(data, canvasRef) {
+    async createUi(data, canvasRef, speedRef) {
         let squareSize = 35;
 
         //taking out first element from level then check the left and right node are present if not then add them
@@ -34,7 +34,7 @@ class BinaryTree {
 
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(5);
+            await time(speedRef.current);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -53,7 +53,7 @@ class BinaryTree {
 
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(5);
+            await time(speedRef.current);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -77,7 +77,7 @@ class BinaryTree {
     }
 
     //insert the data then create tree
-    async insert(data, canvasRef) {
+    async insert(data, canvasRef, speedRef) {
 
         //add new inputs
         this.inputs.push(...data)
@@ -101,7 +101,7 @@ class BinaryTree {
 
                 //draw square with node push color
                 drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
-                await time(5);
+                await time(speedRef.current);
                 //draw square with remove node push color
                 drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
@@ -109,7 +109,7 @@ class BinaryTree {
                 continue;
             }
             //create square with arrow 
-            let node = await this.createUi(data, canvasRef);
+            let node = await this.createUi(data, canvasRef, speedRef);
 
             this.arr.push(node);
             this.size++;
@@ -123,56 +123,56 @@ class BinaryTree {
     }
 
     //inOrder first go to the left down then print root then go to the right down 
-    async inOrder(root, send, canvasRef) {
+    async inOrder(root, send, canvasRef, speedRef) {
 
         if (!root) {
             return;
         }
 
-        await this.inOrder(root.leftNode, send, canvasRef);
+        await this.inOrder(root.leftNode, send, canvasRef, speedRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(speedRef.current)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
 
-        await this.inOrder(root.rightNode, send, canvasRef);
+        await this.inOrder(root.rightNode, send, canvasRef, speedRef);
     }
 
 
     //preOrder first print root then go to the left down then go to the right down
-    async preOrder(root, send, canvasRef) {
+    async preOrder(root, send, canvasRef,speedRef) {
 
         if (!root) {
             return;
         }
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(speedRef.current)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
 
-        await this.preOrder(root.leftNode, send, canvasRef);
+        await this.preOrder(root.leftNode, send, canvasRef, speedRef);
 
-        await this.preOrder(root.rightNode, send, canvasRef);
+        await this.preOrder(root.rightNode, send, canvasRef, speedRef);
     }
 
 
     //postOrder first go to the left down then right then print root
-    async postOrder(root, send, canvasRef) {
+    async postOrder(root, send, canvasRef, speedRef) {
 
         if (!root) {
             return;
         }
 
-        await this.postOrder(root.leftNode, send, canvasRef);
+        await this.postOrder(root.leftNode, send, canvasRef,speedRef);
 
-        await this.postOrder(root.rightNode, send, canvasRef);
+        await this.postOrder(root.rightNode, send, canvasRef, speedRef);
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(speedRef.current)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         send(root.data);
@@ -213,7 +213,7 @@ class BinaryTree {
     }
 
     //create tree after inverse the binary Tree
-    async createTree(root, canvasRef) {
+    async createTree(root, canvasRef, speedRef) {
         if (!root) {
             return;
         }
@@ -225,13 +225,13 @@ class BinaryTree {
             root.rightNode.gap = root.gap / 2;
 
             //first create arrow then draw square
-            await time(5)
+            await time(speedRef.current)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef);
 
 
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, true, false, false, canvasRef);
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
@@ -241,32 +241,32 @@ class BinaryTree {
             root.leftNode.gap = root.gap / 2;
 
             //first create arrow then square
-            await time(5)
+            await time(speedRef.current)
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef);
 
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, true, false, false, canvasRef);
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
         }
 
-        await this.createTree(root.leftNode, canvasRef);
-        await this.createTree(root.rightNode, canvasRef);
+        await this.createTree(root.leftNode, canvasRef, speedRef);
+        await this.createTree(root.rightNode, canvasRef, speedRef);
     }
 
 
     //inverted
 
-    async inverted(root, canvasRef) {
+    async inverted(root, canvasRef, speedRef) {
         if (!root) {
             return;
         }
 
         //check left node is exist if it is then remve left part of the root node and arrow
         if (root.leftNode) {
-            await time(5)
+            await time(speedRef.current)
             this.removeSquare(root.leftNode.x, root.leftNode.y, 2 * root.leftNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
-            await time(5)
+            await time(speedRef.current)
             drawArrow((root.leftNode.x + root.gap - 35) / 2, root.y + 35, (root.leftNode.x) / 2, root.y + 120, canvasRef, true)
 
 
@@ -274,9 +274,9 @@ class BinaryTree {
 
         //check right node is exist if it is then remve right part of the root node and arrow
         if (root.rightNode) {
-            await time(5)
+            await time(speedRef.current)
             this.removeSquare(root.rightNode.x, root.rightNode.y, 2 * root.rightNode.gap, 120 * Math.floor(Math.log2(this.arr.length + 1)) + 1, canvasRef, true);
-            await time(5)
+            await time(speedRef.current)
             drawArrow((root.rightNode.x - root.gap + 35) / 2, root.y + 35, (root.rightNode.x) / 2, root.y + 120, canvasRef, true)
 
         }
@@ -289,13 +289,13 @@ class BinaryTree {
 
             root.rightNode.x = root.x + root.gap;
             root.rightNode.gap = root.gap / 2;
-            await time(5)
+            await time(speedRef.current)
             drawArrow((root.x + 35) / 2, root.y + 35, (root.x + root.gap) / 2, root.y + 120, canvasRef)
-            await time(5)
+            await time(speedRef.current)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, true, canvasRef);
 
 
-            await this.createTree(root.rightNode, canvasRef);
+            await this.createTree(root.rightNode, canvasRef,speedRef);
 
         }
 
@@ -304,39 +304,39 @@ class BinaryTree {
             root.leftNode.x = root.x - root.gap;
             root.leftNode.gap = root.gap / 2;
 
-            await time(5)
+            await time(speedRef.current)
 
             drawArrow((root.x - 35) / 2, root.y + 35, (root.x - root.gap) / 2, root.y + 120, canvasRef)
-            await time(5)
+            await time(speedRef.current)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, true, canvasRef);
 
 
-            await this.createTree(root.leftNode, canvasRef);
+            await this.createTree(root.leftNode, canvasRef, speedRef);
 
         }
 
         //after create right sub-tree changing the color of swap nodes
         if (root.rightNode) {
-            await time(5)
+            await time(speedRef.current)
             drawSquare(root.rightNode.data, root.x + root.gap, root.y + 120, false, false, false, canvasRef);
 
         }
 
         //after create right sub-tree changing the color of swap nodes
         if (root.leftNode) {
-            await time(5)
+            await time(speedRef.current)
             drawSquare(root.leftNode.data, root.x - root.gap, root.y + 120, false, false, false, canvasRef);
 
         }
 
 
-        await this.inverted(root.leftNode, canvasRef);
-        await this.inverted(root.rightNode, canvasRef);
+        await this.inverted(root.leftNode, canvasRef, speedRef);
+        await this.inverted(root.rightNode, canvasRef, speedRef);
     }
 
     //search
     //go left then right for the search of the node if it is found then return true a
-    async search(data, root, canvasRef) {
+    async search(data, root, canvasRef, speedRef) {
         if (!root) {
             return;
         }
@@ -354,22 +354,22 @@ class BinaryTree {
 
         //check on which node we are for the searching
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(speedRef.current)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
         //go left for the searching if it is found then return true
-        if (await this.search(data, root.leftNode, canvasRef)) {
+        if (await this.search(data, root.leftNode, canvasRef, speedRef)) {
             return true;
         }
 
         //go right for the searching if it is found then return true
-        if (await this.search(data, root.rightNode, canvasRef)) {
+        if (await this.search(data, root.rightNode, canvasRef, speedRef)) {
             return true;
         }
     }
 
     //swapping the data to the depth node and then remove it
-    async swapping(data, root, canvasRef) {
+    async swapping(data, root, canvasRef, speedRef) {
 
         //check if root has left and right node if both are not exist then remove the root node and return true
         if (!root.leftNode && !root.rightNode) {
@@ -410,11 +410,11 @@ class BinaryTree {
             [root.data, root.leftNode.data] = [root.leftNode.data, root.data];
             drawSquare(root.data, root.x, root.y, false, false, true, canvasRef);
             drawSquare(root.leftNode.data, root.leftNode.x, root.leftNode.y, false, false, true, canvasRef);
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
             drawSquare(root.leftNode.data, root.leftNode.x, root.leftNode.y, false, false, false, canvasRef);
 
-            if (await this.swapping(data,root.leftNode, canvasRef)) {
+            if (await this.swapping(data,root.leftNode, canvasRef, speedRef)) {
                 return true;
             }
 
@@ -425,11 +425,11 @@ class BinaryTree {
             [root.data, root.rightNode.data] = [root.rightNode.data, root.data];
             drawSquare(root.data, root.x, root.y, false, false, true, canvasRef);
             drawSquare(root.rightNode.data, root.rightNode.x, root.rightNode.y, false, false, true, canvasRef);
-            await time(5);
+            await time(speedRef.current);
             drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
             drawSquare(root.rightNode.data, root.rightNode.x, root.rightNode.y, false, false, false, canvasRef);
 
-            if (await this.swapping(data,root.rightNode, canvasRef)) {
+            if (await this.swapping(data,root.rightNode, canvasRef, speedRef)) {
                 return true;
             }
 
@@ -437,27 +437,27 @@ class BinaryTree {
     }
 
     //delete
-    async delete(data, root, canvasRef) {
+    async delete(data, root, canvasRef, speedRef) {
         if (!root) {
             return;
         }
 
         if (root.data === data) {
 
-            await this.swapping(data, root, canvasRef);
+            await this.swapping(data, root, canvasRef, speedRef);
 
             return true;
         }
 
         drawSquare(root.data, root.x, root.y, true, false, false, canvasRef);
-        await time(5)
+        await time(speedRef.current)
         drawSquare(root.data, root.x, root.y, false, false, false, canvasRef);
 
-        if (await this.delete(data, root.leftNode, canvasRef)) {
+        if (await this.delete(data, root.leftNode, canvasRef, speedRef)) {
             return true;
         }
 
-        if (await this.delete(data, root.rightNode, canvasRef)) {
+        if (await this.delete(data, root.rightNode, canvasRef, speedRef)) {
             return true;
         }
     }

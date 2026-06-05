@@ -42,7 +42,7 @@ function Heaps(props) {
         }
 
 
-    }, [addInput, heapType])
+    }, [addInput, heapType, props.speedRef])
 
 
     const buttons = {

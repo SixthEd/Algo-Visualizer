@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState, useCallback, useRef , useEffect} from 'react';
 import BinaryTree from '../DsaAlgo/binaryTree';
 
-function BinaryTrees() {
+function BinaryTrees(props) {
 
     const [addInput, SetAddInput] = useState("1,2,3,4,5,6,7,8,9,10,11,12");
     const [deleteInput, SetDeleteInput] = useState("");
@@ -13,31 +13,32 @@ function BinaryTrees() {
     const canvasRef = useRef(null);
     const [traversalType, setTraversalType] = useState(null);
     const [traversalOutput, setTraversalOutput] = useState([]);
+
     const buttons = [
         {
             label: "INORDER TRAVERSAL",
-            onclick: () => { binaryTreeRef.current.inOrder(binaryTreeRef.current.root, send, canvasRef); }
+            onclick: () => { binaryTreeRef.current.inOrder(binaryTreeRef.current.root, send, canvasRef, props.speedRef); }
         },
         {
             label: "PREORDER TRAVERSAL",
-            onclick: () => { binaryTreeRef.current.preOrder(binaryTreeRef.current.root, send, canvasRef); }
+            onclick: () => { binaryTreeRef.current.preOrder(binaryTreeRef.current.root, send, canvasRef, props.speedRef); }
         },
         {
             label: "POSTORDER TRAVERSAL",
-            onclick: () => { binaryTreeRef.current.postOrder(binaryTreeRef.current.root, send, canvasRef); }
+            onclick: () => { binaryTreeRef.current.postOrder(binaryTreeRef.current.root, send, canvasRef, props.speedRef); }
 
         },
         {
             label: "INVERT BINARY TREE",
             onclick: () => {
-                binaryTreeRef.current.inverted(binaryTreeRef.current.root, canvasRef);
+                binaryTreeRef.current.inverted(binaryTreeRef.current.root, canvasRef, props.speedRef);
                 // console.log(binaryTreeRef.current.root)
             }
         }
     ]
 
     const send = useCallback((data) => {
-        console.log("send", data)
+        // console.log("send", data)
         setTraversalOutput((prev) => { return [...prev, data] });
     }, [])
 
@@ -45,17 +46,17 @@ function BinaryTrees() {
 
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
-        binaryTreeRef.current.insert(data, canvasRef)
+        binaryTreeRef.current.insert(data, canvasRef, props.speedRef)
         console.log(binaryTreeRef.current.root)
     }, [addInput])
 
     const search = useCallback(() => {
-        binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root, canvasRef);
+        binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root, canvasRef, props.speedRef);
     }, [searchInput])
 
     const deletion = useCallback(() => {
         console.log(binaryTreeRef.current.level)
-        binaryTreeRef.current.delete(parseInt(deleteInput), binaryTreeRef.current.root, canvasRef);
+        binaryTreeRef.current.delete(parseInt(deleteInput), binaryTreeRef.current.root, canvasRef, props.speedRef);
     }, [deleteInput])
 
 
