@@ -1,6 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Canvas from "./Canvas";
 import { useState } from 'react';
 import { useCallback , useEffect} from 'react';
 import { useRef } from 'react';
@@ -12,12 +11,6 @@ function LinkedList() {
     const linkedListRef= useRef(null);
     const canvasRef= useRef(null);
 
-    const buttons = [
-        {
-            label: "REVERSE THE LINKED LIST",
-            onclick: () => { console.log("Working") }
-        }
-    ]
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];
 
@@ -58,10 +51,6 @@ function LinkedList() {
             <div id="inner-left">
                 <p id="top-text">Linked List Algorithms</p>
 
-                {buttons.map((e, index) => {
-                    return <button onClick={() => { e.onclick() }} className="action-button" key={index}>{e.label} </button>
-                })}
-
                 <div id="input-containers">
                     <div className="input-button">
                         <div className="input-label">
@@ -92,12 +81,8 @@ function LinkedList() {
             </div>
         </div>
         <div id="dsa-container-right">
-            {/* <Node data={null} />
-                <div>
-                    <Arrow />
-                </div> */}
-
-            //canvas div size set to 100%
+            
+            {/*canvas div size set to 100%*/}
             <canvas ref={canvasRef} style={{height:"100%", width:"100%"}}>
 
             </canvas>
