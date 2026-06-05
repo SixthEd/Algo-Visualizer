@@ -181,7 +181,7 @@ class LinkedList {
     //             this.tail = node;
     //             this.size++;
     //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
-    //             await time(25)
+    //             await time(speedRef.current)
     //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
     //             this.input.shift();
     //             continue;
@@ -190,7 +190,7 @@ class LinkedList {
     //         let node = new Node(this.input[0], this.tail.x + 100, (canvasRef.current.height / 2) - 35);
 
 
-    async insert(data, canvasRef) {
+    async insert(data, canvasRef, speedRef) {
 
         //if delete node function is running then do not insert
         if (this.delRun) {
@@ -224,7 +224,7 @@ class LinkedList {
 
                 // remove older square and create new
                 drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
-                await time(25)
+                await time(speedRef.current)
                 drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
 
                 // remove inserted element 
@@ -234,12 +234,12 @@ class LinkedList {
                 //create for null
 
                 drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
-                await time(25)
+                await time(speedRef.current)
                 drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
 
                 //removing old square and create new one
                 drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef, true);
-                await time(25)
+                await time(speedRef.current)
                 drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef);
                 continue;
             }
@@ -248,9 +248,9 @@ class LinkedList {
             let current = this.head;
 
             //first current pointer arrow create then remove
-            await time(25)
+            await time(speedRef.current)
             drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
-            await time(25)
+            await time(speedRef.current)
             drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
             drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
 
@@ -259,7 +259,7 @@ class LinkedList {
             while (current.next) {
                 current = current.next;
                 drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
-                await time(25);
+                await time(speedRef.current);
                 drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
                 drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
 
@@ -283,12 +283,12 @@ class LinkedList {
 
             //create for null
             drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
-            await time(25)
+            await time(speedRef.current)
             drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
 
             //removing old square and create new one
             drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef, true);
-            await time(25)
+            await time(speedRef.current)
             drawSquare("null", node.x + 100, node.y, false, false, false, canvasRef);
 
             this.arr.push(node);
@@ -298,19 +298,19 @@ class LinkedList {
     }
 
     //sending remove node and create square and arrow from that again by checking next node
-    async backSquareCreate(node, canvasRef) {
+    async backSquareCreate(node, canvasRef, speedRef) {
 
         while (node.next) {
             //remove old square and create new
             drawSquare(node.next.data, node.x, node.y, false, false, false, canvasRef, true);
-            await time(25)
+            await time(speedRef.current)
             drawSquare(node.next.data, node.x, node.y, false, false, false, canvasRef);
 
 
             //create for next
-            await time(25)
+            await time(speedRef.current)
             drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef, true)
-            await time(25)
+            await time(speedRef.current)
             drawArrow(node.x + this.squareWidth + 5, node.y + this.squareHeight / 2, node.x + 100 - 5, node.y + 35 / 2, canvasRef)
 
             node = node.next;
@@ -318,7 +318,7 @@ class LinkedList {
 
         // removing last node
         drawSquare("null", node.x, node.y, false, false, false, canvasRef, true);
-        await time(25)
+        await time(speedRef.current)
 
         //replacing last node with null 
         drawSquare("null", node.x, node.y, false, false, false, canvasRef);
@@ -341,7 +341,7 @@ class LinkedList {
 
 
     //delete node by data to create a new list  from where it was deleted
-    async deleteByData(data, canvasRef) {
+    async deleteByData(data, canvasRef, speedRef) {
 
         if (this.size === 0) {
             return;
@@ -362,13 +362,13 @@ class LinkedList {
 
                 //pointer
                 drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, false, true);
-                await time(25)
+                await time(speedRef.current)
                 drawSquare(this.head.data, this.head.x, this.head.y + this.squareHeight + 100, false, false, false, canvasRef, true)
                 drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, true);
 
                 //remove square and arrow 
                 drawSquare(this.head.data, this.head.x, this.head.y, false, false, false, canvasRef, true)
-                await time(25);
+                await time(speedRef.current);
                 drawArrow(this.head.x + this.squareWidth + 5, this.head.y + this.squareHeight / 2, this.head.x + 100 - 5, this.head.y + 35 / 2, canvasRef, true)
 
                 deleteNode = this.head;
@@ -383,14 +383,14 @@ class LinkedList {
 
                 //pointer
                 drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, false, true);
-                await time(25)
+                await time(speedRef.current)
                 drawSquare(this.head.data, this.head.x, this.head.y + this.squareHeight + 100, false, false, false, canvasRef, true)
                 drawArrow(this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 100, this.head.x + this.squareWidth / 2, this.head.y + this.squareHeight + 10, canvasRef, true);
 
 
                 //remove square and arrow 
                 drawSquare(this.head.data, this.head.x, this.head.y, false, false, false, canvasRef, true)
-                await time(25);
+                await time(speedRef.current);
 
                 drawArrow(this.head.x + this.squareWidth + 5, this.head.y + this.squareHeight / 2, this.head.x + 100 - 5, this.head.y + 35 / 2, canvasRef, true)
 
@@ -399,7 +399,7 @@ class LinkedList {
             }
 
 
-            await this.backSquareCreate(deleteNode, canvasRef);
+            await this.backSquareCreate(deleteNode, canvasRef, speedRef);
             await this.changeAxis(deleteNode)
 
 
@@ -415,7 +415,7 @@ class LinkedList {
         while (current) {
             //pointer
             drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, false, true);
-            await time(25)
+            await time(speedRef.current)
             //remove pointer
             drawSquare(current.data, current.x, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
             drawArrow(current.x + this.squareWidth / 2, current.y + this.squareHeight + 100, current.x + this.squareWidth / 2, current.y + this.squareHeight + 10, canvasRef, true);
@@ -436,7 +436,7 @@ class LinkedList {
 
         //pointer
         drawArrow(current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 100, current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 10, canvasRef, false, true);
-        await time(25)
+        await time(speedRef.current)
         //remove last pointer
         drawSquare(current.data, current.x + 100, current.y + this.squareHeight + 100, false, false, false, canvasRef, true)
         drawArrow(current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 100, current.x + (this.squareWidth / 2) + 100, current.y + this.squareHeight + 10, canvasRef, true);
@@ -450,7 +450,7 @@ class LinkedList {
         this.size--;
 
         //sending deleteNode
-        await this.backSquareCreate(deleteNode, canvasRef);
+        await this.backSquareCreate(deleteNode, canvasRef, speedRef);
         await this.changeAxis(deleteNode);
 
         this.delRun = false;

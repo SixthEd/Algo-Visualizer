@@ -12,7 +12,7 @@ function Dsa() {
 
     return <div>
         <DsaNavBar algo={setAlgo} speedRef={speedRef} />
-        {algo==="Heaps"?<Heaps speedRef={speedRef}/>:algo==="Binary Tree"?<BinaryTrees speedRef={speedRef}/>:<LinkedList/>}
+        {algo==="Heaps"?<Heaps speedRef={speedRef}/>:algo==="Binary Tree"?<BinaryTrees speedRef={speedRef}/>:<LinkedList speedRef={speedRef}/>}
     </div>
 }
 

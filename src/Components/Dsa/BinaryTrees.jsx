@@ -48,16 +48,16 @@ function BinaryTrees(props) {
 
         binaryTreeRef.current.insert(data, canvasRef, props.speedRef)
         console.log(binaryTreeRef.current.root)
-    }, [addInput])
+    }, [addInput, props.speedRef])
 
     const search = useCallback(() => {
         binaryTreeRef.current.search(parseInt(searchInput), binaryTreeRef.current.root, canvasRef, props.speedRef);
-    }, [searchInput])
+    }, [searchInput, props.speedRef])
 
     const deletion = useCallback(() => {
         console.log(binaryTreeRef.current.level)
         binaryTreeRef.current.delete(parseInt(deleteInput), binaryTreeRef.current.root, canvasRef, props.speedRef);
-    }, [deleteInput])
+    }, [deleteInput, props.speedRef])
 
 
     const legend = ["On this node", "Comparing Nodes", "Swapping Nodes"];

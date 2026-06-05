@@ -5,7 +5,7 @@ import { useCallback , useEffect} from 'react';
 import { useRef } from 'react';
 import linkedList from '../DsaAlgo/linkedList';
 
-function LinkedList() {
+function LinkedList(props) {
     const [addInput, SetAddInput] = useState("1,2,3,4,5,6");
     const [deleteInput, SetDeleteInput] = useState("");
     const linkedListRef= useRef(null);
@@ -23,9 +23,9 @@ function LinkedList() {
         
         let arr= addInput.split(",").map((e)=>Number(e)).filter((e)=>!isNaN(e))
 
-        linkedListRef.current.insert(arr,canvasRef)
+        linkedListRef.current.insert(arr,canvasRef, props.speedRef)
 
-    },[addInput]);
+    },[addInput, props.speedRef]);
 
     const deletion = useCallback(()=>{
         if(!linkedListRef.current)
@@ -33,9 +33,9 @@ function LinkedList() {
             return;
         }
 
-        linkedListRef.current.deleteByData(Number(deleteInput),canvasRef);
+        linkedListRef.current.deleteByData(Number(deleteInput),canvasRef, props.speedRef);
 
-    },[deleteInput])
+    },[deleteInput, props.speedRef])
 
     //canvas board size set 
     useEffect(() => {
