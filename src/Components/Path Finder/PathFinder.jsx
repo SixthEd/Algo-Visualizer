@@ -14,8 +14,8 @@ import eller from "../pathfinderAlgo/eller";
 function PathFinder() {
     let [cellSize, setCellSize] = useState(15);
     let [matrix, setMatrix] = useState([]);
-    let [rows, setRows] = useState(31);
-    let [cols, setCols] = useState(85);
+    let rows = 31;
+    let cols = 85;
     let [startNode, setStartNode] = useState(null);
     let [endNode, setEndNode] = useState(null)
 
@@ -46,7 +46,7 @@ function PathFinder() {
                 break;
             default:
         }
-    }, [algo]);
+    }, [algo,endNode, matrix,startNode]);
 
     const cellClicked = useCallback((i, j) => {
         console.log("working")
@@ -65,7 +65,7 @@ function PathFinder() {
         if (mouseDown) {
             cellClicked(i, j)
         }
-    }, [mouseDown])
+    }, [mouseDown, cellClicked])
 
     const drop = useCallback((row, col) => (event) => {
         let type = event.dataTransfer.getData("type")
@@ -92,23 +92,23 @@ function PathFinder() {
 
     const clear = useCallback(() => {
 
-    })
+    },[])
 
     const selectMaze = useCallback(() => {
         switch (mazeAlgo) {
             case "Recursive Division":
                 // console.log("recursive")
-                recursiveDivision(0, 0, matrix.length-1, matrix[0].length-1, startNode, endNode, matrix, setMatrix, speedRef)
+                recursiveDivision(0, 0, matrix.length - 1, matrix[0].length - 1, startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Randomized Dfs":
-                randomizedDfs(startNode, endNode, matrix, setMatrix,speedRef);
+                randomizedDfs(startNode, endNode, matrix, setMatrix, speedRef);
                 break;
             case "Eller":
-                eller(startNode, endNode,matrix,setMatrix, speedRef);
+                eller(startNode, endNode, matrix, setMatrix, speedRef);
                 break;
             default:
         }
-    }, [mazeAlgo])
+    }, [mazeAlgo,endNode,matrix,startNode])
 
     useEffect(() => {
 
