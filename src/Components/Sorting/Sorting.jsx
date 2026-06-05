@@ -58,7 +58,7 @@ function Sorting() {
     useEffect(() => {
         if (algo === null || algo === undefined) return;
         sort()
-    }, [algo])
+    }, [algo, sort])
 
 
     useEffect(() => {

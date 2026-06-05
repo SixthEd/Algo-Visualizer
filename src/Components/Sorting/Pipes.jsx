@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
 
 function Pipes(props) {
 
-const isSwap = props.select?.num1 == props.index|| props.select?.num2 == props.index;
+const isSwap = props.select?.num1 === props.index|| props.select?.num2 === props.index;
 const isSorted = props.select?.sorted?.includes(props.index);
-const isPivot= props.select?.pivot== props.index
+const isPivot= props.select?.pivot=== props.index
 
 let color = "#34495e";
 if(isSwap) 
