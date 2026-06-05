@@ -42,7 +42,6 @@ function BinaryTrees() {
     }, [])
 
     const addNode = useCallback(() => {
-        // drawSquare(addInput);
 
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
@@ -122,10 +121,7 @@ function BinaryTrees() {
             </div>
         </div>
         <div id="dsa-container-right">
-            {/* <Node data={null} />
-                <div>
-                    <Arrow />
-                </div> */}
+            
             <canvas ref={canvasRef} style={{height:"100%", width:"100%"}}>
 
             </canvas>

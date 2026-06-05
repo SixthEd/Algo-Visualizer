@@ -11,7 +11,6 @@ function DsaNavBar(props) {
         <ul id="dsa-left-navbar">
             <li>Home</li>
 
-
         </ul>
 
         <ul id="dsa-right-navbar">

@@ -2,7 +2,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { useCallback, useEffect, useRef } from "react";
 import MaxHeap from '../DsaAlgo/maxheap';
-import Node from '../DsaAlgo/node';
 import MinHeap from '../DsaAlgo/minheap';
 
 
@@ -10,7 +9,7 @@ function Heaps() {
 
 
     const [addInput, setAddInput] = useState("1,2,3,4,5");
-    // const [heap, setHeap] = useState([]);
+
     const [heapType, setHeapType] = useState(null);
 
     let canvasRef = useRef(null);
@@ -18,28 +17,7 @@ function Heaps() {
     let minHeapRef = useRef(new MinHeap());
 
 
-    //set pixel if canvas width and height change
-    // const setPixel = useCallback(() => {
-    //     const canvas = canvasRef.current;
-
-    //     const dpr = window.devicePixelRatio || 1;
-
-    //     // Logical size
-    //     const width = canvas.width;
-    //     const height = canvas.height;
-
-    //     // Keep visual size same
-    //     canvas.style.width = width + "px";
-    //     canvas.style.height = height + "px";
-
-    //     // Increase resolution
-    //     canvas.width = width * dpr;
-    //     canvas.height = height * dpr;
-    // })
-
-
     const addNode = useCallback(() => {
-        // drawSquare(addInput);
 
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
