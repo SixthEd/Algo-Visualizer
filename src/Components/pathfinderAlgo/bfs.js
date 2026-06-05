@@ -12,7 +12,7 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
     startNode.isVisited = true;
 
     let queue = [];
-    let path = []
+    // let path = []
     queue.push([startrow, startcol])
 
     while (queue.length) {

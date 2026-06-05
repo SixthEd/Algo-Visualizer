@@ -72,6 +72,7 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
 
             break;
         }
+        default:
     }
 
     console.log({
