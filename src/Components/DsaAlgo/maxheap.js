@@ -17,9 +17,10 @@ class MaxHeap {
     }
 
     //check left and right are present if not then add and draw arrow then draw square
-    async createUi(data, canvasRef) {
+    async createUi(data, canvasRef, speedRef) {
         let squareSize = 35;
 
+        
         //taking out first element from level then check the left and right node are present if not then add them
         let currentLevelNode = this.level[0];
 
@@ -32,7 +33,7 @@ class MaxHeap {
 
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(5);
+            await time(speedRef.current);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x - currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -52,7 +53,7 @@ class MaxHeap {
 
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, true, false, false, canvasRef);
 
-            await time(25);
+            await time(speedRef.current);
 
             //create arrow and recreate the square without current node color
             drawSquare(data, currentLevelNode.x + currentLevelNode.gap, currentLevelNode.y + 120, false, false, false, canvasRef);
@@ -69,7 +70,7 @@ class MaxHeap {
 
     }
 
-    async insert(data, canvasRef) {
+    async insert(data, canvasRef,speedRef) {
 
         //add new inputs
         this.inputs.push(...data)
@@ -93,7 +94,7 @@ class MaxHeap {
 
                 //draw square with node push color
                 drawSquare(data, 1450, 0.5, true, false, false, canvasRef);
-                await time(5);
+                await time(speedRef.current);
                 //draw square with remove node push color
                 drawSquare(data, 1450, 0.5, false, false, false, canvasRef);
 
@@ -101,7 +102,7 @@ class MaxHeap {
                 continue;
             }
             //create square with arrow 
-            let node = await this.createUi(data, canvasRef);
+            let node = await this.createUi(data, canvasRef, speedRef);
 
             this.arr.push(node);
             this.size++;
@@ -114,7 +115,7 @@ class MaxHeap {
                 if (this.arr[parent].data < this.arr[index].data) {
 
                     //for swap data
-                    await swap(this.arr, parent, index, canvasRef)
+                    await swap(this.arr, parent, index, canvasRef, speedRef)
 
                     index = parent;
                 }
@@ -128,7 +129,7 @@ class MaxHeap {
 
     }
 
-    async delete(canvasRef) {
+    async delete(canvasRef, speedRef) {
 
         if (!this.size) {
             return;
@@ -142,7 +143,7 @@ class MaxHeap {
         }
 
         //then swap root with last node
-        await swap(this.arr, 0, this.size - 1, canvasRef);
+        await swap(this.arr, 0, this.size - 1, canvasRef,speedRef);
 
         // then clear the last node
         clearNode(this.arr, this.size - 1, canvasRef)
@@ -180,7 +181,7 @@ class MaxHeap {
 
             if (largest !== index) {
                 console.log(largest, index)
-                await swap(this.arr, largest, index, canvasRef);
+                await swap(this.arr, largest, index, canvasRef,speedRef);
                 index = largest;
             }
             else {

@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState, useRef } from "react";
 import DsaNavBar from "./DsaNavBar";
 
 import BinaryTrees from "./BinaryTrees";
@@ -7,10 +7,12 @@ import LinkedList from "./LinkedList";
 
 function Dsa() {
     const [algo, setAlgo] = useState(null);
+    const speedRef = useRef(0.05)
+
 
     return <div>
-        <DsaNavBar algo={setAlgo} />
-        {algo==="Heaps"?<Heaps/>:algo==="Binary Tree"?<BinaryTrees/>:<LinkedList/>}
+        <DsaNavBar algo={setAlgo} speedRef={speedRef} />
+        {algo==="Heaps"?<Heaps speedRef={speedRef}/>:algo==="Binary Tree"?<BinaryTrees/>:<LinkedList/>}
     </div>
 }
 

@@ -31,6 +31,7 @@ function DsaNavBar(props) {
                         <input type="range" min="0.5" max="2" step={0.05}  value={speed} onChange={(e)=>{
                             let value = parseFloat(e.target.value)
                             setSpeed(value);
+                            props.speedRef.current= value;
                         }}/>
                     </li>
                 </div>}

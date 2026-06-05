@@ -5,7 +5,7 @@ import MaxHeap from '../DsaAlgo/maxheap';
 import MinHeap from '../DsaAlgo/minheap';
 
 
-function Heaps() {
+function Heaps(props) {
 
 
     const [addInput, setAddInput] = useState("1,2,3,4,5");
@@ -29,14 +29,14 @@ function Heaps() {
                     minHeapRef.current = null;
                     maxHeapRef.current = new MaxHeap();
                 }
-                maxHeapRef.current.insert(data, canvasRef);
+                maxHeapRef.current.insert(data, canvasRef, props.speedRef);
                 break;
             case 1:
                 if (!minHeapRef.current) {
                     maxHeapRef.current = null;
                     minHeapRef.current = new MinHeap();
                 }
-                minHeapRef.current.insert(data, canvasRef);
+                minHeapRef.current.insert(data, canvasRef, props.speedRef);
                 break;
             default:
         }
@@ -49,13 +49,13 @@ function Heaps() {
         0: [
             {
                 label: "TAKE OUT MAXIMUM ELEMENT",
-                onclick: () => { maxHeapRef.current?.delete(canvasRef) }
+                onclick: () => { maxHeapRef.current?.delete(canvasRef, props.speedRef) }
             }
         ],
         1: [
             {
                 label: "TAKE OUT MINIMUM ELEMENT",
-                onclick: () => { minHeapRef.current?.delete(canvasRef) }
+                onclick: () => { minHeapRef.current?.delete(canvasRef,props.speedRef) }
             }
         ]
     }
