@@ -43,14 +43,14 @@ function PathFinderNavBar(props) {
                     <button onClick={() => {props.mazeAlgo("Randomized Dfs")}}>Randomized DFS</button>
                     <button onClick={() => {props.mazeAlgo("Recursive Division"); props.selectMaze("Rcursive Division")}}>Recursive Division</button>
                     <button onClick={() => {props.mazeAlgo("Eller"); props.selectMaze("Eller")}}>Eller's Algorithm</button>
-                    <button onClick={() => {}}>Random Maze</button>
+                    {/* <button onClick={() => {}}>Random Maze</button> */}
                 </div>}
             </ul>
         </ul>
 
         <ul id="sorting-right-navbar">
             <button onClick={()=>{props.start(props.algo)}}>Start</button>
-            <button onClick={()=>{}}>Clear Path</button>
+            <button onClick={()=>{props.clear()}}>Clear Path</button>
             <button onClick={()=>{props.reset()}}>Reset Board</button>
         </ul>
     </div>

@@ -46,7 +46,7 @@ function PathFinder() {
                 break;
             default:
         }
-    }, [algo,endNode, matrix,startNode]);
+    }, [algo, endNode, matrix, startNode]);
 
     const cellClicked = useCallback((i, j) => {
         console.log("working")
@@ -92,7 +92,26 @@ function PathFinder() {
 
     const clear = useCallback(() => {
 
-    },[])
+        let newMatrix = matrix.map((row) => row.map((node) => {
+            node.neighbour = [];
+            node.isDefault = true;
+            node.isVisited = false;
+            node.isOpen = false;
+            node.isClose = false;
+            node.previousRow = null;
+            node.previousCol = null;
+            node.isFinalPath = false;
+            node.gScore = Infinity;
+            node.hScore = Infinity;
+            node.fScore = Infinity;
+            node.dist = Infinity;
+            node.neighbour = [];
+            node.set = null;
+            return node
+        }))
+
+        setMatrix(newMatrix)
+    }, [matrix])
 
     const selectMaze = useCallback(() => {
         switch (mazeAlgo) {
@@ -108,7 +127,7 @@ function PathFinder() {
                 break;
             default:
         }
-    }, [mazeAlgo,endNode,matrix,startNode])
+    }, [mazeAlgo, endNode, matrix, startNode])
 
     useEffect(() => {
 
@@ -133,7 +152,7 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo} selectMaze={selectMaze} mazeAlgo={setMazeAlgo} />
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo} selectMaze={selectMaze} mazeAlgo={setMazeAlgo} clear={clear} />
         <div>
             <ul id="pathfinder-middle">
                 <ul>
