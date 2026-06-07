@@ -23,7 +23,17 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
 
         matrix[row][col].isOpen = false;
         matrix[row][col].isClose = true;
-        setMatrix([...matrix])
+        let newMatrix = [];
+
+        for (const row of matrix) {
+            let newNew = [];
+            for (const col of row) {
+                newNew.push(col);
+            }
+            newMatrix.push(newNew);
+        }
+
+        setMatrix(newMatrix);
 
         //backtracking to track the path from endNode to startNode
         if (endNode.row === row && endNode.col === col) {
@@ -48,13 +58,33 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
 
                 if (pathRow === startrow && pathCol === startcol) {
 
-                    setMatrix([...matrix])
+                    let newMatrix = [];
+
+                    for (const row of matrix) {
+                        let newNew = [];
+                        for (const col of row) {
+                            newNew.push(col);
+                        }
+                        newMatrix.push(newNew);
+                    }
+
+                    setMatrix(newMatrix);
                     break;
                 }
 
                 pathRow = node.previousRow;
                 pathCol = node.previousCol;
-                setMatrix([...matrix]);
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
 
             }
             return;
@@ -84,7 +114,17 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
                 matrix[newRow][newCol].previousCol = col;
 
                 queue.push([newRow, newCol]);
-                setMatrix([...matrix])
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
             }
 
         }
@@ -92,7 +132,17 @@ async function bfs(startNode, endNode, matrix, setMatrix, speedRef) {
     }
 
 
-    setMatrix([...matrix]);
+    let newMatrix = [];
+
+    for (const row of matrix) {
+        let newNew = [];
+        for (const col of row) {
+            newNew.push(col);
+        }
+        newMatrix.push(newNew);
+    }
+
+    setMatrix(newMatrix);
 }
 
 export default bfs;

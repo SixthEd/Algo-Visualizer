@@ -34,7 +34,17 @@ async function aStarSearch(startNode, endNode, matrix, setMatrix, speedRef) {
         matrix[row][col].isOpen = false;
         matrix[row][col].isClose = true;
 
-        setMatrix([...matrix]);
+        let newMatrix = [];
+
+        for (const row of matrix) {
+            let newNew = [];
+            for (const col of row) {
+                newNew.push(col);
+            }
+            newMatrix.push(newNew);
+        }
+
+        setMatrix(newMatrix);
 
         //backtrack the path from goal to start
         if (row === endNode.row && col === endNode.col) {
@@ -42,31 +52,50 @@ async function aStarSearch(startNode, endNode, matrix, setMatrix, speedRef) {
             let prevRow = endNode.row;
             let prevCol = endNode.col;
 
-            endNode.isFinalPath =true;
+            endNode.isFinalPath = true;
 
             while (true) {
                 await time(speedRef.current);
-                
+
                 let node = matrix[prevRow]?.[prevCol];
 
-                if(!node)
-                {
+                if (!node) {
                     break;
                 }
                 node.isOpen = false;
                 node.isClose = false;
                 node.isFinalPath = true;
 
-                if(prevRow === startNode.row && prevCol ===startNode.col)
-                {
-                    setMatrix([...matrix]);
+                if (prevRow === startNode.row && prevCol === startNode.col) {
+
+                    let newMatrix = [];
+
+                    for (const row of matrix) {
+                        let newNew = [];
+                        for (const col of row) {
+                            newNew.push(col);
+                        }
+                        newMatrix.push(newNew);
+                    }
+
+                    setMatrix(newMatrix);
                     return;
                 }
 
-                prevRow =node.previousRow;
+                prevRow = node.previousRow;
                 prevCol = node.previousCol;
 
-                setMatrix([...matrix])
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
 
             }
             return;
@@ -85,7 +114,7 @@ async function aStarSearch(startNode, endNode, matrix, setMatrix, speedRef) {
             if (!matrix[newRow][newCol].isVisited && !matrix[newRow][newCol].isWall) {
 
 
-            //go through each neigbour and find hscore, path and calculate fscore and store into queue
+                //go through each neigbour and find hscore, path and calculate fscore and store into queue
                 let newGScore = matrix[row][col].gScore + 1;
 
                 if (newGScore < matrix[newRow][newCol].gScore) {
@@ -104,7 +133,17 @@ async function aStarSearch(startNode, endNode, matrix, setMatrix, speedRef) {
 
                     matrix[newRow][newCol].isOpen = true;
                     matrix[newRow][newCol].isClose = false;
-                    setMatrix([...matrix])
+                    let newMatrix = [];
+
+                    for (const row of matrix) {
+                        let newNew = [];
+                        for (const col of row) {
+                            newNew.push(col);
+                        }
+                        newMatrix.push(newNew);
+                    }
+
+                    setMatrix(newMatrix);
                 }
             }
 

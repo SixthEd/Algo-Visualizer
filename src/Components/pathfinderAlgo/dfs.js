@@ -17,7 +17,7 @@ async function dfs(startNode, endNode, row, col, matrix, setMatrix, speedRef) {
     }
 
     let node = matrix[row]?.[col];
-    
+
     //check node is undefined or visited or wall 
 
     if (!node || node.isVisited || node.isWall) {
@@ -28,19 +28,39 @@ async function dfs(startNode, endNode, row, col, matrix, setMatrix, speedRef) {
 
     node.isOpen = true;
     node.isClose = false;
-    setMatrix([...matrix]);
-    
+    let newMatrix = [];
+
+    for (const row of matrix) {
+        let newNew = [];
+        for (const col of row) {
+            newNew.push(col);
+        }
+        newMatrix.push(newNew);
+    }
+
+    setMatrix(newMatrix);
+
     //go through each neighbour select and go through the depth if the goal is found the return true
     for (let i = 0; i < 4; i++) {
         let newRow = row + dr[i];
         let newCol = col + dc[i];
 
-        setMatrix([...matrix])
+        let newMatrix = [];
+
+        for (const row of matrix) {
+            let newNew = [];
+            for (const col of row) {
+                newNew.push(col);
+            }
+            newMatrix.push(newNew);
+        }
+
+        setMatrix(newMatrix);
         await time(speedRef.current)
 
         if (await dfs(startNode, endNode, newRow, newCol, matrix, setMatrix, speedRef)) {
-            
-            startNode.isFinalPath=true;
+
+            startNode.isFinalPath = true;
             matrix[newRow][newCol].isFinalPath = true;
             setMatrix([...matrix]);
             await time(speedRef.current);
@@ -50,7 +70,17 @@ async function dfs(startNode, endNode, row, col, matrix, setMatrix, speedRef) {
     }
     node.isOpen = false;
     node.isClose = true;
-    setMatrix([...matrix])
+    let newmatrix = [];
+
+    for (const row of matrix) {
+        let newNew = [];
+        for (const col of row) {
+            newNew.push(col);
+        }
+        newmatrix.push(newNew);
+    }
+
+    setMatrix(newmatrix);
 
 }
 

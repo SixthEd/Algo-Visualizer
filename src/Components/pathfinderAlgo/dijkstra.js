@@ -32,7 +32,17 @@ async function dijkstra(startNode, endNode, matrix, setMatrix, speedRef) {
             endNode.isClose = false;
             endNode.isFinalPath = true;
 
-            setMatrix([...matrix])
+            let newMatrix = [];
+
+            for (const row of matrix) {
+                let newNew = [];
+                for (const col of row) {
+                    newNew.push(col);
+                }
+                newMatrix.push(newNew);
+            }
+
+            setMatrix(newMatrix);
 
             while (true) {
                 let node = matrix[prevRow]?.[prevCol];
@@ -45,7 +55,17 @@ async function dijkstra(startNode, endNode, matrix, setMatrix, speedRef) {
                 node.isClose = false;
                 node.isFinalPath = true;
 
-                setMatrix([...matrix])
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
                 await time(speedRef.current)
 
 
@@ -86,7 +106,17 @@ async function dijkstra(startNode, endNode, matrix, setMatrix, speedRef) {
                 matrix[newRow][newCol].isOpen = true;
                 matrix[newRow][newCol].isClose = false;
 
-                setMatrix([...matrix])
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
 
                 queue.push([newDist, newRow, newCol])
             }

@@ -33,7 +33,17 @@ async function eller(startNode, endNode, matrix, setMatrix, speedRef) {
                 let right = matrix[i][j + 2].set;
 
                 matrix[i][j + 1].isWall = false;
-                setMatrix([...matrix]);
+                let newMatrix = [];
+
+                for (const row of matrix) {
+                    let newNew = [];
+                    for (const col of row) {
+                        newNew.push(col);
+                    }
+                    newMatrix.push(newNew);
+                }
+
+                setMatrix(newMatrix);
                 await time(speedRef.current)
 
                 for (let k = j + 2; k < matrix[0].length; k += 2) {
@@ -65,7 +75,17 @@ async function eller(startNode, endNode, matrix, setMatrix, speedRef) {
                 if (!open || Math.random() < 0.5) {
                     matrix[i + 2][j].set = Number(key);
                     matrix[i + 1][j].isWall = false;
-                    setMatrix([...matrix]);
+                    let newMatrix = [];
+
+                    for (const row of matrix) {
+                        let newNew = [];
+                        for (const col of row) {
+                            newNew.push(col);
+                        }
+                        newMatrix.push(newNew);
+                    }
+
+                    setMatrix(newMatrix);
                     await time(speedRef.current)
                     open = true;
                 }
@@ -83,8 +103,20 @@ async function eller(startNode, endNode, matrix, setMatrix, speedRef) {
             let right = matrix[lastRow][j + 2].set;
 
             matrix[lastRow][j + 1].isWall = false;
+            
+            let newMatrix = [];
+
+            for (const row of matrix) {
+                let newNew = [];
+                for (const col of row) {
+                    newNew.push(col);
+                }
+                newMatrix.push(newNew);
+            }
+
+            setMatrix(newMatrix);
+
             await time(speedRef.current);
-            setMatrix([...matrix]);
 
             for (let k = j + 2; k < matrix[0].length; k += 2) {
                 if (matrix[lastRow][k].set === right) {

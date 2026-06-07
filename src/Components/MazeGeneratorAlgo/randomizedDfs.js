@@ -44,7 +44,7 @@ function selectNeighbour(cell) {
 
 
 //remove wall
-function removeWall(neighbour, direction, matrix, setMatrix) {
+async function removeWall(neighbour, direction, matrix, setMatrix, speedRef) {
     switch (direction) {
         case "N":
             matrix[neighbour.row + 1][neighbour.col].isWall = false
@@ -65,7 +65,20 @@ function removeWall(neighbour, direction, matrix, setMatrix) {
         default:
             break;
     }
-    setMatrix([...matrix])
+
+    let newMatrix = [];
+
+    for (const row of matrix) {
+        let newNew = [];
+        for (const col of row) {
+            newNew.push(col);
+        }
+        newMatrix.push(newNew);
+    }
+
+    setMatrix(newMatrix);
+
+    await time(speedRef.current)
 }
 
 
@@ -89,9 +102,7 @@ async function dfs(row, col, startNode, endNode, matrix, setMatrix, speedRef) {
             neighbour.isVisited = true;
 
             //remove wall in the direction where you are moving
-            removeWall(neighbour, direction, matrix, setMatrix);
-
-            await time(speedRef.current)
+            await removeWall(neighbour, direction, matrix, setMatrix, speedRef);
 
             stack.push(neighbour);
         }
