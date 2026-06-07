@@ -8,7 +8,7 @@ function Cards() {
                 <div id="card-Sorting">
 
                     <div className="card-img">
-                        <img src="" alt="" />
+                        <img src="/bubble-sort.gif" alt="" />
                     </div>
                     <div className="card-content">
                         <h2>Sorting</h2>
@@ -21,7 +21,7 @@ function Cards() {
                 <div id="card-Pathfinding">
 
                     <div className="card-img">
-                        <img src="" alt="" />
+                        <img src="/maze.gif" alt="" />
                     </div>
                     <div className="card-content">
                         <h2>Path Finder and Maze Generators</h2>
@@ -34,7 +34,7 @@ function Cards() {
                 <div id="card-DsaAlgo">
 
                     <div className="card-img">
-                        <img src="" alt="" />
+                        <img src="/tree.gif" alt="" />
                     </div>
                     <div className="card-content">
                         <h2>Data Structures and Algorithms</h2>
