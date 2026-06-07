@@ -77,9 +77,6 @@ async function dijkstra(startNode, endNode, matrix, setMatrix, speedRef) {
             let oldDist = matrix[newRow][newCol].dist;
 
 
-            console.log(row, col, newDist, oldDist, newRow, newCol);
-
-
             if (newDist < oldDist) {
                 matrix[newRow][newCol].dist = newDist;
 

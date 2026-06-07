@@ -32,13 +32,12 @@ function BinaryTrees(props) {
             label: "INVERT BINARY TREE",
             onclick: () => {
                 binaryTreeRef.current.inverted(binaryTreeRef.current.root, canvasRef, props.speedRef);
-                // console.log(binaryTreeRef.current.root)
+                
             }
         }
     ]
 
     const send = useCallback((data) => {
-        // console.log("send", data)
         setTraversalOutput((prev) => { return [...prev, data] });
     }, [])
 
@@ -47,7 +46,7 @@ function BinaryTrees(props) {
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
         binaryTreeRef.current.insert(data, canvasRef, props.speedRef)
-        console.log(binaryTreeRef.current.root)
+
     }, [addInput, props.speedRef])
 
     const search = useCallback(() => {
@@ -55,7 +54,7 @@ function BinaryTrees(props) {
     }, [searchInput, props.speedRef])
 
     const deletion = useCallback(() => {
-        console.log(binaryTreeRef.current.level)
+        
         binaryTreeRef.current.delete(parseInt(deleteInput), binaryTreeRef.current.root, canvasRef, props.speedRef);
     }, [deleteInput, props.speedRef])
 

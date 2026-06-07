@@ -1,3 +1,3 @@
-let time =(ms)=> new Promise((res)=>setTimeout(()=>{console.log(ms);res()},ms));
+let time =(ms)=> new Promise((res)=>setTimeout(()=>{res()},ms));
 
 export default time

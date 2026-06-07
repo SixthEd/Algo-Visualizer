@@ -208,7 +208,6 @@ class BinaryTree {
 
         ctx.stroke();
 
-        console.log(x, y, rectWidth, rectHeight)
 
     }
 

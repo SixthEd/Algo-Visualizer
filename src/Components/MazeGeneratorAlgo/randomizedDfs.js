@@ -9,7 +9,6 @@ function collectNeighbours(cell, matrix) {
     let col = cell.col;
     let neighbours = [];
 
-    console.log(row, col)
     for (let i = 0; i < 4; i++) {
         let newRow = row + dr[i];
         let newCol = col + dc[i];
@@ -40,7 +39,6 @@ function collectNeighbours(cell, matrix) {
 function selectNeighbour(cell) {
     let index = Math.floor(Math.random() * cell.neighbour.length);
 
-    console.log(cell.neighbour)
     return cell.neighbour[index]
 }
 

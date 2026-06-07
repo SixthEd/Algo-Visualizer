@@ -49,7 +49,6 @@ function PathFinder() {
     }, [algo, endNode, matrix, startNode]);
 
     const cellClicked = useCallback((i, j) => {
-        console.log("working")
 
         if ((startNode.row === i && startNode.col === j) || (endNode.row === i && endNode.col === j)) return setMouseDown(false);
 
@@ -75,7 +74,7 @@ function PathFinder() {
         else if (type === "end") {
             setEndNode(matrix[row][col])
         }
-        console.log("working", row, col)
+
     }, [matrix])
 
 
@@ -116,7 +115,6 @@ function PathFinder() {
     const selectMaze = useCallback(() => {
         switch (mazeAlgo) {
             case "Recursive Division":
-                // console.log("recursive")
                 recursiveDivision(0, 0, matrix.length - 1, matrix[0].length - 1, startNode, endNode, matrix, setMatrix, speedRef)
                 break;
             case "Randomized Dfs":

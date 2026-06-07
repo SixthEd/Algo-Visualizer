@@ -162,32 +162,6 @@ class LinkedList {
         this.squareWidth = 35;
         this.squareHeight = 35;
     }
-    //     // console.log(data)
-    //     this.input.push(...data);
-    //     this.arr.push(...data)
-
-    //     if (this.run) {
-    //         return;
-    //     }
-
-    //     this.run = true;
-
-    //     while (this.input.length) {
-    //         if (this.size === 0) {
-
-    //             let node = new Node(this.input[0], 50, (canvasRef.current.height / 2) - 35);
-
-    //             this.head = node;
-    //             this.tail = node;
-    //             this.size++;
-    //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef, true);
-    //             await time(speedRef.current)
-    //             drawSquare(node.data, node.x, node.y, false, false, false, canvasRef);
-    //             this.input.shift();
-    //             continue;
-    //         }
-
-    //         let node = new Node(this.input[0], this.tail.x + 100, (canvasRef.current.height / 2) - 35);
 
 
     async insert(data, canvasRef, speedRef) {
@@ -330,7 +304,7 @@ class LinkedList {
 
     //change node position 
     async changeAxis(node) {
-        console.log(node)
+
         while (node) {
             //remove old square and create new
             node.x -= 100;
@@ -445,7 +419,6 @@ class LinkedList {
         let deleteNode = current.next;
 
 
-        console.log(deleteNode)
         current.next = current.next.next;
         this.size--;
 

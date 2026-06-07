@@ -151,7 +151,7 @@ class MinHeap {
         let left = 2 * parent + 1;
         let right = 2 * parent + 2;
         if (right === this.size - 1) {
-            console.log("right")
+
             this.level.unshift(this.arr[parent]);
 
         }
@@ -177,7 +177,7 @@ class MinHeap {
             }
 
             if (smallest !== index) {
-                console.log(smallest, index)
+
                 await swap(this.arr, smallest, index, canvasRef, speedRef);
                 index = smallest;
             }

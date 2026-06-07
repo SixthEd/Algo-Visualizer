@@ -75,25 +75,11 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
         default:
     }
 
-    console.log({
-        depth,
-        wallRow,
-        wallCol,
-        orientation,
-        rowsArray,
-        colsPassageArray,
-        colsArray,
-        rowsPassageArray,
-        gap,
-    });
-    // debugger
-
     //loop to create wall
     let wRow = wallRow;
     let wCol = wallCol;
 
     for (let i = 0; i <= length; i++) {
-        await time(speedRef);
 
         let skip = false;
 
@@ -107,12 +93,26 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
 
         wRow += dRow;
         wCol += dCol;
+
+        let newMatrix = [];
+
+        for (const row of matrix) {
+            let newNew = [];
+            for (const col of row) {
+                newNew.push(col);
+            }
+            newMatrix.push(newNew);
+        }
+
+        setMatrix(newMatrix);
+
+        await time(speedRef.current)
     }
-    setMatrix([...matrix]);
+
 
     if (orientation === ORIENTATION.horizontal) {
         // We drew vertical wall, divide vertically
-       await recursiveDivision(
+        await recursiveDivision(
             startRow,
             startCol,
             endRow,
@@ -124,7 +124,7 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
             speedRef,
             depth + 1,
         );
-       await recursiveDivision(
+        await recursiveDivision(
             startRow,
             wallCol + 1,
             endRow,
@@ -141,7 +141,7 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
     }
 
     // We drew vertical wall, divide Horizontally
-   await recursiveDivision(
+    await recursiveDivision(
         startRow,
         startCol,
         wallRow - 1,
@@ -153,7 +153,7 @@ async function recursiveDivision(startRow, startCol, endRow, endCol, startNode, 
         speedRef,
         depth + 1,
     );
-   await recursiveDivision(
+    await recursiveDivision(
         wallRow + 1,
         startCol,
         endRow,

@@ -13,7 +13,6 @@ function removeArrow(arr, parent, removedChild, canvasRef) {
     let x2=null;
     let y2=null;
 
-    console.log(removedChild)
     switch (removedChild) {
         case "right":
             width = arr[parent].x + rectWidth;

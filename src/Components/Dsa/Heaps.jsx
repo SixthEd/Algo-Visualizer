@@ -21,7 +21,7 @@ function Heaps(props) {
 
         let data = addInput.split(",").filter((e) => !Number.isNaN(e)).map(e => parseInt(e));
 
-        // console.log(data)
+
 
         switch (heapType) {
             case 0:
