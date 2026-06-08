@@ -30,7 +30,8 @@ function PathFinder() {
 
 
 
-    const select = useCallback(() => {
+    const select = useCallback((algo) => {
+
         switch (algo) {
             case "A Star":
                 aStarSearch(startNode, endNode, matrix, setMatrix, speedRef)
@@ -125,19 +126,17 @@ function PathFinder() {
                 break;
             default:
         }
-    }, [mazeAlgo, endNode, matrix, startNode])
+    }, [mazeAlgo, endNode, matrix, startNode]);
+
+    const start= useCallback(()=>{
+        select(algo)
+    },[algo])
 
     useEffect(() => {
 
         reset()
 
-    }, [rows, cols])
-
-
-    useEffect(() => {
-        if (algo === null || algo === undefined) return;
-        select()
-    }, [algo])
+    }, [])
 
     useEffect(() => {
         if (mazeAlgo === null || mazeAlgo === undefined) return;
@@ -150,7 +149,7 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo}  mazeAlgo={setMazeAlgo} clear={clear} />
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={start} algo={algo}  mazeAlgo={setMazeAlgo} clear={clear} />
         <div>
             <ul id="pathfinder-middle">
                 <ul>

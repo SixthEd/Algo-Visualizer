@@ -49,7 +49,7 @@ function PathFinderNavBar(props) {
         </ul>
 
         <ul id="sorting-right-navbar">
-            <button onClick={()=>{props.start(props.algo)}}>Start</button>
+            <button onClick={()=>{props.start()}}>Start</button>
             <button onClick={()=>{props.clear()}}>Clear Path</button>
             <button onClick={()=>{props.reset()}}>Reset Board</button>
         </ul>
