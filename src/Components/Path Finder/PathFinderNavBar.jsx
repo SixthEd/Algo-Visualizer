@@ -40,9 +40,9 @@ function PathFinderNavBar(props) {
 
             <ul onClick={() => { setMazeToggle((prev) => !prev) }}>Maze ▼
                 {mazeToggle && <div id="maze-algo">
-                    <button onClick={() => {props.mazeAlgo("Randomized Dfs"); }}>Randomized DFS</button>
-                    <button onClick={() => {props.mazeAlgo("Recursive Division");}}>Recursive Division</button>
-                    <button onClick={() => {props.mazeAlgo("Eller"); }}>Eller's Algorithm</button>
+                    <button onClick={() => {props.reset(); props.mazeAlgo("Randomized Dfs"); }}>Randomized DFS</button>
+                    <button onClick={() => {props.reset(); props.mazeAlgo("Recursive Division");}}>Recursive Division</button>
+                    <button onClick={() => {props.reset(); props.mazeAlgo("Eller"); }}>Eller's Algorithm</button>
                     {/* <button onClick={() => {}}>Random Maze</button> */}
                 </div>}
             </ul>
@@ -51,7 +51,7 @@ function PathFinderNavBar(props) {
         <ul id="sorting-right-navbar">
             <button onClick={()=>{props.start()}}>Start</button>
             <button onClick={()=>{props.clear()}}>Clear Path</button>
-            <button onClick={()=>{props.reset()}}>Reset Board</button>
+            <button onClick={()=>{props.reset(); props.mazeAlgo(null)}}>Reset Board</button>
         </ul>
     </div>
 }
