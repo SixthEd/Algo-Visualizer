@@ -51,14 +51,9 @@ function Sorting() {
 
         let array = new Array(parseInt(noOfElement)).fill(0).map((e) => Math.floor(Math.random() * 100))
         setArray([...array])
+        setSelect({ num1: null, num2: null, sorted: null })
 
     }, [noOfElement])
-
-
-    useEffect(() => {
-        if (algo === null || algo === undefined) return;
-        sort()
-    }, [algo, sort])
 
 
     useEffect(() => {
