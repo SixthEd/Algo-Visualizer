@@ -1,3 +1,12 @@
+
+<img width="2554" height="1460" alt="bubble-sort" src="https://github.com/user-attachments/assets/15b50ba4-8e8d-46e4-ba79-eed35427df64" />
+
+<img width="2252" height="1192" alt="maze" src="https://github.com/user-attachments/assets/d3598790-2941-4367-b634-522924072ec2" />
+
+<img width="2558" height="1460" alt="tree" src="https://github.com/user-attachments/assets/fbb0b7e6-d321-4048-b26a-7e7fb38eff80" />
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
