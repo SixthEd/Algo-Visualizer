@@ -150,7 +150,7 @@ function PathFinder() {
 
 
     return <div>
-        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo} selectMaze={selectMaze} mazeAlgo={setMazeAlgo} clear={clear} />
+        <PathFinderNavBar noOfElement={setCellSize} setAlgo={setAlgo} setSpeed={setSpeed} setCellSize={setCellSize} reset={reset} start={select} algo={algo}  mazeAlgo={setMazeAlgo} clear={clear} />
         <div>
             <ul id="pathfinder-middle">
                 <ul>
