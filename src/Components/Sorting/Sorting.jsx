@@ -12,7 +12,7 @@ function Sorting() {
     let [noOfElement, setNoOfElement] = useState(10);
     let [array, setArray] = useState([5, 10, 30, 20, 40]);
     let [algo, setAlgo] = useState(null);
-    let [speed, setSpeed] = useState(0.5);
+    let [speed, setSpeed] = useState(0.05);
     let speedRef = useRef(speed);
     let [select, setSelect] = useState({ num1: null, num2: null, pivot:null, sorted: null })
 
