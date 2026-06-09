@@ -1,11 +1,14 @@
-FROM nginx:alpine
+FROM node:22-alpine
 
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
 
-COPY build/ /usr/share/nginx/html
+COPY package*.json ./
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN npm install
+RUN npm install -g serve
 
-EXPOSE 80
+COPY . .
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-l", "3000"]
