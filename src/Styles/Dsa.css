@@ -273,7 +273,7 @@ li {
 }
 
 #output-board{
-    /* position: absolute; */
+    position: absolute;
     width: 80%;
     height: 100px;
     bottom: 0;
