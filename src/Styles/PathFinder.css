@@ -28,6 +28,7 @@
     background-color: rgb(78, 201, 78);
     color: white;
     border-radius: 10px;
+    cursor: pointer;
 
 }
 
@@ -64,7 +65,7 @@ li {
   
     position: absolute;
     top: 80px;
-    left:450px
+    /* left:450px */
 }
 
 #sorting-algo button{
@@ -78,11 +79,14 @@ li {
     border: 0px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.2);
     color:white;
+    cursor: pointer;
+
 
 }
 
 #sorting-algo button:hover{
     background-color: rgb(37, 168, 37);
+    cursor: pointer;
 }
 
 #pathfinder-middle{
@@ -159,7 +163,7 @@ li {
     flex-direction: column;
     position: absolute;
     top: 80px;
-    right:520px
+    /* right:520px */
 }
 
 #maze-algo button{
@@ -173,9 +177,10 @@ li {
     border: 0px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.2);
     color:white;
-
+    cursor: pointer;
 }
 
 #maze-algo button:hover{
     background-color: rgb(37, 168, 37);
+    cursor: pointer;
 }
